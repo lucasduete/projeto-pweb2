@@ -3,6 +3,7 @@ package io.github.ifpb.pw2.apigateway.controller;
 import io.github.ifpb.pw2.apigateway.feingClients.ProfessorClient;
 import io.github.pw2.professorservice.models.Professor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ public class ProfessorController {
         this.professorClient = professorClient;
     }
 
+    @PostMapping
     public ResponseEntity salvarProfessor(@RequestBody Professor professor) {
         return this.professorClient.salvarProfessor(professor);
     }
