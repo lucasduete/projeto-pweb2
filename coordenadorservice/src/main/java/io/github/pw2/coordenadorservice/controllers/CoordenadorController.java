@@ -42,8 +42,8 @@ public class CoordenadorController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Nao foi possivel persitir esta entidade.");
         } else {
             return ResponseEntity.ok(coordenador);
-        }
 
+        }
     }
 
 }

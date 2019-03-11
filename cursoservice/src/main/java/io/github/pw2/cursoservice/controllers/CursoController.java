@@ -26,6 +26,8 @@ public class CursoController {
     @PostMapping
     public ResponseEntity saveCursoDisciplinas(@RequestBody Curso curso) {
 
+        // Este unico EndPoint deve ser responsavel por persistir curso e Disciplina
+
         // Verifica se o curso e nulo e se algum de seus atributos sao nulos
 
         if (curso == null) {
