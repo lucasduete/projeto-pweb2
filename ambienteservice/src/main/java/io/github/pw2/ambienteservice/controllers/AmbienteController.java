@@ -4,10 +4,10 @@ import io.github.pw2.ambienteservice.models.Ambiente;
 import io.github.pw2.ambienteservice.services.AmbienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("ambiente")
@@ -36,6 +36,45 @@ public class AmbienteController {
 
         if (ambientePersistido == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Nao foi possivel persitir esta entidade.");
+        } else {
+            return ResponseEntity.ok(ambiente);
+        }
+
+    }
+
+    @GetMapping
+    public ResponseEntity listarTodos() {
+
+        List<Ambiente> ambientes = this.service.listarTodos();
+
+        if (ambientes == null || ambientes.size() == 0) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(ambientes);
+        }
+
+    }
+
+    @GetMapping("/{codigo}")
+    public ResponseEntity buscarPorCodigo(@PathVariable("codigo") String codigo) {
+
+        Optional<Ambiente> ambiente = this.service.recuperarPorCodigo(codigo);
+
+        if (!ambiente.isPresent()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(ambiente);
+        }
+
+    }
+
+    @GetMapping("/buscar")
+    public ResponseEntity buscarPorNome(@RequestParam(name = "nome", required = true) String nome) {
+
+        Optional<Ambiente> ambiente = this.service.recuperarPorNome(nome);
+
+        if (!ambiente.isPresent()) {
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.ok(ambiente);
         }
