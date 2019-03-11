@@ -60,7 +60,30 @@ public class CursoController {
 
     @GetMapping
     public ResponseEntity listarTodos() {
-        this.service.
+        List<Curso> cursos = this.service.listarAll();
+
+        if (cursos ==  null || cursos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(cursos);
+        }
+
+    }
+
+    @GetMapping("{codigo}")
+    public ResponseEntity buscarPorCodigo(@PathVariable(name = "codigo", required = true) Long codigo) {
+
+        Optional<Curso> curso = this.service.buscarPorCodigo(codigo);
+
+        return curso.<ResponseEntity>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
+    }
+
+    @GetMapping("/buscar")
+    public ResponseEntity buscarPorNome(@RequestParam(name = "codigo", required = true) String nome) {
+
+        Optional<Curso> curso = this.service.buscarPorNome(nome);
+
+        return curso.<ResponseEntity>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
     }
 
     private boolean verificaDisciplinasValidas(List<Disciplina> disciplinas) {
