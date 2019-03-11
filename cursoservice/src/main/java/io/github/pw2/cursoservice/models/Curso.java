@@ -23,7 +23,7 @@ public class Curso {
     @Column(nullable = false)
     private String descricao;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Disciplina> disciplinas;
 
 }
