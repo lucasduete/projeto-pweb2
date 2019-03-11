@@ -2,12 +2,13 @@ package io.github.pw2.professorservice.controllers;
 
 import io.github.pw2.professorservice.models.Professor;
 import io.github.pw2.professorservice.services.ProfessorService;
+import org.springframework.cloud.client.loadbalancer.reactive.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("professor")
@@ -43,4 +44,50 @@ public class ProfessorController {
         }
 
     }
+
+    @GetMapping
+    public ResponseEntity listarTodos() {
+        List<Professor> professores = this.service.listarAll();
+
+        if (professores == null || professores.size() == 0) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(professores);
+        }
+    }
+
+    @GetMapping("{matricula}")
+    public ResponseEntity buscarPorId(@PathVariable("matricula") Long matricula) {
+
+        if (matricula == null) {
+            return ResponseEntity.badRequest().body("E necessario fornecer a Matricula para concluir esta requisicao");
+        }
+
+        Optional<Professor> professor = this.service.buscarPorMatricula(matricula);
+
+        if (!professor.isPresent()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(professor);
+        }
+
+    }
+
+    @GetMapping("buscar/")
+    public ResponseEntity buscarPorNome(@RequestParam(name = "nome", required = true) String nome) {
+
+        if (nome.isEmpty()) {
+            return ResponseEntity.badRequest().body("E necessario fornecer o Nome para concluir esta requisicao");
+        }
+
+        Optional<Professor> professor = this.service.buscarPorNome(nome);
+
+        if (!professor.isPresent()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(professor);
+        }
+
+    }
+
 }
