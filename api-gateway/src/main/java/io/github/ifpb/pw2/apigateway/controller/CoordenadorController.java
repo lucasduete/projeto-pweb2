@@ -20,12 +20,17 @@ public class CoordenadorController {
         this.client = client;
     }
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<Coordenador> login(@RequestBody Coordenador coordenador){
         Coordenador buscado = client.recuperar(coordenador.getMatricula()).getBody();
         if(buscado!= null && buscado.getSenha().equals(coordenador.getSenha())){
             return ResponseEntity.ok(buscado);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<Coordenador> salvar(@RequestBody Coordenador coordenador){
+        return this.client.saveCoordenador(coordenador);
     }
 }
