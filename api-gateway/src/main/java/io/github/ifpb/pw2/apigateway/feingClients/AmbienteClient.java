@@ -1,4 +1,4 @@
-package io.github.ifpb.pw2.apigateway.apicomposition;
+package io.github.ifpb.pw2.apigateway.feingClients;
 
 import io.github.pw2.ambienteservice.models.Ambiente;
 import org.springframework.cloud.openfeign.FeignClient;

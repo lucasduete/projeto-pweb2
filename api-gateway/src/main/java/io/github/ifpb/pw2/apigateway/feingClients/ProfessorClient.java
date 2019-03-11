@@ -1,4 +1,4 @@
-package io.github.ifpb.pw2.apigateway.apicomposition;
+package io.github.ifpb.pw2.apigateway.feingClients;
 
 import io.github.pw2.professorservice.models.Professor;
 import org.springframework.cloud.openfeign.FeignClient;
