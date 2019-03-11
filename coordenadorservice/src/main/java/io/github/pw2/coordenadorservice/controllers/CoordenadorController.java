@@ -4,13 +4,13 @@ import io.github.pw2.coordenadorservice.models.Coordenador;
 import io.github.pw2.coordenadorservice.services.CoordenadorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("ambiente")
+@RequestMapping("coordenador")
 public class CoordenadorController {
 
     private final CoordenadorService service;
@@ -44,6 +44,18 @@ public class CoordenadorController {
             return ResponseEntity.ok(coordenador);
         }
 
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Coordenador>> recuperarTodos() {
+        List<Coordenador> coordenadores = service.recuperarTodos();
+        return coordenadores.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(coordenadores);
+    }
+
+    @GetMapping(value = "/{matricula}")
+    public ResponseEntity<Coordenador> recuperar(@PathVariable("matricula") Long matricula) {
+        Optional<Coordenador> coordenador = service.recuperar(matricula);
+        return coordenador.isPresent() ? ResponseEntity.ok(coordenador.get()) : ResponseEntity.noContent().build();
     }
 
 }
