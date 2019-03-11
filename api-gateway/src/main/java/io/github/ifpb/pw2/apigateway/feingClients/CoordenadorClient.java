@@ -5,10 +5,15 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(value = "coordenadorservice", path = "/coordenador")
 public interface CoordenadorClient {
 
     @GetMapping(value = "/{matricula}")
     public ResponseEntity<Coordenador> recuperar(@PathVariable("matricula") Long matricula);
+
+    @PostMapping
+    public ResponseEntity<Coordenador> saveCoordenador(@RequestBody Coordenador coordenador);
 }

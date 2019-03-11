@@ -20,7 +20,7 @@ public class CoordenadorController {
     }
 
     @PostMapping
-    public ResponseEntity saveCoordenador(@RequestBody Coordenador coordenador) {
+    public ResponseEntity<Object> saveCoordenador(@RequestBody Coordenador coordenador) {
 
         // Verifica se o coordenador e nulo e se algum de seus atributos sao nulos
 
