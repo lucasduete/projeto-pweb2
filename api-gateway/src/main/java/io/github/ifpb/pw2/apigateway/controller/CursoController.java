@@ -20,7 +20,9 @@ public class CursoController {
 
     @PostMapping
     public ResponseEntity salvarCursoDisciplina(@RequestBody Curso curso) {
-        return cursoClient.salvarCursoDisciplina(curso);
+        ResponseEntity response = cursoClient.salvarCursoDisciplina(curso);
+
+        return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
     }
 
 }

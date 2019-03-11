@@ -20,7 +20,9 @@ public class ProfessorController {
 
     @PostMapping
     public ResponseEntity salvarProfessor(@RequestBody Professor professor) {
-        return this.professorClient.salvarProfessor(professor);
+        ResponseEntity response = this.professorClient.salvarProfessor(professor);
+
+        return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
     }
 
 }
