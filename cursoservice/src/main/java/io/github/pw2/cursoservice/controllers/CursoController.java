@@ -5,10 +5,7 @@ import io.github.pw2.cursoservice.models.Disciplina;
 import io.github.pw2.cursoservice.services.CursoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -59,6 +56,11 @@ public class CursoController {
             return ResponseEntity.ok(curso);
         }
 
+    }
+
+    @GetMapping
+    public ResponseEntity listarTodos() {
+        this.service.
     }
 
     private boolean verificaDisciplinasValidas(List<Disciplina> disciplinas) {
