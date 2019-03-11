@@ -60,12 +60,7 @@ public class AmbienteController {
 
         Optional<Ambiente> ambiente = this.service.recuperarPorCodigo(codigo);
 
-        if (!ambiente.isPresent()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(ambiente);
-        }
-
+        return ambiente.<ResponseEntity>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
     }
 
     @GetMapping("/buscar")
@@ -73,12 +68,7 @@ public class AmbienteController {
 
         Optional<Ambiente> ambiente = this.service.recuperarPorNome(nome);
 
-        if (!ambiente.isPresent()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(ambiente);
-        }
-
+        return ambiente.<ResponseEntity>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
     }
 
 }
