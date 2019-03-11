@@ -65,12 +65,7 @@ public class ProfessorController {
 
         Optional<Professor> professor = this.service.buscarPorMatricula(matricula);
 
-        if (!professor.isPresent()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(professor);
-        }
-
+        return professor.<ResponseEntity>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
     }
 
     @GetMapping("buscar/")
@@ -82,12 +77,7 @@ public class ProfessorController {
 
         Optional<Professor> professor = this.service.buscarPorNome(nome);
 
-        if (!professor.isPresent()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(professor);
-        }
-
+        return professor.<ResponseEntity>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
     }
 
 }
