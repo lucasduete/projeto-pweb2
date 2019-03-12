@@ -50,6 +50,7 @@ public class AmbienteController {
         if (ambientes == null || ambientes.size() == 0) {
             return ResponseEntity.noContent().build();
         } else {
+            System.out.println(ambientes);
             return ResponseEntity.ok(ambientes);
         }
 

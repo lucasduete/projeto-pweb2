@@ -11,16 +11,13 @@ public interface ProfessorClient {
     @PostMapping
     ResponseEntity salvarProfessor(@RequestBody Professor professor);
 
-    @GetMapping("buscar/")
-    ResponseEntity buscarPorNome(@RequestParam(name = "nome", required = true) String nome);
+    @GetMapping
+    ResponseEntity listarTodos();
 
     @GetMapping("{matricula}")
     ResponseEntity buscarPorId(@PathVariable("matricula") Long matricula);
 
-    @GetMapping
-    ResponseEntity listarTodos();
-
-    @PostMapping
-    ResponseEntity saveProfessor(@RequestBody Professor professor);
+    @GetMapping("buscar/")
+    ResponseEntity buscarPorNome(@RequestParam(name = "nome", required = true) String nome);
 
 }
