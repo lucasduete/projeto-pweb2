@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.*;
 public interface ProfessorClient {
 
     @PostMapping
-    ResponseEntity salvarProfessor(@RequestBody Professor professor);
+    ResponseEntity<?> salvarProfessor(@RequestBody Professor professor);
 
     @GetMapping
-    ResponseEntity listarTodos();
+    ResponseEntity<?> listarTodos();
 
     @GetMapping("{matricula}")
-    ResponseEntity buscarPorId(@PathVariable("matricula") Long matricula);
+    ResponseEntity<?> buscarPorId(@PathVariable("matricula") Long matricula);
 
     @GetMapping("buscar/")
-    ResponseEntity buscarPorNome(@RequestParam(name = "nome", required = true) String nome);
+    ResponseEntity<?> buscarPorNome(@RequestParam(name = "nome", required = true) String nome);
 
 }
