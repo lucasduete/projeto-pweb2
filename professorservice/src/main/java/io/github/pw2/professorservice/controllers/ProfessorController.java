@@ -56,8 +56,8 @@ public class ProfessorController {
         }
     }
 
-    @GetMapping("{matricula}")
-    public ResponseEntity buscarPorId(@PathVariable("matricula") Long matricula) {
+    @GetMapping("/{matricula}")
+    public ResponseEntity buscarPorMatricula(@PathVariable("matricula") Long matricula) {
 
         if (matricula == null) {
             return ResponseEntity.badRequest().body("E necessario fornecer a Matricula para concluir esta requisicao");
@@ -68,10 +68,10 @@ public class ProfessorController {
         return professor.<ResponseEntity>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
     }
 
-    @GetMapping("buscar/")
+    @GetMapping("/buscar")
     public ResponseEntity buscarPorNome(@RequestParam(name = "nome", required = true) String nome) {
 
-        if (nome.isEmpty()) {
+        if (nome == null || nome.isEmpty()) {
             return ResponseEntity.badRequest().body("E necessario fornecer o Nome para concluir esta requisicao");
         }
 

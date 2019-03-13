@@ -36,7 +36,7 @@ public class ProfessorController {
         return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
     }
 
-    @GetMapping("buscar/")
+    @GetMapping("buscar")
     public ResponseEntity buscarPorNome(@RequestParam(name = "nome", required = true) String nome) {
         ResponseEntity response = this.professorClient.buscarPorNome(nome);
 
