@@ -14,10 +14,10 @@ public interface ProfessorClient {
     @GetMapping
     ResponseEntity<?> listarTodos();
 
-    @GetMapping("{matricula}")
+    @GetMapping("/{matricula}")
     ResponseEntity<?> buscarPorMatricula(@PathVariable("matricula") Long matricula);
 
-    @GetMapping("buscar/")
+    @GetMapping("/buscar")
     ResponseEntity<?> buscarPorNome(@RequestParam(name = "nome", required = true) String nome);
 
 }
