@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.*;
 public interface AmbienteClient {
 
     @PostMapping
-    ResponseEntity salvarAmbiente(@RequestBody Ambiente ambiente);
+    ResponseEntity<?> salvarAmbiente(@RequestBody Ambiente ambiente);
 
     @GetMapping
-    ResponseEntity listarTodos();
+    ResponseEntity<?> listarTodos();
 
     @GetMapping("/{codigo}")
-    ResponseEntity buscarPorCodigo(@PathVariable("codigo") String codigo);
+    ResponseEntity<?> buscarPorCodigo(@PathVariable("codigo") String codigo);
 
     @GetMapping("/buscar")
-    ResponseEntity buscarPorNome(@RequestParam(name = "nome", required = true) String nome);
+    ResponseEntity<?> buscarPorNome(@RequestParam(name = "nome", required = true) String nome);
 
 }
