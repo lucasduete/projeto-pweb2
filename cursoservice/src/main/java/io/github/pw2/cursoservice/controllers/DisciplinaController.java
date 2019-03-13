@@ -43,7 +43,7 @@ public class DisciplinaController {
         return disciplina.<ResponseEntity>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
     }
 
-    @GetMapping("/{nome}")
+    @GetMapping("/buscar")
     public ResponseEntity buscarPorNome(@RequestParam(name = "nome", required = true) String nome) {
 
         if (Strings.isBlank(nome))

@@ -70,7 +70,7 @@ public class CursoController {
 
     }
 
-    @GetMapping("{codigo}")
+    @GetMapping("/{codigo}")
     public ResponseEntity buscarPorCodigo(@PathVariable(name = "codigo", required = true) Long codigo) {
 
         Optional<Curso> curso = this.service.buscarPorCodigo(codigo);
@@ -79,7 +79,7 @@ public class CursoController {
     }
 
     @GetMapping("/buscar")
-    public ResponseEntity buscarPorNome(@RequestParam(name = "codigo", required = true) String nome) {
+    public ResponseEntity buscarPorNome(@RequestParam(name = "nome", required = true) String nome) {
 
         Optional<Curso> curso = this.service.buscarPorNome(nome);
 
