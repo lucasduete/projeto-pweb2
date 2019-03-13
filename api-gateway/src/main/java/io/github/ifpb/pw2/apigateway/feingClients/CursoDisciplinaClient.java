@@ -20,7 +20,7 @@ public interface CursoDisciplinaClient {
     ResponseEntity<?> buscarCursoPorCodigo(@PathVariable(name = "codigo", required = true) Long codigo);
 
     @GetMapping("/curso/buscar")
-    ResponseEntity<?> buscarCursoPorNome(@RequestParam(name = "codigo", required = true) String nome);
+    ResponseEntity<?> buscarCursoPorNome(@RequestParam(name = "nome", required = true) String nome);
 
     @GetMapping("/disciplina")
     ResponseEntity<?> listarTodasDisciplinas();
@@ -29,6 +29,6 @@ public interface CursoDisciplinaClient {
     ResponseEntity<?> buscarDisciplinaPorCodigo(@PathParam("{codigo}") Long codigo);
 
     @PostMapping("/disciplina/buscar")
-    ResponseEntity<?> buscarDisciplinaPorNome(@RequestParam(value = "{nome}", required = true) String nome);
+    ResponseEntity<?> buscarDisciplinaPorNome(@RequestParam(value = "nome", required = true) String nome);
 
 }
