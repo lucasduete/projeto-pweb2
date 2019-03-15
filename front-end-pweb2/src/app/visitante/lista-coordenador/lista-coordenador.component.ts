@@ -1,4 +1,7 @@
+import { CoordenadorService } from './../../coordenador.service';
+import { Coordenador } from './../../coordenador';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-lista-coordenador',
@@ -6,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lista-coordenador.component.css']
 })
 export class ListaCoordenadorComponent implements OnInit {
-
-  constructor() { }
+  coordenadores : Observable<Coordenador[]>;
+  constructor(
+    private coordenadorService : CoordenadorService
+  ) { }
 
   ngOnInit() {
   }
 
+  getCoordenadores(){
+    this.coordenadores = this.coordenadorService.getCoordenador();
+  }
 }

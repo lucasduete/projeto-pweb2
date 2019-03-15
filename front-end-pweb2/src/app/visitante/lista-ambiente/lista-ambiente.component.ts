@@ -1,4 +1,7 @@
+import { AmbienteService } from './../../ambiente.service';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Ambiente } from 'src/app/ambiente';
 
 @Component({
   selector: 'app-lista-ambiente',
@@ -6,10 +9,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lista-ambiente.component.css']
 })
 export class ListaAmbienteComponent implements OnInit {
-
-  constructor() { }
+  ambientes : Observable<Ambiente[]>
+  constructor(
+    private ambienteService : AmbienteService
+  ) { 
+    this.getAmbientes();
+  }
 
   ngOnInit() {
   }
 
+  getAmbientes(){
+    this.ambientes = this.ambienteService.getAmbientes();
+  }
 }
