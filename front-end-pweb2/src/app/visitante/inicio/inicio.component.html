@@ -1,18 +1,21 @@
-<div align="center" style="margin-top: 5%">
-    <div class="card" style="width: 90%; height: 4rem;">
-        <ul class="nav justify-content-center" style="margin-top: 1%">
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/listaCurso" routerLinkActive="active">Curso</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/listaProfessor" routerLinkActive="active">Professor</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/listaAmbiente" routerLinkActive="active">Ambiente</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/listaCoordenador" routerLinkActive="active">Coordenador</a>
-            </li>
-        </ul>
-    </div>
+<app-menu></app-menu>
+<div class="col s12">
+    <ul class="tabs tabs-fixed-width">
+        <li class="tab col s3"><a href="#test1">Cursos</a></li>
+        <li class="tab col s3"><a href="#test2">Professor</a></li>
+        <li class="tab col s3"><a href="#test3">Ambiente</a></li>
+        <li class="tab col s3"><a href="#test4">Coordenadores</a></li>
+    </ul>
 </div>
+<div id="test1" class="col s12">
+    <app-lista-curso></app-lista-curso>
+</div>
+<div id="test2" class="col s12">
+    <app-lista-professor></app-lista-professor>
+</div>
+<div id="test3" class="col s12">
+    <app-lista-ambiente></app-lista-ambiente>
+</div>
+<div id="test4" class="col s12">
+    <app-lista-coordenador></app-lista-coordenador>
+</div>    

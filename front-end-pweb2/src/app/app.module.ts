@@ -19,7 +19,7 @@ import { AddCoordenadorComponent } from './coordenador/add-coordenador/add-coord
 import { CoordenadorComponent } from './coordenador/coordenador.component';
 import { ListaCoordenadorComponent } from './visitante/lista-coordenador/lista-coordenador.component';
 import { InicioCoordenadorComponent } from './coordenador/inicio-coordenador/inicio-coordenador.component';
-
+import { MenuComponent } from "./visitante/menu/menu.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +37,8 @@ import { InicioCoordenadorComponent } from './coordenador/inicio-coordenador/ini
     AddCoordenadorComponent,
     CoordenadorComponent,
     ListaCoordenadorComponent,
-    InicioCoordenadorComponent
+    InicioCoordenadorComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
