@@ -58,6 +58,18 @@ services:
                         - private_network
                 links:
                         - db-coordenadorservice:database
+        professorservice:
+                build:
+                        context: ./professorservice
+                        dockerfile: Dockerfile.professorservice
+                container_name: professorservice
+                depends_on:
+                        - api-gateway
+                        - db-professorservice
+                networks:
+                        - private_network
+                links:
+                        - db-professorservice:database
         db-gateway:
                 build:
                         context: ./api-gateway
@@ -78,6 +90,11 @@ services:
                         context: ./coordenadorservice
                         dockerfile: Dockerfile.db
                 container_name: db-coordenadorservice
+        db-professorservice:
+                build:
+                        context: ./professorservice
+                        dockerfile: Dockerfile.db
+                container_name: db-professorservice
 networks:
         private_network:
                 driver: bridge
