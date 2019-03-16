@@ -1,0 +1,80 @@
+version: '3.3'
+
+services:
+        servicediscovery:
+                build: ./servicediscovery
+                container_name: servicediscovery
+                ports: 
+                        - "8761:8761"
+                networks:
+                        - private_network
+        api-gateway:
+                build: 
+                        context: ./api-gateway
+                        dockerfile: Dockerfile.api-gateway
+                container_name: api-gateway
+                ports:
+                        - "8080:8080"
+                depends_on:
+                        - servicediscovery
+                        - db-general
+                networks: 
+                        - private_network
+        ambienteservice:
+                build:
+                        context: ./ambienteservice
+                        dockerfile: Dockerfile.ambienteservice
+                container_name: ambienteservice
+                depends_on:
+                        - api-gateway
+                        - db-general
+                networks:
+                        - private_network
+        cursoservice:
+                build:
+                        context: ./cursoservice
+                        dockerfile: Dockerfile.cursoservice
+                container_name: cursoservice
+                depends_on:
+                        - api-gateway
+                        - db-general
+                networks:
+                        - private_network
+        coordenadorservice:
+                build:
+                        context: ./coordenadorservice
+                        dockerfile: Dockerfile.coordenadorservice
+                container_name: coordenadorservice
+                depends_on:
+                        - api-gateway
+                        - db-general
+                networks:
+                        - private_network
+        professorservice:
+                build:
+                        context: ./professorservice
+                        dockerfile: Dockerfile.professorservice
+                container_name: professorservice
+                depends_on:
+                        - api-gateway
+                        - db-general
+                networks:
+                        - private_network
+        horarioservice:
+                build:
+                        context: ./horarioservice
+                        dockerfile: Dockerfile.horarioservice
+                container_name: horarioservice
+                depends_on:
+                        - api-gateway
+                        - db-general
+                networks:
+                        - private_network
+        db-general:
+                build: ./database
+                container_name: database
+                networks:
+                        - private_network
+networks:
+        private_network:
+                driver: bridge

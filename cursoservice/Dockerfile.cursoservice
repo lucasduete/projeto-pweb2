@@ -1,0 +1,9 @@
+FROM openjdk:8-jdk-alpine
+
+WORKDIR /home
+
+COPY run.sh run.sh
+
+CMD ["sh", "run.sh"]
+
+EXPOSE 8082
