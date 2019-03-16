@@ -9,18 +9,21 @@ import { Professor } from 'src/app/professor';
   styleUrls: ['./lista-professor.component.css']
 })
 export class ListaProfessorComponent implements OnInit {
-  professores : Observable<Professor[]>;
+  professores: any[];
 
   constructor(
-    private professorService : ProfessorService
-  ) { 
+    private professorService: ProfessorService
+  ) {
     this.getProfessores();
   }
 
   ngOnInit() {
   }
 
-  getProfessores(){
-    this.professores = this.professorService.getProfessor();
+  getProfessores() {
+    this.professorService.getProfessor().subscribe(res => {
+      this.professores = res.body;
+    })
+
   }
 }

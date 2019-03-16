@@ -1,4 +1,4 @@
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient,HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Professor } from './professor';
@@ -12,14 +12,14 @@ const httpOptions = {
 })
 export class ProfessorService {
   
-  private url = 'localhost:8761/professor';
+  private url = 'http://localhost:8080/professor';
   
   constructor(
     private http : HttpClient
   ) { }
 
-  getProfessor() : Observable<Professor[]>{
-    return this.http.get<Professor[]>(this.url);
+  getProfessor() : Observable<HttpResponse<Professor[]>>{
+    return this.http.get<Professor[]>(this.url, {observe:'response'});
   }
 
   addProfessor(professor : Professor) : Observable<any>{
