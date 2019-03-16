@@ -34,6 +34,18 @@ services:
                         - private_network
                 links:
                         - db-ambienteservice:database
+        cursoservice:
+                build:
+                        context: ./cursoservice
+                        dockerfile: Dockerfile.cursoservice
+                container_name: cursoservice
+                depends_on:
+                        - api-gateway
+                        - db-cursoservice
+                networks:
+                        - private_network
+                links:
+                        - db-cursoservice:database
         db-gateway:
                 build:
                         context: ./api-gateway
@@ -44,6 +56,11 @@ services:
                         context: ./ambienteservice
                         dockerfile: Dockerfile.db
                 container_name: db-ambienteservice
+        db-cursoservice:
+                build:
+                        context: ./cursoservice
+                        dockerfile: Dockerfile.db
+                container_name: db-cursoservice
 networks:
         private_network:
                 driver: bridge
