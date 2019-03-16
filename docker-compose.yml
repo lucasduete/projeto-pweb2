@@ -17,11 +17,9 @@ services:
                         - "8080:8080"
                 depends_on:
                         - servicediscovery
-                        - db-gateway
+                        - db-general
                 networks: 
                         - private_network
-                links:
-                        - db-gateway:database
         ambienteservice:
                 build:
                         context: ./ambienteservice
@@ -29,11 +27,9 @@ services:
                 container_name: ambienteservice
                 depends_on:
                         - api-gateway
-                        - db-ambienteservice
+                        - db-general
                 networks:
                         - private_network
-                links:
-                        - db-ambienteservice:database
         cursoservice:
                 build:
                         context: ./cursoservice
@@ -41,11 +37,9 @@ services:
                 container_name: cursoservice
                 depends_on:
                         - api-gateway
-                        - db-cursoservice
+                        - db-general
                 networks:
                         - private_network
-                links:
-                        - db-cursoservice:database
         coordenadorservice:
                 build:
                         context: ./coordenadorservice
@@ -53,11 +47,9 @@ services:
                 container_name: coordenadorservice
                 depends_on:
                         - api-gateway
-                        - db-coordenadorservice
+                        - db-general
                 networks:
                         - private_network
-                links:
-                        - db-coordenadorservice:database
         professorservice:
                 build:
                         context: ./professorservice
@@ -65,11 +57,9 @@ services:
                 container_name: professorservice
                 depends_on:
                         - api-gateway
-                        - db-professorservice
+                        - db-general
                 networks:
                         - private_network
-                links:
-                        - db-professorservice:database
         horarioservice:
                 build:
                         context: ./horarioservice
@@ -77,41 +67,14 @@ services:
                 container_name: horarioservice
                 depends_on:
                         - api-gateway
-                        - db-horarioservice
+                        - db-general
                 networks:
                         - private_network
-                links:
-                        - db-horarioservice:database
-        db-gateway:
-                build:
-                        context: ./api-gateway
-                        dockerfile: Dockerfile.db
-                container_name: db-gateway
-        db-ambienteservice:
-                build:
-                        context: ./ambienteservice
-                        dockerfile: Dockerfile.db
-                container_name: db-ambienteservice
-        db-cursoservice:
-                build:
-                        context: ./cursoservice
-                        dockerfile: Dockerfile.db
-                container_name: db-cursoservice
-        db-coordenadorservice:
-                build:
-                        context: ./coordenadorservice
-                        dockerfile: Dockerfile.db
-                container_name: db-coordenadorservice
-        db-professorservice:
-                build:
-                        context: ./professorservice
-                        dockerfile: Dockerfile.db
-                container_name: db-professorservice
-        db-horarioservice:
-                build:
-                        context: ./horarioservice
-                        dockerfile: Dockerfile.db
-                container_name: db-horarioservice
+        db-general:
+                build: ./database
+                container_name: database
+                networks:
+                        - private_network
 networks:
         private_network:
                 driver: bridge
