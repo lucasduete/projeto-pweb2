@@ -1,0 +1,9 @@
+version: '3.3'
+
+services:
+        servicediscovery:
+                build: ./servicediscovery
+                container_name: servicediscovery
+                ports: 
+                        - "8761:8761"
+
