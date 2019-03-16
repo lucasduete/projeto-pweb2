@@ -63,7 +63,7 @@ export class CoordenadorComponent implements OnInit {
     
   }
 
-  addAmbinete(): void {
+  addAmbiente(): void {
     this.ambienteService.addAmbinete(this.ambiente).subscribe(
       data => {
         swal("Parabéns!", "Cadastro feito com sucesso!", "success");
@@ -114,6 +114,7 @@ export class CoordenadorComponent implements OnInit {
   }
 
   addProfessor(): void {
+    console.log("professor");
     this.professorService.addProfessor(this.professor).subscribe(
       data => {
         swal("Parabéns!", "Cadastro feito com sucesso!", "success");

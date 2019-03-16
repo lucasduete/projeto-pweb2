@@ -57,6 +57,10 @@
           <input [(ngModel)]="professor.nome" type="text">
           <label for="">Nome do Professor</label>
         </div>
+        <div class="input-field col s12">
+            <input [(ngModel)]="professor.matricula" type="text">
+            <label for="">Matrícula do Professor</label>
+          </div>
       </div>
     </div>
     <div class="modal-footer">
@@ -66,7 +70,7 @@
 </div>
 
 <!-- Sessão de Ambiente-->
-<div id="test3" class="col s12">
+<div class="col s12">
   <app-lista-ambiente></app-lista-ambiente>
   <div class="fixed-action-btn">
     <button class="btn-floating waves-effect waves-light modal-trigger btn-large green" data-target="modal3"><i class="large material-icons">add</i></button>
@@ -81,10 +85,14 @@
           <input [(ngModel)]="ambiente.nome" type="text">
           <label for="">Nome do Ambiente</label>
         </div>
+        <div class="input-field col s12">
+            <input [(ngModel)]="ambiente.codigo" type="text">
+            <label for="">Código do Ambiente</label>
+          </div>
       </div>
     </div>
     <div class="modal-footer">
-      <a href="#!" (click) = "addAmbiente()" class="modal-close waves-effect waves-green btn-flat">Salvar</a>
+      <a (click) = "addAmbiente()" class="modal-close waves-effect waves-green btn-flat">Salvar</a>
     </div>
   </div>
 </div>

@@ -22,8 +22,8 @@ export class AmbienteService {
     return this.http.get<Ambiente[]>(this.url, {observe:'response'});
   }
 
-  addAmbinete(ambiente : Ambiente) : Observable<any>{
-    return this.http.post<Ambiente>(this.url, ambiente);
+  addAmbinete(ambiente : Ambiente) : Observable<HttpResponse<Ambiente>>{
+    return this.http.post<Ambiente>(this.url, ambiente, {observe:'response'});
   }
 
 }

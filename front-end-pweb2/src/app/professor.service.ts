@@ -22,7 +22,7 @@ export class ProfessorService {
     return this.http.get<Professor[]>(this.url, {observe:'response'});
   }
 
-  addProfessor(professor : Professor) : Observable<any>{
-    return this.http.post<Professor>(this.url, professor);
+  addProfessor(professor : Professor) : Observable<HttpResponse<Professor>>{
+    return this.http.post<Professor>(this.url, professor, {observe:'response'});
   }
 }
