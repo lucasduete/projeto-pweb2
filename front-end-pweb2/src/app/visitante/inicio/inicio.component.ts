@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
+  texto: string = "ddfdfdfd";
   constructor() { }
 
   ngOnInit() {

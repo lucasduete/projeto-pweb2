@@ -1,3 +1,4 @@
+<b>Coordenador: {{coordenador.nome}}</b>
 <div class="col s12">
   <ul class="tabs tabs-fixed-width">
       <li class="tab col s3"><a href="#test1">Cursos</a></li>
@@ -23,8 +24,13 @@
           <input [(ngModel)]="curso.nome" type="text">
           <label for="">Nome do Curso</label>
         </div>
+
         <div class="input-field col s12">
-          <input [(ngModel)]="cusor.descricao" type="text">
+            <input [(ngModel)]="curso.codigo" type="number">
+            <label for="">Código do Curso</label>
+          </div>
+        <div class="input-field col s12">
+          <input [(ngModel)]="curso.descricao" type="text">
           <label for="">Descrição</label>
         </div>
       </div>

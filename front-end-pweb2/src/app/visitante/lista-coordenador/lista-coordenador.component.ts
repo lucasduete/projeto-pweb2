@@ -1,6 +1,6 @@
 import { CoordenadorService } from './../../coordenador.service';
 import { Coordenador } from './../../coordenador';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class ListaCoordenadorComponent implements OnInit {
   coordenadores : any[];
+
   constructor(
     private coordenadorService : CoordenadorService
   ) {
@@ -22,7 +23,6 @@ export class ListaCoordenadorComponent implements OnInit {
   getCoordenadores(){
     this.coordenadorService.getCoordenador().subscribe(res=>{
       this.coordenadores = res.body;
-      console.log(this.coordenadores);
     })
   }
 }

@@ -22,12 +22,16 @@ export class CoordenadorService {
     return this.http.get<Coordenador[]>(this.url,{observe:'response'});
   }
 
+  getCoordenadorMatricula(matricula):Observable<HttpResponse<Coordenador>>{
+    return this.http.get<Coordenador>(this.url + '/'+ matricula, {observe:'response'});
+  }
+
   addCoordenador(coordenador : Coordenador) : Observable<any>{
     return this.http.post<Coordenador>(this.url, coordenador);
   }
 
-  login(coordenador : Coordenador) : Observable<Coordenador>{
-    return this.http.post<Coordenador>(this.url + '/login', coordenador);
+  login(coordenador : Coordenador) : Observable<HttpResponse<Coordenador>>{
+    return this.http.post<Coordenador>(this.url + '/login', coordenador, {observe:'response'});
   }
 
 }
