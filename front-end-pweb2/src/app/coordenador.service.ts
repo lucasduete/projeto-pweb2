@@ -26,4 +26,8 @@ export class CoordenadorService {
     return this.http.post<Coordenador>(this.url, coordenador);
   }
 
+  login(coordenador : Coordenador) : Observable<Coordenador>{
+    return this.http.post<Coordenador>(this.url + '/login', coordenador);
+  }
+
 }

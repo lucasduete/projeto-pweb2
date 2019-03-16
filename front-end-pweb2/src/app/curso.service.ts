@@ -19,11 +19,11 @@ export class CursoService {
   ) { }
 
   getCurso(): Observable<HttpResponse<Curso[]>>
-    {
-      return this.http.get<Curso[]>(this.url, { observe: "response" });
-    }
+  {
+    return this.http.get<Curso[]>(this.url, { observe: "response" });
+  }
 
-addCurso(curso : Curso) : Observable < any > {
-  return this.http.post<Curso>(this.url, curso);
-}
+  addCurso(curso : Curso) : Observable < any > {
+    return this.http.post<Curso>(this.url, curso);
+  }
 }

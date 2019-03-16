@@ -6,103 +6,111 @@
       <li class="tab col s3"><a href="#test4">Coordenadores</a></li>
   </ul>
 </div>
+
+<!--Sessão de Curso-->
 <div id="test1" class="col s12">
   <app-lista-curso></app-lista-curso>
   <div class="fixed-action-btn">
     <button class="btn-floating waves-effect waves-light modal-trigger btn-large green" data-target="modal1"><i class="large material-icons">add</i></button>
   </div>
   <!-- Modal Structure -->
+  <!-- Cadastro de Curso -->
   <div id="modal1" class="modal">
     <div class="modal-content">
       <h4>Novo Curso</h4>
       <div class="row">
         <div class="input-field col s12">
-          <input type="text">
+          <input [(ngModel)]="curso.nome" type="text">
           <label for="">Nome do Curso</label>
         </div>
         <div class="input-field col s12">
-          <input type="text">
+          <input [(ngModel)]="cusor.descricao" type="text">
           <label for="">Descrição</label>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Salvar</a>
+      <a (click) = "addCurso()" class="modal-close waves-effect waves-green btn-flat">Salvar</a>
     </div>
   </div>
 </div>
+
+<!--Sessão de Professor-->
 <div id="test2" class="col s12">
   <app-lista-professor></app-lista-professor>
   <div class="fixed-action-btn">
     <button class="btn-floating waves-effect waves-light modal-trigger btn-large green" data-target="modal2"><i class="large material-icons">add</i></button>
   </div>
   <!-- Modal Structure -->
+  <!-- Cadastro de professor -->
   <div id="modal2" class="modal">
     <div class="modal-content">
       <h4>Novo Professor</h4>
       <div class="row">
         <div class="input-field col s12">
-          <input type="text">
-          <label for="">Matrícula</label>
-        </div>
-        <div class="input-field col s12">
-          <input type="text">
+          <input [(ngModel)]="professor.nome" type="text">
           <label for="">Nome do Professor</label>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Salvar</a>
+      <a href="#!" (click) = "addProfessor()" class="modal-close waves-effect waves-green btn-flat">Salvar</a>
     </div>
   </div>
 </div>
+
+<!-- Sessão de Ambiente-->
 <div id="test3" class="col s12">
   <app-lista-ambiente></app-lista-ambiente>
   <div class="fixed-action-btn">
     <button class="btn-floating waves-effect waves-light modal-trigger btn-large green" data-target="modal3"><i class="large material-icons">add</i></button>
   </div>
   <!-- Modal Structure -->
+  <!-- Cadastro de Ambiente -->
   <div id="modal3" class="modal">
     <div class="modal-content">
       <h4>Novo Ambiente</h4>
       <div class="row">
         <div class="input-field col s12">
-          <input type="text">
+          <input [(ngModel)]="ambiente.nome" type="text">
           <label for="">Nome do Ambiente</label>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Salvar</a>
+      <a href="#!" (click) = "addAmbiente()" class="modal-close waves-effect waves-green btn-flat">Salvar</a>
     </div>
   </div>
 </div>
+
+<!-- Sessão de Coordenador-->
 <div id="test4" class="col s12">
   <app-lista-coordenador></app-lista-coordenador>
   <div class="fixed-action-btn">
     <button class="btn-floating waves-effect waves-light modal-trigger btn-large green" data-target="modal4"><i class="large material-icons">add</i></button>
   </div>
   <!-- Modal Structure -->
+  <!-- Cadastro de Coordenador -->
   <div id="modal4" class="modal">
     <div class="modal-content">
       <h4>Novo Coordenador</h4>
       <div class="row">
         <div class="input-field col s12">
-          <input type="text">
+          <input [(ngModel)]="coordenador.matricula" type="number">
           <label for="">Matrícula</label>
         </div>
         <div class="input-field col s12">
-          <input type="text">
-          <label for="">Login</label>
+          <input [(ngModel)]="coodenador.nome" type="text">
+          <label for="">Nome</label>
         </div>
         <div class="input-field col s12">
-          <input type="password">
+          <input [(ngModel)]="coodenador.senha" type="password">
           <label for="">Senha</label>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Salvar</a>
+      <a href="#!" (click) = "addCoordenador()" class="modal-close waves-effect waves-green btn-flat">Salvar</a>
     </div>
   </div>
 </div>    
