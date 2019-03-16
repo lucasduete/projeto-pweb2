@@ -9,15 +9,20 @@ import { Observable } from 'rxjs';
   styleUrls: ['./lista-coordenador.component.css']
 })
 export class ListaCoordenadorComponent implements OnInit {
-  coordenadores : Observable<Coordenador[]>;
+  coordenadores : any[];
   constructor(
     private coordenadorService : CoordenadorService
-  ) { }
+  ) {
+    this.getCoordenadores();
+   }
 
   ngOnInit() {
   }
 
   getCoordenadores(){
-    this.coordenadores = this.coordenadorService.getCoordenador();
+    this.coordenadorService.getCoordenador().subscribe(res=>{
+      this.coordenadores = res.body;
+      console.log(this.coordenadores);
+    })
   }
 }

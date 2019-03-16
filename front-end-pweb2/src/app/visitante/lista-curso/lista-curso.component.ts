@@ -9,7 +9,7 @@ import { Curso } from 'src/app/curso';
   styleUrls: ['./lista-curso.component.css']
 })
 export class ListaCursoComponent implements OnInit {
-  cursos : Observable<Curso[]>;
+  cursos : any[] = [];
   
   constructor(
     private cursoService : CursoService
@@ -21,6 +21,10 @@ export class ListaCursoComponent implements OnInit {
   }
 
   getCursos(){
-    this.cursos = this.cursoService.getCurso();
+    this.cursoService.getCurso().subscribe(res=>{
+      this.cursos = res.body;
+    });
+    console.log(this.cursos);
+
   }
 }

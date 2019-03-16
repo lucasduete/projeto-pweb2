@@ -9,7 +9,7 @@ import { Ambiente } from 'src/app/ambiente';
   styleUrls: ['./lista-ambiente.component.css']
 })
 export class ListaAmbienteComponent implements OnInit {
-  ambientes : Observable<Ambiente[]>
+  ambientes : any[];
   constructor(
     private ambienteService : AmbienteService
   ) { 
@@ -20,6 +20,8 @@ export class ListaAmbienteComponent implements OnInit {
   }
 
   getAmbientes(){
-    this.ambientes = this.ambienteService.getAmbientes();
+    this.ambienteService.getAmbientes().subscribe(res=>{
+      this.ambientes = res.body;
+    })
   }
 }

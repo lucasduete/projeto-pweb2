@@ -11,18 +11,18 @@
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <input class="green-text" type="text">
+                  <input [(ngModel)]="coordenador.matricula" class="green-text" type="number">
                   <label for="">Login</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <input class="green-text" type="password">
+                  <input [(ngModel)]="coordenador.senha" class="green-text" type="password">
                   <label for="">Senha</label>
                 </div>
               </div>
               <div class="row center-align">
-                <button class="btn green">Login</button>
+                <button (click)="login()" class="btn green">Login</button>
               </div>
             </div>
         </div>  
