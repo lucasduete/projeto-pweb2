@@ -70,6 +70,18 @@ services:
                         - private_network
                 links:
                         - db-professorservice:database
+        horarioservice:
+                build:
+                        context: ./horarioservice
+                        dockerfile: Dockerfile.horarioservice
+                container_name: horarioservice
+                depends_on:
+                        - api-gateway
+                        - db-horarioservice
+                networks:
+                        - private_network
+                links:
+                        - db-horarioservice:database
         db-gateway:
                 build:
                         context: ./api-gateway
@@ -95,6 +107,11 @@ services:
                         context: ./professorservice
                         dockerfile: Dockerfile.db
                 container_name: db-professorservice
+        db-horarioservice:
+                build:
+                        context: ./horarioservice
+                        dockerfile: Dockerfile.db
+                container_name: db-horarioservice
 networks:
         private_network:
                 driver: bridge
