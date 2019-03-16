@@ -22,13 +22,28 @@ services:
                         - private_network
                 links:
                         - db-gateway:database
+        ambienteservice:
+                build:
+                        context: ./ambienteservice
+                        dockerfile: Dockerfile.ambienteservice
+                container_name: ambienteservice
+                depends_on:
+                        - api-gateway
+                        - db-ambienteservice
+                networks:
+                        - private_network
+                links:
+                        - db-ambienteservice:database
         db-gateway:
                 build:
                         context: ./api-gateway
                         dockerfile: Dockerfile.db
                 container_name: db-gateway
+        db-ambienteservice:
+                build:
+                        context: ./ambienteservice
+                        dockerfile: Dockerfile.db
+                container_name: db-ambienteservice
 networks:
         private_network:
                 driver: bridge
-
-
