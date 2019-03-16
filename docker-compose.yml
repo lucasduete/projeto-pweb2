@@ -6,4 +6,29 @@ services:
                 container_name: servicediscovery
                 ports: 
                         - "8761:8761"
+                networks:
+                        - private_network
+        api-gateway:
+                build: 
+                        context: ./api-gateway
+                        dockerfile: Dockerfile.api-gateway
+                container_name: api-gateway
+                ports:
+                        - "8080:8080"
+                depends_on:
+                        - servicediscovery
+                        - db-gateway
+                networks: 
+                        - private_network
+                links:
+                        - db-gateway:database
+        db-gateway:
+                build:
+                        context: ./api-gateway
+                        dockerfile: Dockerfile.db
+                container_name: db-gateway
+networks:
+        private_network:
+                driver: bridge
+
 
