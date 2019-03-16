@@ -46,6 +46,18 @@ services:
                         - private_network
                 links:
                         - db-cursoservice:database
+        coordenadorservice:
+                build:
+                        context: ./coordenadorservice
+                        dockerfile: Dockerfile.coordenadorservice
+                container_name: coordenadorservice
+                depends_on:
+                        - api-gateway
+                        - db-coordenadorservice
+                networks:
+                        - private_network
+                links:
+                        - db-coordenadorservice:database
         db-gateway:
                 build:
                         context: ./api-gateway
@@ -61,6 +73,11 @@ services:
                         context: ./cursoservice
                         dockerfile: Dockerfile.db
                 container_name: db-cursoservice
+        db-coordenadorservice:
+                build:
+                        context: ./coordenadorservice
+                        dockerfile: Dockerfile.db
+                container_name: db-coordenadorservice
 networks:
         private_network:
                 driver: bridge
