@@ -5,10 +5,9 @@ import io.github.ifpb.pw2.apigateway.feingClients.CoordenadorClient;
 import io.github.pw2.coordenadorservice.models.Coordenador;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("coordenador")
@@ -32,5 +31,10 @@ public class CoordenadorController {
     @PostMapping
     public ResponseEntity<Coordenador> salvar(@RequestBody Coordenador coordenador){
         return this.client.saveCoordenador(coordenador);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Coordenador>> listarTodos(){
+        return this.client.recuperarTodos();
     }
 }

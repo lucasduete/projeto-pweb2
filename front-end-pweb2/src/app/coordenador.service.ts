@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Coordenador } from './coordenador';
@@ -12,14 +12,14 @@ const httpOptions = {
 })
 export class CoordenadorService {
 
-  private url = 'localhost:8761/coordenador';
+  private url = 'http://localhost:8080/coordenador';
 
   constructor(
     private http : HttpClient
   ) { }
   
-  getCoordenador() : Observable<Coordenador[]>{
-    return this.http.get<Coordenador[]>(this.url);
+  getCoordenador() : Observable<HttpResponse<Coordenador[]>>{
+    return this.http.get<Coordenador[]>(this.url,{observe:'response'});
   }
 
   addCoordenador(coordenador : Coordenador) : Observable<any>{
