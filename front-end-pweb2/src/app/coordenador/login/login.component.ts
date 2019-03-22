@@ -2,7 +2,6 @@ import { CoordenadorService } from './../../coordenador.service';
 import { Coordenador } from './../../coordenador';
 
 import { Component, OnInit } from '@angular/core';
-import swal from 'sweetalert';
 import { Routes, ActivatedRoute, Router } from '@angular/router';
 import { CoordenadorComponent } from '../coordenador.component';
 @Component({
@@ -35,7 +34,7 @@ export class LoginComponent implements OnInit {
       this.route.navigate(["/coordenador", this.coordenador.matricula]);    
       },
       error => {
-        swal("Que pena!", "Não foi possível realizar o login!", "error");
+        // swal('Que pena!', 'Não foi possível realizar o login!', 'error');
       }
     );
   

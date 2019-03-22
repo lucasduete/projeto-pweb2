@@ -12,6 +12,6 @@ public class Coordenador {
 
     private String nome;
     private String senha;
-    private Long matricula;
+    private String matricula;
 
 }

@@ -1,4 +1,3 @@
-import swal from 'sweetalert';
 import { Professor } from 'src/app/professor';
 import { Ambiente } from 'src/app/ambiente';
 import { ProfessorService } from './../professor.service';
@@ -66,11 +65,11 @@ export class CoordenadorComponent implements OnInit {
   addAmbiente(): void {
     this.ambienteService.addAmbinete(this.ambiente).subscribe(
       data => {
-        swal("Parabéns!", "Cadastro feito com sucesso!", "success");
+        // swal('Parabéns!', 'Cadastro feito com sucesso!', 'success');
 
       },
       error => {
-        swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
+        // swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
         this.ambiente = {
           codigo: null,
           nome: ''
@@ -82,10 +81,10 @@ export class CoordenadorComponent implements OnInit {
   addCoordenador(): void {
     this.coordendorService.addCoordenador(this.coordenador).subscribe(
       data => {
-        swal("Parabéns!", "Cadastro feito com sucesso!", "success");
+        // swal("Parabéns!", "Cadastro feito com sucesso!", "success");
       },
       error => {
-        swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
+        // swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
         this.coordenador = {
           matricula: null,
           nome: '',
@@ -98,10 +97,10 @@ export class CoordenadorComponent implements OnInit {
   addCurso(): void {
     this.cursoService.addCurso(this.curso).subscribe(
       data => {
-        swal("Parabéns!", "Cadastro feito com sucesso!", "success");
+        // swal("Parabéns!", "Cadastro feito com sucesso!", "success");
       },
       error => {
-        swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
+        // swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
         this.curso = {
           codigo: null,
           nome: '',
@@ -117,10 +116,10 @@ export class CoordenadorComponent implements OnInit {
     console.log("professor");
     this.professorService.addProfessor(this.professor).subscribe(
       data => {
-        swal("Parabéns!", "Cadastro feito com sucesso!", "success");
+        // swal("Parabéns!", "Cadastro feito com sucesso!", "success");
       },
       error => {
-        swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
+        // swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
         this.professor = {
           matricula: null,
           nome: ''
