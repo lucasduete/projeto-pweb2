@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("ambiente")
-public class AmbienteController {
+public class AmbienteController     {
 
     private final AmbienteService service;
 

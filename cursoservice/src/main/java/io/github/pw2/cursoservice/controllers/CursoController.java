@@ -41,7 +41,7 @@ public class CursoController {
         // Verifica se as disciplinas sao nulas e se algum de seus atributos sao nulos
 
         if (curso.getDisciplinas() == null) {
-            return ResponseEntity.badRequest().body("E necessario enviar as disciplinas do curso para que ele seja persistido.");
+            //return ResponseEntity.badRequest().body("E necessario enviar as disciplinas do curso para que ele seja persistido.");
         } else if (verificaDisciplinasValidas(curso.getDisciplinas())) {
             return ResponseEntity.badRequest().body("Uma ou mais Disciplinas enviadas sao invalidas, verifique os atributos e tente novamente.");
         }

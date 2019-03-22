@@ -1,3 +1,8 @@
+<head>
+    <base href="./"> 
+
+</head>
+
 <div class="container">
     <div class="container">
         <div class="container">
@@ -17,9 +22,10 @@
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <input [(ngModel)]="coordenador.senha" class="green-text" type="password">
+                  <input  [(ngModel)]="coordenador.senha" class="green-text" type="password">
                   <label for="">Senha</label>
                 </div>
+                {{coordenador}}
               </div>
               <div class="row center-align">
                 <button (click)="login()" class="btn green">Login</button>

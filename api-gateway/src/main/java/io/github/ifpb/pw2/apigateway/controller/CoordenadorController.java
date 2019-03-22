@@ -37,4 +37,9 @@ public class CoordenadorController {
     public ResponseEntity<List<Coordenador>> listarTodos(){
         return this.client.recuperarTodos();
     }
+
+    @GetMapping("/{matricula}")
+    public ResponseEntity<Coordenador> recuperar(@PathVariable("matricula") Long matricula){
+        return this.client.recuperar(matricula);
+    }
 }

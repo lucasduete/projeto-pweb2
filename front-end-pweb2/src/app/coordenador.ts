@@ -1,5 +1,5 @@
 export class Coordenador{
-    matricula : number;
-    nome : string;
-    senha : string;
+    matricula? : number;
+    nome? : string;
+    senha? : string;
 }

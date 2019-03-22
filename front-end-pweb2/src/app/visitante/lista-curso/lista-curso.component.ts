@@ -14,10 +14,11 @@ export class ListaCursoComponent implements OnInit {
   constructor(
     private cursoService : CursoService
   ) {
-    this.getCursos();
+    
   }
 
   ngOnInit() {
+    this.getCursos();
   }
 
   getCursos(){

@@ -22,6 +22,7 @@ import { ListaCoordenadorComponent } from './visitante/lista-coordenador/lista-c
 import { InicioCoordenadorComponent } from './coordenador/inicio-coordenador/inicio-coordenador.component';
 import { MenuComponent } from "./visitante/menu/menu.component";
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    NgbModalModule,
     HttpClientModule
   ],
   providers: [],

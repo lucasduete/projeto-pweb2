@@ -5,9 +5,11 @@ import { ProfessorService } from './../professor.service';
 import { CursoService } from './../curso.service';
 import { Curso } from 'src/app/curso';
 import { AmbienteService } from './../ambiente.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CoordenadorService } from '../coordenador.service';
 import { Coordenador } from '../coordenador';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ListaCursoComponent } from '../visitante/lista-curso/lista-curso.component';
 
 @Component({
   selector: 'app-coordenador',
@@ -15,55 +17,69 @@ import { Coordenador } from '../coordenador';
   styleUrls: ['./coordenador.component.css']
 })
 export class CoordenadorComponent implements OnInit {
-  ambiente : Ambiente = {
-    codigo : null,
-    nome : ''
+
+  @ViewChild(ListaCursoComponent) listaCurso: ListaCursoComponent;
+
+  ambiente: Ambiente = {
+    codigo: null,
+    nome: ''
   };
 
-  coordenador : Coordenador = {
-    matricula : null,
-    nome : '',
-    senha : ''
+  coordenador: Coordenador = {
+    matricula: null,
+    nome: '',
+    senha: ''
   };
 
-  curso : Curso = {
-    codigo : null,
-    nome : '',
-    descricao : '',
-    disciplinas : null
+  curso: Curso = {
+    codigo: null,
+    nome: '',
+    descricao: '',
+    disciplinas: null
   };
 
-  professor : Professor = {
-    matricula : null,
-    nome : ''
+  professor: Professor = {
+    matricula: null,
+    nome: ''
   };
 
   constructor(
-    private ambienteService : AmbienteService,
-    private coordendorService : CoordenadorService,
-    private cursoService : CursoService,
-    private professorService : ProfessorService
-  ) { }
+    private ambienteService: AmbienteService,
+    private router: ActivatedRoute,
+    private coordendorService: CoordenadorService,
+    private cursoService: CursoService,
+    private professorService: ProfessorService
+  ) {
 
+  }
   ngOnInit() {
+    this.listaCurso.getCursos();
+    let mat = null;
+    this.router.params.subscribe(params => {
+        this.coordendorService.getCoordenadorMatricula(params['matricula']).subscribe(res=>{
+          this.coordenador = res.body;
+        });
+    });
+    
   }
 
-  addAmbinete() : void{
+  addAmbiente(): void {
     this.ambienteService.addAmbinete(this.ambiente).subscribe(
       data => {
         swal("Parabéns!", "Cadastro feito com sucesso!", "success");
+
       },
       error => {
         swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
         this.ambiente = {
-          codigo : null,
-          nome : ''
+          codigo: null,
+          nome: ''
         }
       }
     )
   }
 
-  addCoordenador() : void{
+  addCoordenador(): void {
     this.coordendorService.addCoordenador(this.coordenador).subscribe(
       data => {
         swal("Parabéns!", "Cadastro feito com sucesso!", "success");
@@ -71,15 +87,15 @@ export class CoordenadorComponent implements OnInit {
       error => {
         swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
         this.coordenador = {
-          matricula : null,
-          nome : '',
-          senha : ''
+          matricula: null,
+          nome: '',
+          senha: ''
         }
       }
     )
   }
 
-  addCurso() : void{
+  addCurso(): void {
     this.cursoService.addCurso(this.curso).subscribe(
       data => {
         swal("Parabéns!", "Cadastro feito com sucesso!", "success");
@@ -87,16 +103,18 @@ export class CoordenadorComponent implements OnInit {
       error => {
         swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
         this.curso = {
-          codigo : null,
-          nome : '',
-          descricao : '',
-          disciplinas : null
+          codigo: null,
+          nome: '',
+          descricao: '',
+          disciplinas: null
         }
       }
     )
+    this.listaCurso.getCursos();
   }
 
-  addProfessor() : void{
+  addProfessor(): void {
+    console.log("professor");
     this.professorService.addProfessor(this.professor).subscribe(
       data => {
         swal("Parabéns!", "Cadastro feito com sucesso!", "success");
@@ -104,8 +122,8 @@ export class CoordenadorComponent implements OnInit {
       error => {
         swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
         this.professor = {
-          matricula : null,
-          nome : ''
+          matricula: null,
+          nome: ''
         }
       }
     )
