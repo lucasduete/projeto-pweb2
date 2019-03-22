@@ -11,23 +11,23 @@ services:
                 container_name: database
                 ports:
                         - "5432:5432"
-#        api-gateway:
-#                build:
-#                        context: ./api-gateway
-#                        dockerfile: Dockerfile.api-gateway
-#                container_name: api-gateway
-#                ports:
-#                        - "8080:8080"
-#                depends_on:
-#                        - servicediscovery
-#                        - db-general
+        api-gateway:
+                build:
+                        context: ./api-gateway
+                        dockerfile: Dockerfile.api-gateway
+                container_name: api-gateway
+                ports:
+                        - "8080:8080"
+                depends_on:
+                        - servicediscovery
+                        - db-general
         ambienteservice:
                 build:
                         context: ./ambienteservice
                         dockerfile: Dockerfile.ambienteservice
                 container_name: ambienteservice
                 depends_on:
-#                        - api-gateway
+                        - api-gateway
                         - db-general
         cursoservice:
                 build:
@@ -35,23 +35,23 @@ services:
                         dockerfile: Dockerfile.cursoservice
                 container_name: cursoservice
                 depends_on:
-#                        - api-gateway
+                        - api-gateway
                         - db-general
-#        coordenadorservice:
-#                build:
-#                        context: ./coordenadorservice
-#                        dockerfile: Dockerfile.coordenadorservice
-#                container_name: coordenadorservice
-#                depends_on:
-#                        - api-gateway
-#                        - db-general
+        coordenadorservice:
+                build:
+                        context: ./coordenadorservice
+                        dockerfile: Dockerfile.coordenadorservice
+                container_name: coordenadorservice
+                depends_on:
+                        - api-gateway
+                        - db-general
         professorservice:
                 build:
                         context: ./professorservice
                         dockerfile: Dockerfile.professorservice
                 container_name: professorservice
                 depends_on:
-#                        - api-gateway
+                        - api-gateway
                         - db-general
         horarioservice:
                 build:
@@ -59,8 +59,6 @@ services:
                         dockerfile: Dockerfile.horarioservice
                 container_name: horarioservice
                 depends_on:
-#                        - api-gateway
+                        - api-gateway
                         - db-general
-networks:
-        private_network:
-                driver: bridge
+                        
