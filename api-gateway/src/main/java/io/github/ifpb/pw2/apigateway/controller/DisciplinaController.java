@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 
-@RestController
-@RequestMapping("disciplina")
+//@RestController
+//@RequestMapping("disciplina")
 public class DisciplinaController {
 
     private final CursoDisciplinaClient client;

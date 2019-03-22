@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("coordenador")
+//@RestController
+//@RequestMapping("coordenador")
 public class CoordenadorController {
 
     private CoordenadorClient client;

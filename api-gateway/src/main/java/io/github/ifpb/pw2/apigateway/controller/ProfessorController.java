@@ -5,8 +5,8 @@ import io.github.pw2.professorservice.models.Professor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("professor")
+//@RestController
+//@RequestMapping("professor")
 public class ProfessorController {
 
     private final ProfessorClient professorClient;

@@ -5,8 +5,8 @@ import io.github.pw2.cursoservice.models.Curso;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("curso")
+//@RestController
+//@RequestMapping("curso")
 public class CursoController {
 
     private final CursoDisciplinaClient client;

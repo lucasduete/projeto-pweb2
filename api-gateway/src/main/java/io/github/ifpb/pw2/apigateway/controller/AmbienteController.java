@@ -5,8 +5,8 @@ import io.github.pw2.ambienteservice.models.Ambiente;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("ambiente")
+//@RestController
+//@RequestMapping("ambiente")
 public class AmbienteController {
 
     private final AmbienteClient ambienteClient;
