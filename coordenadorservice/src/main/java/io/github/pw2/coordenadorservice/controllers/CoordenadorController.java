@@ -53,7 +53,7 @@ public class CoordenadorController {
     }
 
     @GetMapping(value = "/{matricula}")
-    public ResponseEntity<Coordenador> recuperar(@PathVariable("matricula") Long matricula) {
+    public ResponseEntity<Coordenador> recuperar(@PathVariable("matricula") String matricula) {
         Optional<Coordenador> coordenador = service.recuperar(matricula);
         return coordenador.isPresent() ? ResponseEntity.ok(coordenador.get()) : ResponseEntity.noContent().build();
     }

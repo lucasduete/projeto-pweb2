@@ -2,11 +2,15 @@ package io.github.ifpb.pw2.apigateway.controller;
 
 import io.github.ifpb.pw2.apigateway.feingClients.AmbienteClient;
 import io.github.pw2.ambienteservice.models.Ambiente;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("ambiente")
+@Api(tags = "Gerenciamento de Ambientes")
 public class AmbienteController {
 
     private final AmbienteClient ambienteClient;
@@ -16,7 +20,8 @@ public class AmbienteController {
     }
 
     @PostMapping
-    public ResponseEntity salvarAmbiente(@RequestBody Ambiente ambiente) {
+    @ApiOperation("Serviço de criação de ambientes")
+    public ResponseEntity salvarAmbiente(@RequestBody @ApiParam("Ambiente a ser criado") Ambiente ambiente) {
         ResponseEntity response = this.ambienteClient.salvarAmbiente(ambiente);
 
         return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
