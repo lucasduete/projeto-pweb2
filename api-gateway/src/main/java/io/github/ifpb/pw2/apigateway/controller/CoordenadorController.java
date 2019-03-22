@@ -39,7 +39,7 @@ public class CoordenadorController {
     }
 
     @GetMapping("/{matricula}")
-    public ResponseEntity<Coordenador> recuperar(@PathVariable("matricula") Long matricula){
+    public ResponseEntity<Coordenador> recuperar(@PathVariable("matricula") String matricula){
         return this.client.recuperar(matricula);
     }
 }

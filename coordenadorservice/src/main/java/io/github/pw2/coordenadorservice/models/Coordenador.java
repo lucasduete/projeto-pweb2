@@ -16,7 +16,7 @@ import javax.persistence.Id;
 public class Coordenador {
 
     @Id
-    private Long matricula;
+    private String matricula;
 
     @Column(nullable = false, unique = true)
     private String nome;

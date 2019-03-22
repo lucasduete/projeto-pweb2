@@ -14,7 +14,7 @@ import java.util.List;
 public interface CoordenadorClient {
 
     @GetMapping(value = "/{matricula}")
-    public ResponseEntity<Coordenador> recuperar(@PathVariable("matricula") Long matricula);
+    public ResponseEntity<Coordenador> recuperar(@PathVariable("matricula") String matricula);
 
     @PostMapping
     public ResponseEntity<Coordenador> saveCoordenador(@RequestBody Coordenador coordenador);

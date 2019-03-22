@@ -71,4 +71,9 @@ public class Aula implements Serializable, Cloneable {
         return this.getTurno().equals(TipoTurno.of(turno)) && this.getNumeroAula().equals(numeroAula);
     }
 
+
+    public void enviarEmail() {
+        // SMTP.... serviço de envio de e-mail
+    }
+
 }
