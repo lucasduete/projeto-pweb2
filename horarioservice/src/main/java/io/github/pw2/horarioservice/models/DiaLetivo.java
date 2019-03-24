@@ -19,7 +19,7 @@ import java.util.List;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class DiaLetivo implements Serializable, Cloneable {
+public final class DiaLetivo implements Serializable, Cloneable {
 
     @Id
     @GeneratedValue

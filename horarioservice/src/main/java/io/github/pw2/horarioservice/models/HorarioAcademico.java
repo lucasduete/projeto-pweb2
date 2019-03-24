@@ -15,7 +15,7 @@ import java.util.List;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class HorarioAcademico implements Serializable {
+public final class HorarioAcademico implements Serializable {
 
     @Id
     @GeneratedValue

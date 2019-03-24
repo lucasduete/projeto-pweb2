@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Aula implements Serializable, Cloneable {
+public final class Aula implements Serializable, Cloneable {
 
     @Id
     @GeneratedValue
