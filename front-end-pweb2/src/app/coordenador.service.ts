@@ -11,9 +11,11 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CoordenadorService {
-  
+
   private url = 'http://localhost:8080/coordenador';
+  private urlLogin = 'http://localhost:8080/login';
   //private url = 'http://192.168.0.104:8080/coordenador';
+  //private urlLogin = 'http://192.168.0.104:8080/login';
 
   constructor(
     private http : HttpClient
@@ -32,7 +34,7 @@ export class CoordenadorService {
   }
 
   login(coordenador : Coordenador) : Observable<HttpResponse<Coordenador>>{
-    return this.http.post<Coordenador>(this.url + '/login', coordenador, {observe:'response'});
+    return this.http.post<Coordenador>(this.urlLogin, coordenador, {observe:'response'});
   }
 
 }
