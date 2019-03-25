@@ -1,5 +1,6 @@
 package io.github.pw2.horarioservice.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.pw2.horarioservice.exceptions.AulaNaoCadastradaException;
 import io.github.pw2.horarioservice.exceptions.AulaRepetidaException;
 import io.github.pw2.horarioservice.exceptions.AulasRepetidasException;
@@ -30,6 +31,11 @@ public final class DiaLetivo implements Serializable, Cloneable {
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST},
             orphanRemoval = true, mappedBy = "diaLetivo")
     private List<Aula> aulas;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "horarioacademico_id", nullable = false)
+    @JsonIgnore
+    private HorarioAcademico horarioAcademico;
 
     {
         this.aulas = new ArrayList<>();

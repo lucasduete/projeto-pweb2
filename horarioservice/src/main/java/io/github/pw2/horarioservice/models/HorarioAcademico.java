@@ -27,7 +27,7 @@ public final class HorarioAcademico implements Serializable {
     @Column(nullable = false)
     private Integer numeroPeriodo;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "horarioAcademico")
     private List<DiaLetivo> diasLetivos;
 
     public void setDiasLetivos(@NotNull final List<DiaLetivo> diasLetivos) {
