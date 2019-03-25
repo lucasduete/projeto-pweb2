@@ -1,5 +1,6 @@
 package io.github.ifpb.pw2.apigateway.controller;
 
+import io.github.ifpb.pw2.apigateway.feingClients.CoordenadorClient;
 import io.github.ifpb.pw2.apigateway.service.jwt.TokenProvider;
 import io.github.pw2.coordenadorservice.models.Coordenador;
 import org.springframework.http.HttpHeaders;
@@ -9,28 +10,45 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("login")
 public class LoginController {
 
+    private final TokenProvider tokenProvider;
+    private final PasswordEncoder passwordEncoder;
+    private final CoordenadorClient coordenadorClient;
     private final AuthenticationManager authenticationManager;
 
-    private final TokenProvider tokenProvider;
-
-    public LoginController(AuthenticationManager authenticationManager, TokenProvider tokenProvider) {
-        this.authenticationManager = authenticationManager;
+    public LoginController(TokenProvider tokenProvider, PasswordEncoder passwordEncoder, CoordenadorClient coordenadorClient, AuthenticationManager authenticationManager) {
         this.tokenProvider = tokenProvider;
+        this.passwordEncoder = passwordEncoder;
+        this.coordenadorClient = coordenadorClient;
+        this.authenticationManager = authenticationManager;
     }
 
     @PostMapping
-    public ResponseEntity<String> login(@RequestBody Coordenador coordenador) {
+    public ResponseEntity<Object> login(@RequestParam(name = "matricula", required = true) final String matricula,
+                                        @RequestParam(name = "senha", required = true) final String senha) {
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(coordenador.getMatricula(), coordenador.getSenha());
+        if (matricula == null || matricula.isEmpty()) {
+            return ResponseEntity.badRequest().body("Para efeturar o login voce deve enviar a matricula do Coordenador");
+        } else if (senha == null || senha.isEmpty()) {
+            return ResponseEntity.badRequest().body("Para efeturar o login voce deve enviar a senha do Coordenador");
+        }
+
+        Coordenador coordenador = coordenadorClient.recuperar(matricula).getBody();
+
+        if (coordenador == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        } else if (!passwordEncoder.matches(senha, coordenador.getSenha())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        UsernamePasswordAuthenticationToken authenticationToken = new
+                UsernamePasswordAuthenticationToken(coordenador.getMatricula(), coordenador.getSenha());
 
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -38,9 +56,11 @@ public class LoginController {
         String jwt = tokenProvider.createToken(authentication);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer "+ jwt);
+        headers.add("Authorization", "Bearer " + jwt);
 
-        return new ResponseEntity<>(jwt, headers, HttpStatus.OK);
+        coordenador.setSenha(jwt);
+
+        return new ResponseEntity<>(coordenador, headers, HttpStatus.OK);
     }
 
 }
