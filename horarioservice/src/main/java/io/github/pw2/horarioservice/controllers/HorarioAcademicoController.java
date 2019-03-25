@@ -1,12 +1,12 @@
 package io.github.pw2.horarioservice.controllers;
 
+import io.github.pw2.horarioservice.exceptions.CursoSemHorarioAcademicoException;
 import io.github.pw2.horarioservice.models.HorarioAcademico;
 import io.github.pw2.horarioservice.services.HorarioAcademicoService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("horarioacademico")
@@ -31,6 +31,29 @@ public class HorarioAcademicoController {
         } else {
             return ResponseEntity.badRequest().build();
         }
+
+    }
+
+    @GetMapping("/curso/{codigoCurso}")
+    public ResponseEntity buscarPorCurso(@PathVariable(name = "codigoCurso", required = true) Long codigoCurso) {
+
+        if (codigoCurso == null || codigoCurso <= 0)
+            return ResponseEntity.badRequest().build();
+
+        try {
+            List<HorarioAcademico> horariosPorCurso = this.service.listarPorCurso(codigoCurso);
+
+            if (horariosPorCurso.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            } else {
+                return ResponseEntity.ok(horariosPorCurso);
+            }
+
+        } catch (CursoSemHorarioAcademicoException cshaEx) {
+            cshaEx.printStackTrace();
+            return ResponseEntity.noContent().build();
+        }
+
 
     }
 
