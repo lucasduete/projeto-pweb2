@@ -1,6 +1,5 @@
 package io.github.pw2.horarioservice.models;
 
-import io.github.pw2.horarioservice.enums.TipoTurno;
 import io.github.pw2.horarioservice.exceptions.AulaNaoCadastradaException;
 import io.github.pw2.horarioservice.exceptions.AulaRepetidaException;
 import io.github.pw2.horarioservice.exceptions.AulasRepetidasException;
@@ -27,10 +26,6 @@ public final class DiaLetivo implements Serializable, Cloneable {
 
     @Column(nullable = false)
     private DayOfWeek dia;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TipoTurno turno;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<Aula> aulas;

@@ -9,8 +9,7 @@ public enum TipoTurno {
 
     MANHA("Manha"),
     TARDE("Tarde"),
-    NOITE("Noite"),
-    INTEGRAL("Integral");
+    NOITE("Noite");
 
     private String nome;
 

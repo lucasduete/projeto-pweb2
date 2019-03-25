@@ -33,11 +33,14 @@ public final class Aula implements Serializable, Cloneable {
     @Column(nullable = false)
     private LocalTime horaFim;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @Column(nullable = false)
     private String matriculaProfessor;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    private String codigoDisciplina;
+    @Column(nullable = false)
+    private Long codigoDisciplina;
+
+    @Column(nullable = false)
+    private Long codigoAmbiente;
 
     public boolean equalsAula(Aula aula) {
         return this.getTurno().equals(aula.getTurno()) && this.getNumeroAula().equals(aula.getNumeroAula());
@@ -69,11 +72,6 @@ public final class Aula implements Serializable, Cloneable {
 
     public boolean equalsNumeroTurno(final Integer numeroAula, final String turno) {
         return this.getTurno().equals(TipoTurno.of(turno)) && this.getNumeroAula().equals(numeroAula);
-    }
-
-
-    public void enviarEmail() {
-        // SMTP.... serviço de envio de e-mail
     }
 
 }

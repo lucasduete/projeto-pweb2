@@ -24,8 +24,11 @@ public final class HorarioAcademico implements Serializable {
     @Column(nullable = false)
     private Integer anoLetivo;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Long idTurma;
+    @Column(nullable = false)
+    private Long codigoCurso;
+
+    @Column(nullable = false)
+    private Integer numeroPeriodo;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<DiaLetivo> diasLetivos;
