@@ -7,21 +7,6 @@ done
 
 echo "Api-Gateway is UP"
 
-echo "Started Download ProfessorService"
+echo "Started ProfessorService"
 
-wget https://codeload.github.com/lucasduete/projeto-pweb2/zip/master -O master.zip
-
-echo "Finished Download ProfessorService"
-
-echo "Started UnZip ProfessorService"
-
-unzip master.zip
-
-echo "Finished UnZip ProfessorService"
-
-rm master.zip
-cd projeto-pweb2-master/professorservice/
-
-./mvnw package spring-boot:repackage
-
-java -jar target/professorservice-0.0.1-SNAPSHOT.jar
+java -jar professorservice.jar

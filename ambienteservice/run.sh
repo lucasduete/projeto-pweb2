@@ -7,21 +7,6 @@ done
 
 echo "Api-Gateway is UP"
 
-echo "Started Download AmbienteService"
+echo "Started AmbienteService"
 
-wget https://codeload.github.com/lucasduete/projeto-pweb2/zip/master -O master.zip
-
-echo "Finished Download AmbienteService"
-
-echo "Started UnZip AmbienteService"
-
-unzip master.zip
-
-echo "Finished UnZip AmbienteService"
-
-rm master.zip
-cd projeto-pweb2-master/ambienteservice/
-
-./mvnw package spring-boot:repackage
-
-java -jar target/ambienteservice-0.0.1-SNAPSHOT.jar
+java -jar ambienteservice.jar
