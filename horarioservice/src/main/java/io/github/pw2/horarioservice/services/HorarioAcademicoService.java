@@ -45,4 +45,10 @@ public class HorarioAcademicoService {
         return new ArrayList<>();
     }
 
+    public boolean validate(final HorarioAcademico horarioAcademico) {
+
+        if (horarioAcademico.getNumeroPeriodo() <= 0)
+
+    }
+
 }

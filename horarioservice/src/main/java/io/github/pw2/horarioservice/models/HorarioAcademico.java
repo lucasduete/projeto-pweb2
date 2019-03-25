@@ -72,4 +72,11 @@ public final class HorarioAcademico implements Serializable {
                 .anyMatch(dia -> dia.getDia().equals(diaLetivo.getDia()));
     }
 
+    public boolean validate() {
+        return this.numeroPeriodo == null || this.numeroPeriodo <= 0 ||
+                this.codigoCurso == null || this.codigoCurso <= 0 ||
+                this.diasLetivos == null || this.diasLetivos.isEmpty() ||
+                this.diasLetivos.stream().anyMatch(diaLetivo -> !diaLetivo.validate());
+    }
+
 }

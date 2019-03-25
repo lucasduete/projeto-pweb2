@@ -74,4 +74,13 @@ public final class Aula implements Serializable, Cloneable {
         return this.getTurno().equals(TipoTurno.of(turno)) && this.getNumeroAula().equals(numeroAula);
     }
 
+    public boolean validate() {
+        return this.numeroAula == null || this.numeroAula <= 0 ||
+                this.turno == null || this.horaInicio == null ||
+                this.horaFim == null || this.codigoAmbiente == null ||
+                this.codigoAmbiente <= 0 || this.codigoDisciplina == null ||
+                this.codigoDisciplina <= 0 || this.matriculaProfessor == null ||
+                this.matriculaProfessor.isEmpty();
+    }
+
 }

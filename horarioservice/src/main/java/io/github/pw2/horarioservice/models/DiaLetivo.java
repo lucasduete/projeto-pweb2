@@ -66,4 +66,11 @@ public final class DiaLetivo implements Serializable, Cloneable {
 
     }
 
+    public boolean validate() {
+        return this.dia == null ||
+                this.aulas == null ||
+                this.aulas.isEmpty() ||
+                this.aulas.stream().anyMatch(aula -> !aula.validate());
+    }
+
 }

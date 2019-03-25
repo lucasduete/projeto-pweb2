@@ -21,7 +21,17 @@ public class HorarioAcademicoController {
     @PostMapping
     public ResponseEntity salvarHorario(@RequestBody HorarioAcademico horarioAcademico) {
 
-        this.service.salvarHorario(horarioAcademico);
+        if (horarioAcademico == null || !horarioAcademico.validate())
+            return ResponseEntity.badRequest().build();
+
+        HorarioAcademico horarioSalvo = this.service.salvarHorario(horarioAcademico);
+
+        if (horarioSalvo != null) {
+            return ResponseEntity.ok(horarioSalvo);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 
 }
