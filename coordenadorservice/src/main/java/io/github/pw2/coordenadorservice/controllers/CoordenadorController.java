@@ -3,6 +3,7 @@ package io.github.pw2.coordenadorservice.controllers;
 import io.github.pw2.coordenadorservice.models.Coordenador;
 import io.github.pw2.coordenadorservice.services.CoordenadorService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class CoordenadorController {
         this.service = service;
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> saveCoordenador(@RequestBody Coordenador coordenador) {
 
         // Verifica se o coordenador e nulo e se algum de seus atributos sao nulos
