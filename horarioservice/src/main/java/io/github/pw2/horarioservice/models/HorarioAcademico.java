@@ -22,9 +22,6 @@ public final class HorarioAcademico implements Serializable {
     private Long id;
 
     @Column(nullable = false)
-    private Integer anoLetivo;
-
-    @Column(nullable = false)
     private Long codigoCurso;
 
     @Column(nullable = false)
@@ -63,16 +60,16 @@ public final class HorarioAcademico implements Serializable {
     }
 
     /**
-     * Verifica se existe algum DiaLetivo na lista de diasLetivos com o mesmo Dia e Turno
-     * do diaLetivo passado no parametro
+     * Verifica se existe algum DiaLetivo na lista de diasLetivos com o mesmo Dia do
+     * diaLetivo passado no parametro
      *
      * @param diaLetivo Objeto do tipo DiaLetivo que sera verificado na lista de dias Letivos
-     * @return True se exite algum diaLetivo com o mesmo Dia E Turno, false caso nao haja
+     * @return True se exite algum diaLetivo com o mesmo Dia, false caso nao haja
      */
     private Boolean verificaDiaLetivoRepetido(@NotNull final DiaLetivo diaLetivo) {
         return this.getDiasLetivos()
                 .stream()
-                .anyMatch(dia -> dia.getDia().equals(diaLetivo.getDia()) && dia.getTurno().equals(diaLetivo.getTurno()));
+                .anyMatch(dia -> dia.getDia().equals(diaLetivo.getDia()));
     }
 
 }
