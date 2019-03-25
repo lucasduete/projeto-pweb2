@@ -12,49 +12,40 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("login")
 public class LoginController {
 
     private final TokenProvider tokenProvider;
-    private final PasswordEncoder passwordEncoder;
-    private final CoordenadorClient coordenadorClient;
     private final AuthenticationManager authenticationManager;
 
-    public LoginController(TokenProvider tokenProvider, PasswordEncoder passwordEncoder, CoordenadorClient coordenadorClient, AuthenticationManager authenticationManager) {
+    public LoginController(TokenProvider tokenProvider, AuthenticationManager authenticationManager) {
         this.tokenProvider = tokenProvider;
-        this.passwordEncoder = passwordEncoder;
-        this.coordenadorClient = coordenadorClient;
         this.authenticationManager = authenticationManager;
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<Object> login(@RequestParam(name = "matricula", required = true) final String matricula,
-                                        @RequestParam(name = "senha", required = true) final String senha) {
-
-        if (matricula == null || matricula.isEmpty()) {
-            return ResponseEntity.badRequest().body("Para efeturar o login voce deve enviar a matricula do Coordenador");
-        } else if (senha == null || senha.isEmpty()) {
-            return ResponseEntity.badRequest().body("Para efeturar o login voce deve enviar a senha do Coordenador");
-        }
-
-        Coordenador coordenador = coordenadorClient.recuperar(matricula).getBody();
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> login(@RequestBody final Coordenador coordenador) {
 
         if (coordenador == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        } else if (!passwordEncoder.matches(senha, coordenador.getSenha())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return ResponseEntity.badRequest().body("Para efeturar o login voce deve enviar as credencias do Coordenador");
+        } else if (coordenador.getMatricula() == null || coordenador.getMatricula().isEmpty()) {
+            return ResponseEntity.badRequest().body("Para efeturar o login voce deve enviar a matricula do Coordenador");
+        } else if (coordenador.getSenha() == null || coordenador.getSenha().isEmpty()) {
+            return ResponseEntity.badRequest().body("Para efeturar o login voce deve enviar a senha do Coordenador");
         }
 
         UsernamePasswordAuthenticationToken authenticationToken = new
                 UsernamePasswordAuthenticationToken(coordenador.getMatricula(), coordenador.getSenha());
 
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
+
+        if (!authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.createToken(authentication);
