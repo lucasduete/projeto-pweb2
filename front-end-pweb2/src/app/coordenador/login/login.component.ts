@@ -3,7 +3,7 @@ import { Coordenador } from './../../coordenador';
 
 import { Component, OnInit } from '@angular/core';
 import { Routes, ActivatedRoute, Router } from '@angular/router';
-import { CoordenadorComponent } from '../coordenador.component';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,8 +13,7 @@ export class LoginComponent implements OnInit {
 
 
   coordenador: Coordenador = {
-    matricula:null, 
-    nome:"", 
+    matricula:null,
     senha :""
   };
 
@@ -27,16 +26,15 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-
   login(): void {
     
     this.coordenadorService.login(this.coordenador).subscribe( data=>{
       this.route.navigate(["/coordenador", this.coordenador.matricula]);    
       },
       error => {
+        console.log(this.coordenador);
+        console.log(error);
         // swal('Que pena!', 'Não foi possível realizar o login!', 'error');
       }
     );
-  
-
 }}

@@ -25,10 +25,12 @@
                   <input  [(ngModel)]="coordenador.senha" class="green-text" type="password">
                   <label for="">Senha</label>
                 </div>
-                {{coordenador}}
               </div>
               <div class="row center-align">
                 <button (click)="login()" class="btn green">Login</button>
+              </div>
+              <div class="row center-align">
+                <button routerLink="/addCoordenador" class="btn blue">Cadastro</button>
               </div>
             </div>
         </div>  
