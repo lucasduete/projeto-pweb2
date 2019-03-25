@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -17,6 +18,10 @@ import java.util.List;
 public final class HorarioAcademicoVO implements Serializable {
 
     private List<DiaLetivoVO> diasLetivos;
+
+    {
+        this.diasLetivos = new ArrayList<>();
+    }
 
     public List<DiaLetivoVO> getDiasLetivos() {
         return ImmutableList.copyOf(this.diasLetivos);
