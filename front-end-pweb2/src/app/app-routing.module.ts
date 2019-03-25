@@ -23,15 +23,11 @@ const routes: Routes = [
   { path: 'listaAmbiente', component: ListaAmbienteComponent},
   { path: 'listaCoordenador', component: ListaCoordenadorComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'inicioCoordenador', component: InicioCoordenadorComponent},
   { path: 'curso', component: CursoComponent},
   { path: 'coordenador/:matricula', component: CoordenadorComponent},
   { path: 'ambiente', component: AmbienteComponent},
   { path: 'professor', component: ProfessorComponent},
-  { path: 'addCurso', component: AddCursoComponent},
   { path: 'addCoordenador', component: AddCoordenadorComponent},
-  { path: 'addAmbiente', component: AddAmbienteComponent},
-  { path: 'addProfessor', component: AddProfessorComponent},
   { path: '', component: CoordenadorComponent}
 ];
 

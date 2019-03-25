@@ -1,4 +1,8 @@
+
 import { Component, OnInit } from '@angular/core';
+import { CoordenadorService } from './../../coordenador.service';
+import { Coordenador } from './../../coordenador';
+import { Routes, ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-coordenador',
@@ -7,9 +11,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddCoordenadorComponent implements OnInit {
 
-  constructor() { }
+  coordenador: Coordenador = {
+    matricula:null, 
+    nome:"", 
+    senha :""
+  };
+
+  constructor(
+    private coordenadorService: CoordenadorService,
+    private route: Router
+  ) { }
 
   ngOnInit() {
   }
-
+  
+  addCoordenador(): void {
+    this.coordenadorService.addCoordenador(this.coordenador).subscribe(
+      data => {
+        this.route.navigate(["/login"]); 
+      },
+      error => {
+        // swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
+        this.coordenador = {
+          matricula: null,
+          nome: '',
+          senha: ''
+        }
+      }
+    )
+  }
 }
