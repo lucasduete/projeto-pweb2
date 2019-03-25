@@ -27,7 +27,8 @@ public final class DiaLetivo implements Serializable, Cloneable {
     @Column(nullable = false)
     private DayOfWeek dia;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+            orphanRemoval = true, mappedBy = "diaLetivo")
     private List<Aula> aulas;
 
     {
