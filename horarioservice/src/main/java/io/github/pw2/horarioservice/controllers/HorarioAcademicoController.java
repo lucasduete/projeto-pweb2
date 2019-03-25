@@ -1,8 +1,12 @@
-package io.github.pw2.horarioservice.controllers;
+package io.github.pw2.horariohorarioService.controllers;
 
 import io.github.pw2.horarioservice.exceptions.CursoSemHorarioAcademicoException;
+import io.github.pw2.horarioservice.models.Aula;
 import io.github.pw2.horarioservice.models.HorarioAcademico;
+import io.github.pw2.horarioservice.services.AulaService;
 import io.github.pw2.horarioservice.services.HorarioAcademicoService;
+import io.github.pw2.horarioservice.services.HorarioVOService;
+import io.github.pw2.horarioservice.valueObjects.HorarioAcademicoVO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +16,14 @@ import java.util.List;
 @RequestMapping("horarioacademico")
 public class HorarioAcademicoController {
 
-    private final HorarioAcademicoService service;
+    private final AulaService aulaService;
+    private final HorarioVOService horarioVOService;
+    private final HorarioAcademicoService horarioService;
 
-    public HorarioAcademicoController(HorarioAcademicoService service) {
-        this.service = service;
+    public HorarioAcademicoController(AulaService aulaService, HorarioVOService horarioVOService, HorarioAcademicoService horarioService) {
+        this.aulaService = aulaService;
+        this.horarioVOService = horarioVOService;
+        this.horarioService = horarioService;
     }
 
     @PostMapping
@@ -24,7 +32,7 @@ public class HorarioAcademicoController {
         if (horarioAcademico == null || !horarioAcademico.validate())
             return ResponseEntity.badRequest().build();
 
-        HorarioAcademico horarioSalvo = this.service.salvarHorario(horarioAcademico);
+        HorarioAcademico horarioSalvo = this.horarioService.salvarHorario(horarioAcademico);
 
         if (horarioSalvo != null) {
             return ResponseEntity.ok(horarioSalvo);
@@ -41,7 +49,7 @@ public class HorarioAcademicoController {
             return ResponseEntity.badRequest().build();
 
         try {
-            List<HorarioAcademico> horariosPorCurso = this.service.listarPorCurso(codigoCurso);
+            List<HorarioAcademico> horariosPorCurso = this.horarioService.listarPorCurso(codigoCurso);
 
             if (horariosPorCurso.isEmpty()) {
                 return ResponseEntity.noContent().build();
@@ -54,7 +62,40 @@ public class HorarioAcademicoController {
             return ResponseEntity.noContent().build();
         }
 
+    }
 
+    @GetMapping("/professor/{matriculaProfessor}")
+    public ResponseEntity buscarPorProfessor(@PathVariable(name = "matriculaProfessor", required = true) String matriculaProfessor) {
+
+        if (matriculaProfessor == null || matriculaProfessor.isEmpty())
+            return ResponseEntity.badRequest().body("Voce deve informar a Matricula do Professor para realizar a listagem");
+
+        List<Aula> aulasDoProfessor = this.aulaService.findAllByMatriculaProfessor(matriculaProfessor);
+
+        if (aulasDoProfessor == null || aulasDoProfessor.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        HorarioAcademicoVO horarioAcademicoVO = this.horarioVOService.processToVO(aulasDoProfessor);
+
+        return ResponseEntity.ok(horarioAcademicoVO);
+    }
+
+    @GetMapping("/ambiente/{codigoAmbiente}")
+    public ResponseEntity buscarPorProfessor(@PathVariable(name = "codigoAmbiente", required = true) Long codigoAmbiente) {
+
+        if (codigoAmbiente == null || codigoAmbiente <= 0)
+            return ResponseEntity.badRequest().body("Voce deve informar um Codigo de Ambiente valido para realizar a listagem");
+
+        List<Aula> aulasNoAmbiente = this.aulaService.findAllByCodigoAmbiente(codigoAmbiente);
+
+        if (aulasNoAmbiente == null || aulasNoAmbiente.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        HorarioAcademicoVO horarioAcademicoVO = this.horarioVOService.processToVO(aulasNoAmbiente);
+
+        return ResponseEntity.ok(horarioAcademicoVO);
     }
 
 }
