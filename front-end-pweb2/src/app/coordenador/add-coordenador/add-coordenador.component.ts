@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
-import { CoordenadorService } from './../../coordenador.service';
-import { Coordenador } from './../../coordenador';
+import { CoordenadorService } from './../../service/coordenador.service';
+import { Coordenador } from './../../model/coordenador';
 import { Routes, ActivatedRoute, Router } from '@angular/router';
 
 @Component({

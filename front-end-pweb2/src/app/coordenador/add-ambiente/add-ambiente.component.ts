@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AmbienteService } from './../../ambiente.service';
-import { Ambiente } from 'src/app/ambiente';
+import { AmbienteService } from './../../service/ambiente.service';
+import { Ambiente } from 'src/app/model/ambiente';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

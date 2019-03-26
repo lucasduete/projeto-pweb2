@@ -1,7 +1,7 @@
-import { CursoService } from './../../curso.service';
+import { CursoService } from './../../service/curso.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Curso } from 'src/app/curso';
+import { Curso } from 'src/app/model/curso';
 
 @Component({
   selector: 'app-lista-curso',

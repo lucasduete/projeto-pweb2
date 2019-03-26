@@ -1,5 +1,5 @@
-import { CoordenadorService } from './../../coordenador.service';
-import { Coordenador } from './../../coordenador';
+import { CoordenadorService } from './../../service/coordenador.service';
+import { Coordenador } from './../../model/coordenador';
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 

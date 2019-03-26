@@ -1,16 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CoordenadorService } from '../coordenador.service';
+import { CoordenadorService } from '../../service/coordenador.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ListaCursoComponent } from '../visitante/lista-curso/lista-curso.component';
 
 @Component({
   selector: 'app-coordenador',
   templateUrl: './coordenador.component.html',
   styleUrls: ['./coordenador.component.css']
 })
-export class CoordenadorComponent implements OnInit {
 
-  @ViewChild(ListaCursoComponent) listaCurso: ListaCursoComponent;
+export class CoordenadorComponent implements OnInit {
 
   coordenadores : any[];
 

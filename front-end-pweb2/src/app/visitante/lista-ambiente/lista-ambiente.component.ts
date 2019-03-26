@@ -1,7 +1,7 @@
-import { AmbienteService } from './../../ambiente.service';
+import { AmbienteService } from './../../service/ambiente.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Ambiente } from 'src/app/ambiente';
+import { Ambiente } from 'src/app/model/ambiente';
 
 @Component({
   selector: 'app-lista-ambiente',

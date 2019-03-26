@@ -13,7 +13,7 @@ import { AddAmbienteComponent } from './coordenador/add-ambiente/add-ambiente.co
 import { AddCursoComponent } from './coordenador/add-curso/add-curso.component';
 import { AddProfessorComponent } from './coordenador/add-professor/add-professor.component';
 import { AddCoordenadorComponent } from './coordenador/add-coordenador/add-coordenador.component';
-import { CoordenadorComponent } from './coordenador/coordenador.component';
+import { CoordenadorComponent } from './coordenador/coordenador/coordenador.component';
 import { ProfessorComponent } from './coordenador/professor/professor.component';
 
 const routes: Routes = [
