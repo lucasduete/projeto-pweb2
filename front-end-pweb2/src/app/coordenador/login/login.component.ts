@@ -32,9 +32,7 @@ export class LoginComponent implements OnInit {
       this.route.navigate(["/inicioCoordenador"]);    
       },
       error => {
-        console.log(this.coordenador);
-        console.log(error);
-        // swal('Que pena!', 'Não foi possível realizar o login!', 'error');
+        alert('Não foi possível realizar o login!');
       }
     );
 }}

@@ -23,10 +23,15 @@ export class AddProfessorComponent implements OnInit {
     console.log("professor");
     this.professorService.addProfessor(this.professor).subscribe(
       data => {
-        // swal("Parabéns!", "Cadastro feito com sucesso!", "success");
+        alert("Cadastro feito com sucesso!");
+        //
+        this.professor = {
+          matricula: null,
+          nome: ''
+        }
       },
       error => {
-        // swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
+        alert("Não foi possível realizar o cadastro!");
         this.professor = {
           matricula: null,
           nome: ''

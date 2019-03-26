@@ -28,10 +28,17 @@ export class AddCoordenadorComponent implements OnInit {
   addCoordenador(): void {
     this.coordenadorService.addCoordenador(this.coordenador).subscribe(
       data => {
-        this.route.navigate(["/login"]); 
+        alert("Cadastro feito com sucesso!");
+        //
+        this.coordenador = {
+          matricula: null,
+          nome: '',
+          senha: ''
+        }
       },
       error => {
-        // swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
+        alert("Não foi possível realizar o cadastro!");
+        //
         this.coordenador = {
           matricula: null,
           nome: '',

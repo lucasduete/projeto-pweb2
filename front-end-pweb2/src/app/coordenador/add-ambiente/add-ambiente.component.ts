@@ -26,10 +26,17 @@ export class AddAmbienteComponent implements OnInit {
   addAmbiente(): void {
     this.ambienteService.addAmbinete(this.ambiente).subscribe(
       data => {
-        // swal('Parabéns!', 'Cadastro feito com sucesso!', 'success');
+        alert('Cadastro feito com sucesso!');
+        //
+        this.ambiente = {
+          codigo: null,
+          nome: ''
+        }
+        //swal('Parabéns!', 'Cadastro feito com sucesso!', 'success');
 
       },
       error => {
+        alert('Não foi possível realizar o cadastro!');
         // swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
         this.ambiente = {
           codigo: null,

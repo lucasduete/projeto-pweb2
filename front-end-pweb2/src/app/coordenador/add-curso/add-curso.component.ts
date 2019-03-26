@@ -28,10 +28,18 @@ export class AddCursoComponent implements OnInit {
   addCurso(): void {
     this.cursoService.addCurso(this.curso).subscribe(
       data => {
-        // swal("Parabéns!", "Cadastro feito com sucesso!", "success");
+        alert("Cadastro feito com sucesso!");
+        //
+        this.curso = {
+          codigo: null,
+          nome: '',
+          descricao: '',
+          disciplinas: null
+        }
       },
       error => {
-        // swal("Que pena!", "Não foi possível realizar o cadastro!", "error");
+        alert("Não foi possível realizar o cadastro!");
+        //
         this.curso = {
           codigo: null,
           nome: '',
