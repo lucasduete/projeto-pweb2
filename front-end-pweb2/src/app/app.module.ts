@@ -23,6 +23,10 @@ import { InicioCoordenadorComponent } from './coordenador/inicio-coordenador/ini
 import { MenuComponent } from "./visitante/menu/menu.component";
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { MenuCoordenadorComponent } from './coordenador/menu-coordenador/menu-coordenador.component';
+import { HorarioComponent } from './coordenador/horario/horario.component';
+import { AddHorarioComponent } from './coordenador/add-horario/add-horario.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +45,10 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     CoordenadorComponent,
     ListaCoordenadorComponent,
     InicioCoordenadorComponent,
-    MenuComponent
+    MenuComponent,
+    MenuCoordenadorComponent,
+    HorarioComponent,
+    AddHorarioComponent
   ],
   imports: [
     BrowserModule,

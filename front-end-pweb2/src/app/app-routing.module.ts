@@ -15,6 +15,8 @@ import { AddProfessorComponent } from './coordenador/add-professor/add-professor
 import { AddCoordenadorComponent } from './coordenador/add-coordenador/add-coordenador.component';
 import { CoordenadorComponent } from './coordenador/coordenador/coordenador.component';
 import { ProfessorComponent } from './coordenador/professor/professor.component';
+import { HorarioComponent } from './coordenador/horario/horario.component';
+import { AddHorarioComponent } from './coordenador/add-horario/add-horario.component';
 
 const routes: Routes = [
   { path: '', component: InicioComponent},
@@ -31,7 +33,9 @@ const routes: Routes = [
   { path: 'addCoordenador', component: AddCoordenadorComponent},
   { path: 'addAmbiente', component: AddAmbienteComponent},
   { path: 'addCurso', component: AddCursoComponent},
-  { path: 'addProfessor', component: AddProfessorComponent}
+  { path: 'addProfessor', component: AddProfessorComponent},
+  { path: 'horario', component: HorarioComponent},
+  { path: 'addHorario', component: AddHorarioComponent}
 ];
 
 @NgModule({
