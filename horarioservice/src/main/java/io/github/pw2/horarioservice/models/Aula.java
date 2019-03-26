@@ -1,5 +1,6 @@
 package io.github.pw2.horarioservice.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.pw2.horarioservice.enums.TipoTurno;
 import lombok.*;
 
@@ -41,6 +42,11 @@ public final class Aula implements Serializable, Cloneable {
 
     @Column(nullable = false)
     private Long codigoAmbiente;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "dialetivo_id", nullable = false)
+    @JsonIgnore
+    private DiaLetivo diaLetivo;
 
     public boolean equalsAula(Aula aula) {
         return this.getTurno().equals(aula.getTurno()) && this.getNumeroAula().equals(aula.getNumeroAula());
