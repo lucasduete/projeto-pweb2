@@ -9,7 +9,9 @@ import { Ambiente } from 'src/app/ambiente';
   styleUrls: ['./lista-ambiente.component.css']
 })
 export class ListaAmbienteComponent implements OnInit {
+  
   ambientes : any[];
+
   constructor(
     private ambienteService : AmbienteService
   ) { 

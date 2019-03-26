@@ -12,10 +12,10 @@ const httpOptions = {
 })
 export class CoordenadorService {
 
-  private url = 'http://localhost:8080/coordenador';
-  private urlLogin = 'http://localhost:8080/login';
-  //private url = 'http://192.168.0.104:8080/coordenador';
-  //private urlLogin = 'http://192.168.0.104:8080/login';
+  //private url = 'http://localhost:8080/coordenador';
+  //private urlLogin = 'http://localhost:8080/login';
+  private url = 'http://192.168.0.122:8080/coordenador';
+  private urlLogin = 'http://192.168.0.122:8080/login';
 
   constructor(
     private http : HttpClient

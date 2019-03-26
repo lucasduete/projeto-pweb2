@@ -12,7 +12,8 @@ const httpOptions = {
 })
 export class CursoService {
 
-  private url = 'http://localhost:8080/curso';
+  //private url = 'http://localhost:8080/curso';
+  private url = 'http://192.168.0.104:8080/curso';
 
   constructor(
     private http: HttpClient

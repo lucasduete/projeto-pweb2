@@ -24,11 +24,14 @@ const routes: Routes = [
   { path: 'listaCoordenador', component: ListaCoordenadorComponent},
   { path: 'login', component: LoginComponent},
   { path: 'curso', component: CursoComponent},
-  { path: 'coordenador/:matricula', component: CoordenadorComponent},
+  { path: 'inicioCoordenador', component: InicioCoordenadorComponent},
+  { path: 'coordenador', component: CoordenadorComponent},
   { path: 'ambiente', component: AmbienteComponent},
   { path: 'professor', component: ProfessorComponent},
   { path: 'addCoordenador', component: AddCoordenadorComponent},
-  { path: '', component: CoordenadorComponent}
+  { path: 'addAmbiente', component: AddAmbienteComponent},
+  { path: 'addCurso', component: AddCursoComponent},
+  { path: 'addProfessor', component: AddProfessorComponent}
 ];
 
 @NgModule({

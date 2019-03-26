@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AmbienteService } from './../../ambiente.service';
 
 @Component({
   selector: 'app-ambiente',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AmbienteComponent implements OnInit {
 
-  constructor() { }
+  ambientes : any[];
+    
+  constructor(
+    private ambienteService : AmbienteService
+  ) { 
+    this.getAmbientes();
+  }
 
   ngOnInit() {
   }
 
+  getAmbientes(){
+    this.ambienteService.getAmbientes().subscribe(res=>{
+      this.ambientes = res.body;
+    })
+  }
 }

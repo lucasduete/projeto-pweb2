@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   login(): void {
     
     this.coordenadorService.login(this.coordenador).subscribe( data=>{
-      this.route.navigate(["/coordenador", this.coordenador.matricula]);    
+      this.route.navigate(["/inicioCoordenador"]);    
       },
       error => {
         console.log(this.coordenador);
