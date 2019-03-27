@@ -1,4 +1,4 @@
-package io.github.pw2.horariohorarioService.controllers;
+package io.github.pw2.horarioservice.controllers;
 
 import io.github.pw2.horarioservice.exceptions.CursoSemHorarioAcademicoException;
 import io.github.pw2.horarioservice.models.Aula;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("horarioacademico")
+@RequestMapping("horario")
 public class HorarioAcademicoController {
 
     private final AulaService aulaService;
@@ -46,7 +46,7 @@ public class HorarioAcademicoController {
     public ResponseEntity buscarPorCurso(@PathVariable(name = "codigoCurso", required = true) Long codigoCurso) {
 
         if (codigoCurso == null || codigoCurso <= 0)
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Código inválido");
 
         try {
             List<HorarioAcademico> horariosPorCurso = this.horarioService.listarPorCurso(codigoCurso);
