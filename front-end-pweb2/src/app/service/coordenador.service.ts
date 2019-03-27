@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Coordenador } from './coordenador';
+import { Coordenador } from './../model/coordenador';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json'})
