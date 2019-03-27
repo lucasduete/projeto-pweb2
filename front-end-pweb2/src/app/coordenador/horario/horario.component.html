@@ -1,3 +1,82 @@
-<p>
-  horario works!
-</p>
+<app-menu-coordenador></app-menu-coordenador>
+<div class="container">
+  <div class="row" *ngIf="aulas.length > 0">
+    <div class="input-field col s12">
+      <select [(ngModel)]="aula.turno" class="green-text">
+        <option value="" disabled selected>Dia Letivo</option>
+        <option value="Monday">Segunda</option>
+        <option value="Tuesday">Terça</option>
+        <option value="Wednesday">Quarta</option>
+        <option value="Thursday">Quinta</option>
+        <option value="Friday">Sexta</option>
+      </select>
+    </div>
+  </div>
+  <ul class="collection" *ngIf="aulas.length > 0">
+    <li class="collection-item" *ngFor="let aula of aulas">{{aula.horaInicio}} - {{aula.horaFim}}</li>
+  </ul>
+  <div class="fixed-action-btn" style="margin-bottom: 5%" *ngIf="aulas.length > 0">
+    <button class="btn-floating waves-effect waves-light modal-trigger btn-large blue"><i class="large material-icons"
+        (click)="isDisplay()">save</i></button>
+  </div>
+  <div class="fixed-action-btn">
+    <button class="btn-floating waves-effect waves-light modal-trigger btn-large green"><i class="large material-icons"
+        (click)="isDisplay()">add</i></button>
+  </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal modal-fixed-footer" [ngStyle]="{'display': display}">
+  <div class="modal-content">
+      <div class="row">
+        <div class="input-field col s12">
+          <input [(ngModel)]="aula.numeroAula" class="green-text" type="number">
+          <label for="">Numero aula</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <select [(ngModel)]="aula.turno" class="green-text">
+            <option value="" disabled selected>Turno</option>
+            <option value="1">Manhã</option>
+            <option value="2">Tarde</option>
+            <option value="3">Noite</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="time" [(ngModel)]="aula.horaInicio" class="green-text">
+          <label for="">Hora de inicio</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="time" [(ngModel)]="aula.horaFim" class="green-text">
+          <label for="">Hora de final</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input [(ngModel)]="aula.matriculaProfessor" class="green-text" type="number">
+          <label for="">Codigo professor</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input [(ngModel)]="aula.codigoDisciplina" class="green-text" type="number">
+          <label for="">Codigo disciplina</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input [(ngModel)]="aula.codigoAmbiente" class="green-text" type="number">
+          <label for="">Codigo ambiente</label>
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+      <button (click)="isDisplay()" class="btn red" style="margin-right: 4% !important">Cancelar</button>
+      <button (click)="addAula()" class="btn green">Salvar</button>     
+  </div>
+</div>

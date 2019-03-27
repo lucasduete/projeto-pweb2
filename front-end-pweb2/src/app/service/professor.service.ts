@@ -13,7 +13,7 @@ const httpOptions = {
 export class ProfessorService {
   
   //private url = 'http://localhost:8080/professor';
-  private url = 'http://192.168.0.122:8080/professor'; 
+  private url = 'http://192.168.0.103:8080/professor'; 
   
   constructor(
     private http : HttpClient
