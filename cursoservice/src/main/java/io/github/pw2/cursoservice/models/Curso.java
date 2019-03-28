@@ -1,5 +1,6 @@
 package io.github.pw2.cursoservice.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,7 +24,8 @@ public class Curso {
     @Column(nullable = false)
     private String descricao;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "curso")
     private List<Disciplina> disciplinas;
 
 }

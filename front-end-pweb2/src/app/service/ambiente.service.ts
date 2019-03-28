@@ -13,7 +13,7 @@ const httpOptions = {
 export class AmbienteService {
   
   //private url = 'http://localhost:8080/ambiente';
-  private url = 'http://192.168.0.103:8080/ambiente';
+  private url = 'http://192.168.0.117:8080/ambiente';
   
   constructor(
     private http : HttpClient
