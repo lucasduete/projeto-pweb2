@@ -27,6 +27,7 @@ export class HorarioComponent implements OnInit {
 
   addHorario(){
     this.horario.diasLetivos = this.diasLetivos;
+    console.log(this.horario);
     this.horarioService.addHorario(this.horario).subscribe(
       data => {
         alert("Cadastro feito com sucesso!");

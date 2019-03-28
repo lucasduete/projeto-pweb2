@@ -6,12 +6,12 @@
     </div>
   </div>
   <div class="row">
-    <div class="input-field col s12">
-      <select [(ngModel)]="aula.turno" class="green-text">
+    <div class="input-field col s12 m12">
+      <select class="browser-default" [(ngModel)]="aula.turno">
         <option value="" disabled selected>Turno</option>
-        <option value="1">Manhã</option>
-        <option value="2">Tarde</option>
-        <option value="3">Noite</option>
+        <option value="MANHA">Manhã</option>
+        <option value="TARDE">Tarde</option>
+        <option value="NOITE">Noite</option>
       </select>
     </div>
   </div>
@@ -29,7 +29,7 @@
   </div>
   <div class="row">
     <div class="input-field col s12">
-      <input [(ngModel)]="aula.matriculaProfessor" class="green-text" type="number">
+      <input [(ngModel)]="aula.matriculaProfessor" class="green-text" type="text">
       <label for="">Codigo professor</label>
     </div>
   </div>
@@ -41,7 +41,7 @@
   </div>
   <div class="row">
     <div class="input-field col s12">
-      <input [(ngModel)]="aula.codigoAmbiente" class="green-text" type="number">
+      <input [(ngModel)]="aula.codigoAmbiente" class="green-text" type="text">
       <label for="">Codigo ambiente</label>
     </div>
   </div>

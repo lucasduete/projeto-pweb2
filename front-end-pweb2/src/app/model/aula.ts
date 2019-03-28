@@ -5,5 +5,5 @@ export class Aula{
     horaFim? : any;
     matriculaProfessor? : string;
     codigoDisciplina? : number;
-    codigoAmbiente? : number;
+    codigoAmbiente? : string;
 }
