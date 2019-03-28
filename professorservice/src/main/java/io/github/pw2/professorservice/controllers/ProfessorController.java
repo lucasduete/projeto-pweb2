@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +58,7 @@ public class ProfessorController {
     }
 
     @GetMapping("/{matricula}")
-    public ResponseEntity buscarPorMatricula(@PathVariable("matricula") Long matricula) {
+    public ResponseEntity buscarPorMatricula(@PathVariable("matricula") String matricula) {
 
         if (matricula == null) {
             return ResponseEntity.badRequest().body("E necessario fornecer a Matricula para concluir esta requisicao");
@@ -79,5 +80,50 @@ public class ProfessorController {
 
         return professor.<ResponseEntity>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
     }
+
+    @PutMapping("/{matricula}")
+    private ResponseEntity atualizarProfessor(@PathVariable(name = "matricula", required = true) String matricula,
+                                              @RequestBody Professor professor) {
+
+        if (matricula == null || matricula.isEmpty()) {
+            return ResponseEntity.badRequest().body("Voce deve informar uma matricula valida");
+
+        } else if (professor == null) {
+            return ResponseEntity.badRequest().body("Voce deve informar os dados do professor para que sejam atualizados.");
+
+        } else if (professor.getNome() == null || professor.getNome().isEmpty()) {
+            return ResponseEntity.badRequest().body("Voce deve informar um nome valido para o professor");
+        }
+
+        try {
+
+            Professor professorAtualizado = this.service.atualizar(professor, matricula);
+            return ResponseEntity.ok(professorAtualizado);
+
+        } catch (EntityNotFoundException enfEx) {
+            enfEx.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
+
+    }
+
+    @DeleteMapping("/{matricula}")
+    private ResponseEntity deletarProfessor(@PathVariable(name = "matricula", required = true) String matricula) {
+
+        if (matricula == null || matricula.isEmpty())
+            return ResponseEntity.badRequest().body("Voce deve informar uma matricula valida.");
+
+        try {
+
+            this.service.deletar(matricula);
+            return ResponseEntity.ok().build();
+
+        } catch (EntityNotFoundException enfEx) {
+            enfEx.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
+
+    }
+
 
 }
