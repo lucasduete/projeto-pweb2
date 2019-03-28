@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,6 +71,47 @@ public class AmbienteController     {
         Optional<Ambiente> ambiente = this.service.recuperarPorNome(nome);
 
         return ambiente.<ResponseEntity>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
+    }
+
+    @PutMapping("/{codigoAmbiente}")
+    private ResponseEntity atualizarAmbiente(@PathVariable(name = "codigoAmbiente", required = true) String codigoAmbiente,
+                                             @RequestBody Ambiente ambiente) {
+
+        if (codigoAmbiente == null || codigoAmbiente.isEmpty())
+            return ResponseEntity.badRequest().body("Voce deve informar um codigo de ambiente valido");
+
+        if (ambiente == null || ambiente.getNome() == null || ambiente.getNome().isEmpty()) {
+            return ResponseEntity.badRequest().body("Voce deve informar um nome valido para o ambiente");
+        }
+
+        try {
+
+            Ambiente ambienteAtualizado = this.service.atualizar(ambiente, codigoAmbiente);
+            return ResponseEntity.ok(ambienteAtualizado);
+
+        } catch (EntityNotFoundException enfEx) {
+            enfEx.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
+
+    }
+
+    @DeleteMapping("/{codigoAmbiente}")
+    private ResponseEntity deletarAmbiente(@PathVariable(name = "codigoAmbiente", required = true) String codigoAmbiente) {
+
+        if (codigoAmbiente == null || codigoAmbiente.isEmpty())
+            return ResponseEntity.badRequest().body("Voce deve informar um codigo de ambiente valido");
+
+        try {
+
+            this.service.remover(codigoAmbiente);
+            return ResponseEntity.ok().build();
+
+        } catch (EntityNotFoundException enfEx) {
+            enfEx.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
+
     }
 
 }

@@ -5,6 +5,7 @@ import io.github.pw2.ambienteservice.models.Ambiente;
 import io.github.pw2.ambienteservice.repositories.AmbienteRepository;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,26 @@ public class AmbienteService {
 
     public Ambiente salvar(Ambiente ambiente) {
         return this.repository.save(ambiente);
+    }
+
+    public Ambiente atualizar(@NotNull Ambiente ambienteNovo, @NotNull String codigoAmbiente) {
+
+        // Lança EntityNotFoundException caso nao exista este ambiente
+        Ambiente ambienteDB = this.repository.getOne(codigoAmbiente);
+
+        ambienteDB.setNome(ambienteNovo.getNome());
+
+        return this.repository.save(ambienteDB);
+    }
+
+    public void remover(@NotNull String codigoAmbiente) {
+
+        // Lança EntityNotFoundException caso nao exista este ambiente
+        Ambiente ambiente = this.repository.getOne(codigoAmbiente);
+
+        // Optou-se por esse metodo de delete ao inves de usar o deleteById para
+        // tratar manualmente se a entidade existe ou nao no DB antes de remover
+        this.repository.delete(ambiente);
     }
 
     public List<Ambiente> listarTodos() {
