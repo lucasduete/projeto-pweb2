@@ -44,6 +44,8 @@ public class CoordenadorService {
         // Pode Lançar EntityNotFoundException caso nao exista este coordanador
         Coordenador coordenador = this.repository.getOne(matricula);
 
+        // Optou-se por esse metodo de delete ao inves de usar o deleteById para
+        // tratar manualmente se a entidade existe ou nao no DB antes de remover
         this.repository.delete(coordenador);
     }
 
