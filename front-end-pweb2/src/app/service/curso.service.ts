@@ -2,6 +2,7 @@ import { Curso } from './../model/curso';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Disciplina } from '../model/disciplina';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,12 +13,22 @@ const httpOptions = {
 })
 export class CursoService {
 
+  disciplinas : Disciplina[] = [];
+
   //private url = 'http://localhost:8080/curso';
   private url = 'http://192.168.0.117:8080/curso';
 
   constructor(
     private http: HttpClient
   ) { }
+
+  addDisciplina(disciplina: Disciplina){
+    this.disciplinas.push(disciplina);
+  }
+
+  getDisciplina(){
+    return  this.disciplinas;
+  }
 
   getCurso(): Observable<HttpResponse<Curso[]>>
   {

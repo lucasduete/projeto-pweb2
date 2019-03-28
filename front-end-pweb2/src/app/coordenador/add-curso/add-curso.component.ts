@@ -10,7 +10,7 @@ import { ListaCursoComponent } from '../../visitante/lista-curso/lista-curso.com
 })
 export class AddCursoComponent implements OnInit {
 
-  @ViewChild(ListaCursoComponent) listaCurso: ListaCursoComponent;
+  disciplinas : any [];
 
   curso: Curso = {
     codigo: null,
@@ -22,10 +22,12 @@ export class AddCursoComponent implements OnInit {
   constructor(private cursoService: CursoService) { }
 
   ngOnInit() {
-    this.listaCurso.getCursos();
+    this.disciplinas = this.cursoService.getDisciplina();
+    console.log(this.disciplinas);
   }
 
   addCurso(): void {
+    this.curso.disciplinas = this.disciplinas;
     this.cursoService.addCurso(this.curso).subscribe(
       data => {
         alert("Cadastro feito com sucesso!");
@@ -48,7 +50,6 @@ export class AddCursoComponent implements OnInit {
         }
       }
     )
-    this.listaCurso.getCursos();
   }
 
 }

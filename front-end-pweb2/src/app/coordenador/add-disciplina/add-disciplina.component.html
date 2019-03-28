@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="container">
+    <div class="container">
+      <div class="container">
+        <br><br><br><br>
+        <div class="row">
+          <div class="input-field col s12">
+            <input [(ngModel)]="disciplina.nome" class="green-text" type="text">
+            <label for="">Nome</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input [(ngModel)]="disciplina.codigo" class="green-text" type="number">
+            <label for="">Codigo</label>
+          </div>
+        </div>
+        <div class="fixed-action-btn">
+          <button (click)="addDisciplina()" class="btn-floating waves-effect waves-light modal-trigger btn-large green"><i class="large material-icons"
+              >save</i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
