@@ -25,7 +25,6 @@ export class CoordenadorComponent implements OnInit {
   getCoordenadores(){
     this.coordendorService.getCoordenador().subscribe(res=>{
       this.coordenadores = res.body;
-      console.log(this.coordenadores);
     })
   }
 }

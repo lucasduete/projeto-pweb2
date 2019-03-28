@@ -1,3 +1,23 @@
-<p>
-  add-horario works!
-</p>
+<div class="container">
+  <div class="input-field col s12 m12">
+    <select class="browser-default" [(ngModel)]="diaLetivo.dia">
+      <option value="" disabled selected>Dia Letivo</option>
+      <option value="Monday">Segunda</option>
+      <option value="Tuesday">Terça</option>
+      <option value="Wednesday">Quarta</option>
+      <option value="Thursday">Quinta</option>
+      <option value="Friday">Sexta</option>
+    </select>
+  </div>
+  <ul class="collection">
+      <li class="collection-item" *ngFor="let aula of aulas">{{aula.horaInicio}} -  {{aula.horaFim}}</li>
+    </ul>
+  <div class="fixed-action-btn" style="margin-bottom: 7%">
+    <button class="btn-floating waves-effect waves-light modal-trigger btn-large blue"><i class="large material-icons"
+        (click)="addDia()">save</i></button>
+  </div>
+  <div class="fixed-action-btn">
+    <button class="btn-floating waves-effect waves-light modal-trigger btn-large green"><i class="large material-icons"
+        routerLink="/addAula">add</i></button>
+  </div>
+</div>

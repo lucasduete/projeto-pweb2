@@ -26,6 +26,8 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenuCoordenadorComponent } from './coordenador/menu-coordenador/menu-coordenador.component';
 import { HorarioComponent } from './coordenador/horario/horario.component';
 import { AddHorarioComponent } from './coordenador/add-horario/add-horario.component';
+import { AddAulaComponent } from './coordenador/add-aula/add-aula.component';
+import { ListaHorarioComponent } from './visitante/lista-horario/lista-horario.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { AddHorarioComponent } from './coordenador/add-horario/add-horario.compo
     MenuComponent,
     MenuCoordenadorComponent,
     HorarioComponent,
-    AddHorarioComponent
+    AddHorarioComponent,
+    AddAulaComponent,
+    ListaHorarioComponent
   ],
   imports: [
     BrowserModule,
