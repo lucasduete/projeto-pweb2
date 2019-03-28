@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,6 +58,53 @@ public class CoordenadorController {
     public ResponseEntity<Coordenador> recuperar(@PathVariable("matricula") String matricula) {
         Optional<Coordenador> coordenador = service.recuperar(matricula);
         return coordenador.isPresent() ? ResponseEntity.ok(coordenador.get()) : ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{matricula}")
+    private ResponseEntity atualizarCoordenador(@PathVariable(name = "matricula", required = true) String matricula,
+                                                @RequestBody Coordenador coordenador) {
+
+        if (matricula == null || matricula.isEmpty()) {
+            return ResponseEntity.badRequest().body("Voce deve informar uma matricula valida");
+
+        } else if (coordenador == null) {
+            return ResponseEntity.badRequest().body("Voce deve informar os dados do coordenador para que sejam atualizados.");
+
+        } else if (coordenador.getNome() == null || coordenador.getNome().isEmpty()) {
+            return ResponseEntity.badRequest().body("Voce deve informar um nome valido para o coordenador");
+
+        } else if (coordenador.getSenha() == null || coordenador.getSenha().isEmpty()) {
+            return ResponseEntity.badRequest().body("Voce deve informar uma senha valida para o coordenador");
+        }
+
+        try {
+
+            Coordenador coordenadorAtualiado = this.service.atualizar(coordenador, matricula);
+            return ResponseEntity.ok(coordenadorAtualiado);
+
+        } catch (EntityNotFoundException enfEx) {
+            enfEx.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
+
+    }
+
+    @DeleteMapping("/{matricula}")
+    private ResponseEntity deletarCoordenador(@PathVariable(name = "matricula", required = true) String matricula) {
+
+        if (matricula == null || matricula.isEmpty())
+            return ResponseEntity.badRequest().body("Voce deve informar uma matricula valida.");
+
+        try {
+
+            this.service.deletar(matricula);
+            return ResponseEntity.ok().build();
+
+        } catch (EntityNotFoundException enfEx) {
+            enfEx.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
+
     }
 
 }

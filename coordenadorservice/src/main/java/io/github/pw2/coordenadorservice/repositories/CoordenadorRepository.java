@@ -8,5 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface CoordenadorRepository extends JpaRepository<Coordenador, String> {
+
     public Optional<Coordenador> findByMatricula(String matricula);
 }

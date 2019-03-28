@@ -17,7 +17,7 @@ public interface CursoDisciplinaClient {
     ResponseEntity<?> listarTodosCursos();
 
     @GetMapping("/curso/{codigo}")
-    ResponseEntity<?> buscarCursoPorCodigo(@PathVariable(name = "codigo", required = true) Long codigo);
+    ResponseEntity<Curso> buscarCursoPorCodigo(@PathVariable(name = "codigo", required = true) Long codigo);
 
     @GetMapping("/curso/buscar")
     ResponseEntity<?> buscarCursoPorNome(@RequestParam(name = "nome", required = true) String nome);

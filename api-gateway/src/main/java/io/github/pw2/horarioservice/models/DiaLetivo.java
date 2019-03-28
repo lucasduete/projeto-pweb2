@@ -1,21 +1,17 @@
 package io.github.pw2.horarioservice.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import io.github.pw2.horarioservice.exceptions.AulaNaoCadastradaException;
-import io.github.pw2.horarioservice.exceptions.AulaRepetidaException;
-import io.github.pw2.horarioservice.exceptions.AulasRepetidasException;
+import io.github.pw2.horarioservice.models.exception.AulaNaoCadastradaException;
+import io.github.pw2.horarioservice.models.exception.AulaRepetidaException;
+import io.github.pw2.horarioservice.models.exception.AulasRepetidasException;
 import lombok.*;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+
 @Getter
 @Setter
 @ToString
@@ -24,21 +20,13 @@ import java.util.List;
 @AllArgsConstructor
 public final class DiaLetivo implements Serializable, Cloneable {
 
-    @Id
-    @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
     private DayOfWeek dia;
 
-    @JsonManagedReference
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST},
-            orphanRemoval = true, mappedBy = "diaLetivo")
     private List<Aula> aulas;
 
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "horarioacademico_id", nullable = false)
+    @JsonIgnore
     private HorarioAcademico horarioAcademico;
 
     {

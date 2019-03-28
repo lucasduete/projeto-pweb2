@@ -1,16 +1,13 @@
 package io.github.pw2.horarioservice.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import io.github.pw2.horarioservice.enums.TipoTurno;
+import io.github.ifpb.pw2.apigateway.valueObjects.AulaVO;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalTime;
 
-@Entity
 @Getter
 @Setter
 @ToString
@@ -19,35 +16,26 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public final class Aula implements Serializable, Cloneable {
 
-    @Id
-    @GeneratedValue
+
     private Long id;
 
-    @Column(nullable = false)
+
     private Integer numeroAula;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TipoTurno turno;
 
-    @Column
+    private TipoTurno turno;
     private LocalTime horaInicio;
 
-    @Column
+
     private LocalTime horaFim;
 
-    @Column(nullable = false)
     private String matriculaProfessor;
 
-    @Column(nullable = false)
     private Long codigoDisciplina;
 
-    @Column(nullable = false)
-    private String codigoAmbiente;
+    private Long codigoAmbiente;
 
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "dialetivo_id", nullable = false)
+
     private DiaLetivo diaLetivo;
 
     public boolean equalsAula(Aula aula) {
@@ -86,9 +74,9 @@ public final class Aula implements Serializable, Cloneable {
         return this.numeroAula == null || this.numeroAula <= 0 ||
                 this.turno == null || this.horaInicio == null ||
                 this.horaFim == null || this.codigoAmbiente == null ||
-                this.codigoAmbiente == null || this.codigoAmbiente.isEmpty() ||
-                this.codigoDisciplina == null || this.codigoDisciplina <= 0 ||
-                this.matriculaProfessor == null || this.matriculaProfessor.isEmpty();
+                this.codigoAmbiente <= 0 || this.codigoDisciplina == null ||
+                this.codigoDisciplina <= 0 || this.matriculaProfessor == null ||
+                this.matriculaProfessor.isEmpty();
     }
 
 }

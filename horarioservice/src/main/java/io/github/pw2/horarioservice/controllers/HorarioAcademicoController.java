@@ -7,13 +7,14 @@ import io.github.pw2.horarioservice.services.AulaService;
 import io.github.pw2.horarioservice.services.HorarioAcademicoService;
 import io.github.pw2.horarioservice.services.HorarioVOService;
 import io.github.pw2.horarioservice.valueObjects.HorarioAcademicoVO;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("horario")
+@RequestMapping(value = "horario")
 public class HorarioAcademicoController {
 
     private final AulaService aulaService;
@@ -32,7 +33,7 @@ public class HorarioAcademicoController {
         if (horarioAcademico == null || !horarioAcademico.validate())
             return ResponseEntity.badRequest().build();
 
-        HorarioAcademico horarioSalvo = this.horarioService.salvarHorario(horarioAcademico);
+       HorarioAcademico horarioSalvo = this.horarioService.salvarHorario(horarioAcademico);
 
         if (horarioSalvo != null) {
             return ResponseEntity.ok(horarioSalvo);
@@ -43,10 +44,10 @@ public class HorarioAcademicoController {
     }
 
     @GetMapping("/curso/{codigoCurso}")
-    public ResponseEntity buscarPorCurso(@PathVariable(name = "codigoCurso", required = true) Long codigoCurso) {
+    public ResponseEntity<List<HorarioAcademico>> buscarPorCurso(@PathVariable(name = "codigoCurso", required = true) Long codigoCurso) {
 
         if (codigoCurso == null || codigoCurso <= 0)
-            return ResponseEntity.badRequest().body("Código inválido");
+            return ResponseEntity.badRequest().build();
 
         try {
             List<HorarioAcademico> horariosPorCurso = this.horarioService.listarPorCurso(codigoCurso);
