@@ -29,9 +29,6 @@ public class AmbienteService {
 
         ambienteDB.setNome(ambienteNovo.getNome());
 
-        if (ambienteNovo.getCodigo() != null && !ambienteNovo.getCodigo().isEmpty())
-            ambienteDB.setCodigo(ambienteNovo.getCodigo());
-
         return this.repository.save(ambienteDB);
     }
 
