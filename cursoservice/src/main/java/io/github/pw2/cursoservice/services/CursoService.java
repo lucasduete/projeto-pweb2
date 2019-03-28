@@ -5,6 +5,7 @@ import io.github.pw2.cursoservice.models.Curso;
 import io.github.pw2.cursoservice.repositories.CursoRepository;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,9 @@ public class CursoService {
     }
 
     public Curso salvar(Curso curso) {
+
+        curso.getDisciplinas().forEach(disciplina -> disciplina.setCurso(curso));
+
         return this.repository.save(curso);
     }
 
