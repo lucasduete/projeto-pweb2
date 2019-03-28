@@ -20,7 +20,8 @@ public class CursoService {
 
     public Curso salvar(Curso curso) {
 
-        curso.getDisciplinas().forEach(disciplina -> disciplina.setCurso(curso));
+        if(curso.getDisciplinas() != null)
+            curso.getDisciplinas().forEach(disciplina -> disciplina.setCurso(curso));
 
         return this.repository.save(curso);
     }

@@ -58,10 +58,9 @@ public class AmbienteController     {
     }
 
     @GetMapping("/{codigo}")
-    public ResponseEntity buscarPorCodigo(@PathVariable("codigo") String codigo) {
+    public ResponseEntity<Ambiente> buscarPorCodigo(@PathVariable("codigo") String codigo) {
 
         Optional<Ambiente> ambiente = this.service.recuperarPorCodigo(codigo);
-
         return ambiente.<ResponseEntity>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
     }
 
