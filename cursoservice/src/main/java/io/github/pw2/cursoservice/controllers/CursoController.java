@@ -71,7 +71,7 @@ public class CursoController {
     }
 
     @GetMapping("/{codigo}")
-    public ResponseEntity buscarPorCodigo(@PathVariable(name = "codigo", required = true) Long codigo) {
+    public ResponseEntity<Curso> buscarPorCodigo(@PathVariable(name = "codigo", required = true) Long codigo) {
 
         Optional<Curso> curso = this.service.buscarPorCodigo(codigo);
 
