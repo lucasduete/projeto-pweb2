@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
     import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,8 +25,11 @@ public final class HorarioAcademico implements Serializable {
 
     private Integer numeroPeriodo;
 
-
     private List<DiaLetivo> diasLetivos;
+
+    {
+        diasLetivos = new ArrayList<>();
+    }
 
     public void setDiasLetivos(@NotNull final List<DiaLetivo> diasLetivos) {
 
