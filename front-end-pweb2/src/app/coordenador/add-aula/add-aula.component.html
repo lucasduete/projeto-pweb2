@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="input-field col s12">
+      <input [(ngModel)]="aula.numeroAula" class="green-text" type="number">
+      <label for="">Numero aula</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <select [(ngModel)]="aula.turno" class="green-text">
+        <option value="" disabled selected>Turno</option>
+        <option value="1">Manhã</option>
+        <option value="2">Tarde</option>
+        <option value="3">Noite</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input type="time" [(ngModel)]="aula.horaInicio" class="green-text">
+      <label for="">Hora de inicio</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input type="time" [(ngModel)]="aula.horaFim" class="green-text">
+      <label for="">Hora de final</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input [(ngModel)]="aula.matriculaProfessor" class="green-text" type="number">
+      <label for="">Codigo professor</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input [(ngModel)]="aula.codigoDisciplina" class="green-text" type="number">
+      <label for="">Codigo disciplina</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input [(ngModel)]="aula.codigoAmbiente" class="green-text" type="number">
+      <label for="">Codigo ambiente</label>
+    </div>
+  </div>
+  <div class="fixed-action-btn">
+      <button class="btn-floating waves-effect waves-light modal-trigger btn-large green"><i class="large material-icons"
+          (click)="addAula()">save</i></button>
+    </div>
+</div>

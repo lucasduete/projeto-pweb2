@@ -20,7 +20,7 @@ public final class AulaVO implements Serializable {
     private LocalTime horaInicio;
     private LocalTime horaFim;
 
-    private Long codigoAmbiente;
+    private String codigoAmbiente;
     private String matriculaProfessor;
 
     private Long codigoCurso;

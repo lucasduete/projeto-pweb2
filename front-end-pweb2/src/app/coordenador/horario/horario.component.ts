@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Aula } from 'src/app/model/aula';
+import { DiaLetivo } from 'src/app/model/diaLetivo';
+import { Horario } from 'src/app/model/horario';
+import { HorarioService } from './../../service/horario.service';
 
 @Component({
   selector: 'app-horario',
@@ -7,47 +10,41 @@ import { Aula } from 'src/app/model/aula';
   styleUrls: ['./horario.component.css']
 })
 export class HorarioComponent implements OnInit {
-  aulas: Aula[] = [];
 
-  aula: Aula ={
-    numeroAula : null,
-    turno : "",
-    horaInicio : null,
-    horaFim : null,
-    matriculaProfessor : "",
-    codigoDisciplina : null,
-    codigoAmbiente : null
+  diasLetivos: any [];
+ 
+  horario: Horario = {
+    codigoCurso: null,
+    diasLetivos: null,
+    numeroPeriodo: null
   };
 
-  display = 'none';
-
-  constructor() { }
+  constructor(private horarioService: HorarioService) { }
 
   ngOnInit() {
-    console.log(this.aulas.length);
+    this.diasLetivos = this.horarioService.getDias();
   }
 
-  isDisplay() {
-    if (this.display == 'block') {
-      this.display = 'none';
-    } else { 
-      this.display = 'block'; 
-    }
-  }
-
-  addAula(){
-    this.aulas.push(this.aula);
-    alert("Aula cadastrada!");
-    //
-    this.display = 'none';
-    this.aula = {
-      numeroAula : null,
-      turno : "",
-      horaInicio : null,
-      horaFim : null,
-      matriculaProfessor : "",
-      codigoDisciplina : null,
-      codigoAmbiente : null
-    };
+  addHorario(){
+    this.horario.diasLetivos = this.diasLetivos;
+    this.horarioService.addHorario(this.horario).subscribe(
+      data => {
+        alert("Cadastro feito com sucesso!");
+        //
+        this.horario = {
+          codigoCurso: null,
+          diasLetivos: null,
+          numeroPeriodo: null
+        };
+      },
+      error => {
+        alert("Não foi possível realizar o cadastro!");
+        this.horario = {
+          codigoCurso: null,
+          diasLetivos: null,
+          numeroPeriodo: null
+        };
+      }
+    )
   }
 }
