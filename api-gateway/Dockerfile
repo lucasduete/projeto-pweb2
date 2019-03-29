@@ -7,4 +7,4 @@ COPY run.sh run.sh
 
 CMD ["sh", "run.sh"]
 
-EXPOSE 8080
+EXPOSE 80
