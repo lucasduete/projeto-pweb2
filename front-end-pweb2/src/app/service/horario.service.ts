@@ -4,6 +4,7 @@ import { Aula } from '../model/aula';
 import { DiaLetivo } from '../model/diaLetivo';
 import { Horario } from '../model/horario';
 import { Observable } from 'rxjs';
+import {environment} from "../../environments/environment";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,7 +18,7 @@ export class HorarioService {
   aulas: Aula[] = [];
   diasLetivos: DiaLetivo[] = [];
   horarios: Horario[] = [];
-  private url = 'http://localhost:8080/horario';
+  private url = environment.apiUrl + 'horario';
 
   constructor(
     private http : HttpClient

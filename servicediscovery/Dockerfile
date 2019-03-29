@@ -8,4 +8,4 @@ ENTRYPOINT ["/usr/bin/java"]
 
 CMD ["-jar", "servicediscovery.jar"]
 
-EXPOSE 8761
+EXPOSE 80

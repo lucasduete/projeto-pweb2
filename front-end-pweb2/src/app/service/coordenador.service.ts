@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Coordenador } from './../model/coordenador';
+import {environment} from "../../environments/environment";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -14,8 +15,8 @@ export class CoordenadorService {
 
   //private url = 'http://localhost:8080/coordenador';
   //private urlLogin = 'http://localhost:8080/login';
-  private url = 'http://192.168.0.103:8080/coordenador';
-  private urlLogin = 'http://192.168.0.103:8080/login';
+  private url = environment.apiUrl + 'coordenador';
+  private urlLogin = environment.apiUrl + 'login';
 
   constructor(
     private http : HttpClient
