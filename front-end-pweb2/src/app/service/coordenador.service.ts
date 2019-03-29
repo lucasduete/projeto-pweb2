@@ -13,8 +13,6 @@ const httpOptions = {
 })
 export class CoordenadorService {
 
-  //private url = 'http://localhost:8080/coordenador';
-  //private urlLogin = 'http://localhost:8080/login';
   private url = environment.apiUrl + 'coordenador';
   private urlLogin = environment.apiUrl + 'login';
 

@@ -28,6 +28,7 @@ import { HorarioComponent } from './coordenador/horario/horario.component';
 import { AddHorarioComponent } from './coordenador/add-horario/add-horario.component';
 import { AddAulaComponent } from './coordenador/add-aula/add-aula.component';
 import { ListaHorarioComponent } from './visitante/lista-horario/lista-horario.component';
+import { AddDisciplinaComponent } from './coordenador/add-disciplina/add-disciplina.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ListaHorarioComponent } from './visitante/lista-horario/lista-horario.c
     HorarioComponent,
     AddHorarioComponent,
     AddAulaComponent,
-    ListaHorarioComponent
+    ListaHorarioComponent,
+    AddDisciplinaComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +47,7 @@ public class CursoController {
             return ResponseEntity.badRequest().body("Uma ou mais Disciplinas enviadas sao invalidas, verifique os atributos e tente novamente.");
         }
 
-        // Se nada for null entao pode-se persistir o ambiente
+        // Se nada for null entao pode-se persistir o curso
 
         Curso cursoSalvo = this.service.salvar(curso);
 
@@ -62,7 +63,7 @@ public class CursoController {
     public ResponseEntity listarTodos() {
         List<Curso> cursos = this.service.listarAll();
 
-        if (cursos ==  null || cursos.isEmpty()) {
+        if (cursos == null || cursos.isEmpty()) {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.ok(cursos);
@@ -71,7 +72,7 @@ public class CursoController {
     }
 
     @GetMapping("/{codigo}")
-    public ResponseEntity buscarPorCodigo(@PathVariable(name = "codigo", required = true) Long codigo) {
+    public ResponseEntity<Curso> buscarPorCodigo(@PathVariable(name = "codigo", required = true) Long codigo) {
 
         Optional<Curso> curso = this.service.buscarPorCodigo(codigo);
 
@@ -84,6 +85,50 @@ public class CursoController {
         Optional<Curso> curso = this.service.buscarPorNome(nome);
 
         return curso.<ResponseEntity>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
+    }
+
+    @PutMapping("/{codigoCurso}")
+    private ResponseEntity atualizarCurso(@PathVariable(name = "codigoCurso", required = true) Long codigoCurso,
+                                          @RequestBody Curso curso) {
+
+        if (codigoCurso == null || codigoCurso <= 0)
+            return ResponseEntity.badRequest().body("Voce deve informar um codigo de curso valido");
+
+        if (curso == null || ((curso.getNome() == null || curso.getNome().isEmpty()) &&
+                (curso.getDescricao() == null || curso.getDescricao().isEmpty()) &&
+                (curso.getDisciplinas() == null || curso.getDisciplinas().isEmpty()))) {
+            return ResponseEntity.badRequest().body("Voce deve informar os dados do curso que devem ser atualizados");
+
+        }
+
+        try {
+
+            Curso cursoAtualizado = this.service.atualizar(curso, codigoCurso);
+            return ResponseEntity.ok(cursoAtualizado);
+
+        } catch (EntityNotFoundException enfEx) {
+            enfEx.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
+
+    }
+
+    @DeleteMapping("/{codigoCurso}")
+    private ResponseEntity deletarCurso(@PathVariable(name = "codigoCurso", required = true) Long codigoCurso) {
+
+        if (codigoCurso == null || codigoCurso <= 0)
+            return ResponseEntity.badRequest().body("Voce deve informar um codigo de curso valido");
+
+        try {
+
+            this.service.deletar(codigoCurso);
+            return ResponseEntity.ok().build();
+
+        } catch (EntityNotFoundException enfEx) {
+            enfEx.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
+
     }
 
     private boolean verificaDisciplinasValidas(List<Disciplina> disciplinas) {

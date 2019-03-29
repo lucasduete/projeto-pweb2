@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {environment} from "../../environments/environment";
+import { Disciplina } from '../model/disciplina';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -13,12 +14,21 @@ const httpOptions = {
 })
 export class CursoService {
 
-  //private url = 'http://localhost:8080/curso';
+  disciplinas : Disciplina[] = [];
+
   private url = environment.apiUrl + 'curso';
 
   constructor(
     private http: HttpClient
   ) { }
+
+  addDisciplina(disciplina: Disciplina){
+    this.disciplinas.push(disciplina);
+  }
+
+  getDisciplina(){
+    return  this.disciplinas;
+  }
 
   getCurso(): Observable<HttpResponse<Curso[]>>
   {

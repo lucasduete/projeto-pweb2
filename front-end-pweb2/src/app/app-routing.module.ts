@@ -18,6 +18,7 @@ import { ProfessorComponent } from './coordenador/professor/professor.component'
 import { HorarioComponent } from './coordenador/horario/horario.component';
 import { AddHorarioComponent } from './coordenador/add-horario/add-horario.component';
 import { AddAulaComponent } from './coordenador/add-aula/add-aula.component';
+import { AddDisciplinaComponent } from './coordenador/add-disciplina/add-disciplina.component'
 
 const routes: Routes = [
   { path: '', component: InicioComponent},
@@ -37,7 +38,8 @@ const routes: Routes = [
   { path: 'addProfessor', component: AddProfessorComponent},
   { path: 'horario', component: HorarioComponent},
   { path: 'addDias', component: AddHorarioComponent},
-  { path: 'addAula', component: AddAulaComponent}
+  { path: 'addAula', component: AddAulaComponent},
+  { path: 'addDisciplina', component: AddDisciplinaComponent}
 ];
 
 @NgModule({

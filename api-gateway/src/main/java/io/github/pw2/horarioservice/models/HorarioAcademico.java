@@ -1,18 +1,15 @@
 package io.github.pw2.horarioservice.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import io.github.pw2.horarioservice.exceptions.DiaLetivoRepetidoException;
+
+import io.github.pw2.horarioservice.models.exception.DiaLetivoRepetidoException;
 import lombok.*;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+    import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+
 @Getter
 @Setter
 @ToString
@@ -21,22 +18,17 @@ import java.util.List;
 @AllArgsConstructor
 public final class HorarioAcademico implements Serializable {
 
-    @Id
-    @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
     private Long codigoCurso;
 
-    @Column(nullable = false)
+
     private Integer numeroPeriodo;
 
-    @JsonManagedReference
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "horarioAcademico")
     private List<DiaLetivo> diasLetivos;
 
     {
-        this.diasLetivos = new ArrayList<>();
+        diasLetivos = new ArrayList<>();
     }
 
     public void setDiasLetivos(@NotNull final List<DiaLetivo> diasLetivos) {
@@ -82,10 +74,10 @@ public final class HorarioAcademico implements Serializable {
     }
 
     public boolean validate() {
-        return this.numeroPeriodo != null && this.numeroPeriodo >= 0 &&
-                this.codigoCurso != null && this.codigoCurso >= 0 &&
-                this.diasLetivos != null && !this.diasLetivos.isEmpty() &&
-                this.diasLetivos.stream().allMatch(DiaLetivo::validate);
+        return this.numeroPeriodo == null || this.numeroPeriodo <= 0 ||
+                this.codigoCurso == null || this.codigoCurso <= 0 ||
+                this.diasLetivos == null || this.diasLetivos.isEmpty() ||
+                this.diasLetivos.stream().anyMatch(diaLetivo -> !diaLetivo.validate());
     }
 
 }

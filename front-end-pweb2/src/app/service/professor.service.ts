@@ -13,9 +13,8 @@ const httpOptions = {
 })
 export class ProfessorService {
   
-  //private url = 'http://localhost:8080/professor';
   private url = environment.apiUrl + 'professor';
-  
+
   constructor(
     private http : HttpClient
   ) { }

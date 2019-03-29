@@ -14,9 +14,8 @@ const httpOptions = {
 })
 export class AmbienteService {
   
-  //private url = 'http://localhost:8080/ambiente';
   private url = environment.apiUrl + 'ambiente';
-  
+
   constructor(
     private http : HttpClient
   ) { }

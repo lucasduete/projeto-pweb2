@@ -5,6 +5,7 @@ import io.github.pw2.cursoservice.models.Disciplina;
 import io.github.pw2.cursoservice.repositories.DisciplinaRepository;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,28 @@ public class DisciplinaService {
 
     public DisciplinaService(DisciplinaRepository repository) {
         this.repository = repository;
+    }
+
+    public Disciplina atualizar(@NotNull final Disciplina disciplinaNova, @NotNull final Long codigoDisciplina) {
+
+        // Pode Lançar EntityNotFoundException caso nao exista este curso
+        Disciplina disciplinaDB = this.repository.getOne(codigoDisciplina);
+
+        if (disciplinaNova.getNome() != null && !disciplinaNova.getNome().isEmpty()) {
+            disciplinaDB.setNome(disciplinaDB.getNome());
+        } else return null;
+
+        return this.repository.save(disciplinaDB);
+    }
+
+    public void deletar(@NotNull final Long codigoDisciplina) {
+
+        // Pode Lançar EntityNotFoundException caso nao exista este disciplina
+        Disciplina disciplina = this.repository.getOne(codigoDisciplina);
+
+        // Optou-se por esse metodo de delete ao inves de usar o deleteById para
+        // tratar manualmente se a entidade existe ou nao no DB antes de remover
+        this.repository.delete(disciplina);
     }
 
     public List<Disciplina> listarAll() {

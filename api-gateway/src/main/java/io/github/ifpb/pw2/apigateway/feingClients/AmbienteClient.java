@@ -15,7 +15,7 @@ public interface AmbienteClient {
     ResponseEntity<?> listarTodos();
 
     @GetMapping("/{codigo}")
-    ResponseEntity<?> buscarPorCodigo(@PathVariable("codigo") String codigo);
+    ResponseEntity<Ambiente> buscarPorCodigo(@PathVariable("codigo") String codigo);
 
     @GetMapping("/buscar")
     ResponseEntity<?> buscarPorNome(@RequestParam(name = "nome", required = true) String nome);
