@@ -33,7 +33,7 @@ public final class Aula implements Serializable, Cloneable {
 
     private Long codigoDisciplina;
 
-    private Long codigoAmbiente;
+    private String codigoAmbiente;
 
 
     private DiaLetivo diaLetivo;
@@ -74,7 +74,6 @@ public final class Aula implements Serializable, Cloneable {
         return this.numeroAula == null || this.numeroAula <= 0 ||
                 this.turno == null || this.horaInicio == null ||
                 this.horaFim == null || this.codigoAmbiente == null ||
-                this.codigoAmbiente <= 0 || this.codigoDisciplina == null ||
                 this.codigoDisciplina <= 0 || this.matriculaProfessor == null ||
                 this.matriculaProfessor.isEmpty();
     }

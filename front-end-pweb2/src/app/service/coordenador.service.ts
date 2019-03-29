@@ -14,8 +14,8 @@ export class CoordenadorService {
 
   //private url = 'http://localhost:8080/coordenador';
   //private urlLogin = 'http://localhost:8080/login';
-  private url = 'http://192.168.0.103:8080/coordenador';
-  private urlLogin = 'http://192.168.0.103:8080/login';
+  private url = 'http://192.168.0.117:8080/coordenador';
+  private urlLogin = 'http://192.168.0.117:8080/login';
 
   constructor(
     private http : HttpClient

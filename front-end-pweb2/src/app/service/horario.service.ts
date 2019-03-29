@@ -17,7 +17,9 @@ export class HorarioService {
   aulas: Aula[] = [];
   diasLetivos: DiaLetivo[] = [];
   horarios: Horario[] = [];
-  private url = 'http://localhost:8080/horario';
+  
+  //private url = 'http://localhost:8080/horario';
+  private url = 'http://192.168.0.117:8080/horario';
 
   constructor(
     private http : HttpClient
