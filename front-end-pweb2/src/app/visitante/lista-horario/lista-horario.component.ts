@@ -14,6 +14,7 @@ export class ListaHorarioComponent implements OnInit {
 
   ngOnInit() {
     this.horarios = this.horarioService.getHorario();
+    console.log(this.horarios);
   }
 
 }
