@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Ambiente } from './../model/ambiente';
+import {environment} from "../../environments/environment";
+
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,9 +14,8 @@ const httpOptions = {
 })
 export class AmbienteService {
   
-  //private url = 'http://localhost:8080/ambiente';
-  private url = 'http://192.168.0.117:8080/ambiente';
-  
+  private url = environment.apiUrl + 'ambiente';
+
   constructor(
     private http : HttpClient
   ) { }
