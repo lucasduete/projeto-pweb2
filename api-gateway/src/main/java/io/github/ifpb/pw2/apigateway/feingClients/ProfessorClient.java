@@ -15,7 +15,7 @@ public interface ProfessorClient {
     ResponseEntity<?> listarTodos();
 
     @GetMapping("/{matricula}")
-    ResponseEntity<?> buscarPorMatricula(@PathVariable("matricula") Long matricula);
+    ResponseEntity<Professor> buscarPorMatricula(@PathVariable("matricula") String matricula);
 
     @GetMapping("/buscar")
     ResponseEntity<?> buscarPorNome(@RequestParam(name = "nome", required = true) String nome);

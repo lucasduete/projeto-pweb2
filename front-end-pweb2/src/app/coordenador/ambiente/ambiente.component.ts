@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AmbienteService } from './../../service/ambiente.service';
+import { HorarioService } from './../../service/horario.service';
+import { Routes, ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-ambiente',
@@ -11,7 +13,9 @@ export class AmbienteComponent implements OnInit {
   ambientes : any[];
     
   constructor(
-    private ambienteService : AmbienteService
+    private ambienteService : AmbienteService,
+    private horarioService : HorarioService,
+    private router: Router
   ) { 
     this.getAmbientes();
   }
@@ -23,5 +27,14 @@ export class AmbienteComponent implements OnInit {
     this.ambienteService.getAmbientes().subscribe(res=>{
       this.ambientes = res.body;
     })
+  }
+
+  getHorario(id: number){
+    this.horarioService.getHorarioAmbiente(id).subscribe(
+      res=>{
+        this.horarioService.saveHorario(res.body);
+        this.router.navigate(["/listaHorarioAmbiente"]);  
+      }
+    )
   }
 }

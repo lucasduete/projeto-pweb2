@@ -32,10 +32,10 @@ public class DisciplinaController {
     }
 
     @GetMapping("/{codigo}")
-    public ResponseEntity buscarPorCodigo(@PathParam("codigo") Long codigo) {
+    public ResponseEntity<Disciplina> buscarPorCodigo(@PathParam("codigo") Long codigo) {
 
         if (codigo == null || codigo < 0)
-            return ResponseEntity.badRequest().body("Para recuperar a disciplina e necessario passar um codigo por parametro!");
+            return ResponseEntity.badRequest().build();
 
         Optional<Disciplina> disciplina = this.service.buscarPorCodigo(codigo);
 

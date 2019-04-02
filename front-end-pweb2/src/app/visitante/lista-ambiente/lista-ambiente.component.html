@@ -1,5 +1,5 @@
 <div class="container">
   <ul class="collection">
-    <li *ngFor="let ambiente of ambientes" class="collection-item">{{ambiente.nome}}</li>
+    <li *ngFor="let ambiente of ambientes" class="collection-item" (click) = getHorario(ambiente.codigo)>{{ambiente.nome}}</li>
   </ul>
 </div>

@@ -3,6 +3,8 @@ package io.github.pw2.cursoservice.controllers;
 import io.github.pw2.cursoservice.models.Curso;
 import io.github.pw2.cursoservice.models.Disciplina;
 import io.github.pw2.cursoservice.services.CursoService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +18,16 @@ import java.util.Optional;
 public class CursoController {
 
     private final CursoService service;
-
+    private Logger logger;
     public CursoController(CursoService service) {
         this.service = service;
+        logger  = LogManager.getLogger(CursoController.class);
     }
 
     @PostMapping
     public ResponseEntity saveCursoDisciplinas(@RequestBody Curso curso) {
 
+        logger.info("Tentativa de salvar um novo Curso");
         // Este unico EndPoint deve ser responsavel por persistir curso e Disciplina
 
         // Verifica se o curso e nulo e se algum de seus atributos sao nulos
@@ -31,7 +35,7 @@ public class CursoController {
         if (curso == null) {
             return ResponseEntity.badRequest().body("Nao foi enviado nenhum curso para ser persistido.");
         } else if (curso.getCodigo() == null) {
-            return ResponseEntity.badRequest().body("E necessario enviar uma matricula valida para que o curso seja persistido.");
+            return ResponseEntity.badRequest().body("E necessario enviar uma código válido para que o curso seja persistido.");
         } else if (curso.getNome() == null || curso.getNome().isEmpty()) {
             return ResponseEntity.badRequest().body("E necessario enviar um nome valido para que o curso seja persistido.");
         } else if (curso.getDescricao() == null || curso.getDescricao().isEmpty()) {
@@ -54,6 +58,7 @@ public class CursoController {
         if (cursoSalvo == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Nao foi possivel persitir esta entidade.");
         } else {
+            logger.info("Curso salvo: "+ curso.getCodigo());
             return ResponseEntity.ok(curso);
         }
 

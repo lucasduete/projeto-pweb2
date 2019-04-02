@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Curso } from 'src/app/model/curso';
 import { HorarioService } from './../../service/horario.service';
+import { Routes, ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-curso',
@@ -14,7 +15,8 @@ export class ListaCursoComponent implements OnInit {
   
   constructor(
     private cursoService : CursoService,
-    private horarioService : HorarioService
+    private horarioService : HorarioService,
+    private router: Router
   ) {
     
   }
@@ -26,14 +28,15 @@ export class ListaCursoComponent implements OnInit {
   getCursos(){
     this.cursoService.getCurso().subscribe(res=>{
       this.cursos = res.body;
+      console.log(this.cursos);
     });
-    console.log(this.cursos);
   }
 
   getHorario(id: number){
     this.horarioService.getHorarioCurso(id).subscribe(
       res=>{
         this.horarioService.saveHorario(res.body);
+        this.router.navigate(["/listaHorarioCurso"]);  
       }
     )
   }

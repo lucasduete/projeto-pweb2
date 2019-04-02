@@ -1,0 +1,15 @@
+<div class="container">
+  <ul class="collection">
+    <li class="collection-item" *ngFor="let diaLetivo of horarios.diasLetivos">{{diaLetivo.dia}}
+      <ul class="collection">
+        <li class="collection-item" *ngFor="let aula of diaLetivo.aulas">
+          Hora inicio: {{aula.horaInicio}} - 
+          Hora fim: {{aula.horaFim}} - 
+          Curso: {{aula.codigoCurso}} -
+          Disciplina: {{aula.codigoDisciplina}} - 
+          Turno: {{aula.turno}}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

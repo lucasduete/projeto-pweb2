@@ -58,10 +58,10 @@ public class ProfessorController {
     }
 
     @GetMapping("/{matricula}")
-    public ResponseEntity buscarPorMatricula(@PathVariable("matricula") String matricula) {
+    public ResponseEntity<Professor> buscarPorMatricula(@PathVariable("matricula") String matricula) {
 
         if (matricula == null) {
-            return ResponseEntity.badRequest().body("E necessario fornecer a Matricula para concluir esta requisicao");
+            return ResponseEntity.badRequest().build();
         }
 
         Optional<Professor> professor = this.service.buscarPorMatricula(matricula);

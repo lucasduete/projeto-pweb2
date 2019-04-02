@@ -1,6 +1,7 @@
 package io.github.ifpb.pw2.apigateway.feingClients;
 
 import io.github.pw2.cursoservice.models.Curso;
+import io.github.pw2.cursoservice.models.Disciplina;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public interface CursoDisciplinaClient {
     ResponseEntity<?> listarTodasDisciplinas();
 
     @GetMapping("/disciplina/{codigo}")
-    ResponseEntity<?> buscarDisciplinaPorCodigo(@PathParam("{codigo}") Long codigo);
+    ResponseEntity<Disciplina> buscarPorCodigo(@PathParam("codigo") Long codigo);
 
     @PostMapping("/disciplina/buscar")
     ResponseEntity<?> buscarDisciplinaPorNome(@RequestParam(value = "nome", required = true) String nome);

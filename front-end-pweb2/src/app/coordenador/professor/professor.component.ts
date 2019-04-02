@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfessorService } from './../../service/professor.service';
+import { HorarioService } from './../../service/horario.service';
+import { Routes, ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-professor',
@@ -11,7 +13,9 @@ export class ProfessorComponent implements OnInit {
   professores: any[];
 
   constructor(
-    private professorService: ProfessorService
+    private professorService: ProfessorService,
+    private horarioService : HorarioService,
+    private router: Router
   ) {
     this.getProfessores();
   }
@@ -23,6 +27,14 @@ export class ProfessorComponent implements OnInit {
     this.professorService.getProfessor().subscribe(res => {
       this.professores = res.body;
     })
+  }
 
+  getHorario(id: number){
+    this.horarioService.getHorarioProfessor(id).subscribe(
+      res=>{
+        this.horarioService.saveHorario(res.body);
+        this.router.navigate(["/listaHorarioProfessor"]);  
+      }
+    )
   }
 }
