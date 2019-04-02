@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListaHorarioComponent } from './lista-horario.component';
+import { ListaHorarioCursoComponent } from './lista-horario-curso.component';
 
-describe('ListaHorarioComponent', () => {
-  let component: ListaHorarioComponent;
-  let fixture: ComponentFixture<ListaHorarioComponent>;
+describe('ListaHorarioCursoComponent', () => {
+  let component: ListaHorarioCursoComponent;
+  let fixture: ComponentFixture<ListaHorarioCursoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListaHorarioComponent ]
+      declarations: [ ListaHorarioCursoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListaHorarioComponent);
+    fixture = TestBed.createComponent(ListaHorarioCursoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

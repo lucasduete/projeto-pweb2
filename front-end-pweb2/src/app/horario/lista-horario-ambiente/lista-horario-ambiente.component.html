@@ -1,0 +1,19 @@
+<div class="container">
+  <ul class="collection">
+    <li class="collection-item" *ngFor="let diaLetivo of horarios.diasLetivos">{{diaLetivo.dia}}
+      <ul class="collection">
+        <li class="collection-item" *ngFor="let aula of diaLetivo.aulas">
+          Ambiente: {{aula.codigoAmbiente}} -
+          Curso: {{aula.codigoCurso}} - 
+          Disciplina: {{aula.codigoDisciplina}} - 
+          Hora Inicio: {{aula.horaInicio}} - 
+          Hora fim: {{aula.horaFim}} -
+          Professor: {{aula.matriculaProfessor}} - 
+          Numero de aulas: {{aula.numeroAula}} - 
+          Periodo: {{aula.numeroPeriodo}} - 
+          Turno: {{aula.turno}}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

@@ -27,8 +27,10 @@ import { MenuCoordenadorComponent } from './coordenador/menu-coordenador/menu-co
 import { HorarioComponent } from './coordenador/horario/horario.component';
 import { AddHorarioComponent } from './coordenador/add-horario/add-horario.component';
 import { AddAulaComponent } from './coordenador/add-aula/add-aula.component';
-import { ListaHorarioComponent } from './visitante/lista-horario/lista-horario.component';
 import { AddDisciplinaComponent } from './coordenador/add-disciplina/add-disciplina.component';
+import { ListaHorarioProfessorComponent } from './horario/lista-horario-professor/lista-horario-professor.component';
+import { ListaHorarioCursoComponent } from './horario/lista-horario-curso/lista-horario-curso.component';
+import { ListaHorarioAmbienteComponent } from './horario/lista-horario-ambiente/lista-horario-ambiente.component';
 
 @NgModule({
   declarations: [
@@ -53,8 +55,10 @@ import { AddDisciplinaComponent } from './coordenador/add-disciplina/add-discipl
     HorarioComponent,
     AddHorarioComponent,
     AddAulaComponent,
-    ListaHorarioComponent,
-    AddDisciplinaComponent
+    AddDisciplinaComponent,
+    ListaHorarioProfessorComponent,
+    ListaHorarioCursoComponent,
+    ListaHorarioAmbienteComponent
   ],
   imports: [
     BrowserModule,

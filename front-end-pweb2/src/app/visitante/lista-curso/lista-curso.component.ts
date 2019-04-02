@@ -36,7 +36,7 @@ export class ListaCursoComponent implements OnInit {
     this.horarioService.getHorarioCurso(id).subscribe(
       res=>{
         this.horarioService.saveHorario(res.body);
-        this.router.navigate(["/listaHorario"]);  
+        this.router.navigate(["/listaHorarioCurso"]);  
       }
     )
   }

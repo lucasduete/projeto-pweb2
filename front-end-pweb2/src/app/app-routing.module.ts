@@ -19,7 +19,9 @@ import { HorarioComponent } from './coordenador/horario/horario.component';
 import { AddHorarioComponent } from './coordenador/add-horario/add-horario.component';
 import { AddAulaComponent } from './coordenador/add-aula/add-aula.component';
 import { AddDisciplinaComponent } from './coordenador/add-disciplina/add-disciplina.component'
-import { ListaHorarioComponent } from './visitante/lista-horario/lista-horario.component';
+import { ListaHorarioProfessorComponent } from './horario/lista-horario-professor/lista-horario-professor.component';
+import { ListaHorarioCursoComponent } from './horario/lista-horario-curso/lista-horario-curso.component';
+import { ListaHorarioAmbienteComponent } from './horario/lista-horario-ambiente/lista-horario-ambiente.component';
 
 const routes: Routes = [
   { path: '', component: InicioComponent},
@@ -41,7 +43,9 @@ const routes: Routes = [
   { path: 'addDias', component: AddHorarioComponent},
   { path: 'addAula', component: AddAulaComponent},
   { path: 'addDisciplina', component: AddDisciplinaComponent},
-  { path: 'listaHorario', component: ListaHorarioComponent}
+  { path: 'listaHorarioProfessor', component: ListaHorarioProfessorComponent},
+  { path: 'listaHorarioCurso', component: ListaHorarioCursoComponent},
+  { path: 'listaHorarioAmbiente', component: ListaHorarioAmbienteComponent}
 ];
 
 @NgModule({
