@@ -1,9 +1,6 @@
 package io.github.pw2.horarioservice.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.*;
 import io.github.pw2.horarioservice.exceptions.AulaNaoCadastradaException;
 import io.github.pw2.horarioservice.exceptions.AulaRepetidaException;
 import io.github.pw2.horarioservice.exceptions.AulasRepetidasException;
@@ -12,8 +9,13 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.DayOfWeek;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.TextStyle;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Entity
 @Getter
@@ -41,8 +43,30 @@ public final class DiaLetivo implements Serializable, Cloneable {
     @JoinColumn(name = "horarioacademico_id", nullable = false)
     private HorarioAcademico horarioAcademico;
 
+    @Transient
+    private static final Locale LOCALE = Locale.getDefault();
+
+    @Transient
+    private static final TextStyle TEXTSTYLE = TextStyle.FULL;
+
     {
         this.aulas = new ArrayList<>();
+    }
+
+    @JsonGetter("dia")
+    public String getDiaFromJson() {
+
+        if (this.dia != null) return this.dia.getDisplayName(TEXTSTYLE, LOCALE);
+        else return "";
+    }
+
+    @JsonSetter("dia")
+    public void setDiaFromJson(String dia) {
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendText(ChronoField.DAY_OF_WEEK, TEXTSTYLE)
+                .toFormatter(LOCALE);
+
+        this.dia = formatter.parse(dia, DayOfWeek::from);
     }
 
     public void addAula(Aula aula) throws AulaRepetidaException {
