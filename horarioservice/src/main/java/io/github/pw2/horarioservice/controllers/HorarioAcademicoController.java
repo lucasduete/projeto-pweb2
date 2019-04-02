@@ -83,9 +83,9 @@ public class HorarioAcademicoController {
     }
 
     @GetMapping("/ambiente/{codigoAmbiente}")
-    public ResponseEntity buscarPorProfessor(@PathVariable(name = "codigoAmbiente", required = true) Long codigoAmbiente) {
+    public ResponseEntity buscarPorAmbiente(@PathVariable(name = "codigoAmbiente", required = true) String codigoAmbiente) {
 
-        if (codigoAmbiente == null || codigoAmbiente <= 0)
+        if (codigoAmbiente == null || codigoAmbiente.isEmpty())
             return ResponseEntity.badRequest().body("Voce deve informar um Codigo de Ambiente valido para realizar a listagem");
 
         List<Aula> aulasNoAmbiente = this.aulaService.findAllByCodigoAmbiente(codigoAmbiente);

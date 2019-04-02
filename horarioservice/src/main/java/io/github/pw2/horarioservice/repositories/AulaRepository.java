@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface AulaRepository extends JpaRepository<Aula, Long> {
 
-    public Optional<List<Aula>> findAllByCodigoAmbiente(@NotNull final Long codigoAmbiente);
+    public Optional<List<Aula>> findAllByCodigoAmbiente(@NotNull final String codigoAmbiente);
     public Optional<List<Aula>> findAllByMatriculaProfessor(@NotNull final String matriculaProfessor);
 
 }

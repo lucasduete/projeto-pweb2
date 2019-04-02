@@ -19,9 +19,9 @@ public class AulaService {
         this.aulaRepository = aulaRepository;
     }
 
-    public List<Aula> findAllByCodigoAmbiente(@NotNull final Long codigoAmbiente) {
+    public List<Aula> findAllByCodigoAmbiente(@NotNull String codigoAmbiente) {
 
-        if (codigoAmbiente == null || codigoAmbiente <= 0) return ImmutableList.of();
+        if (codigoAmbiente == null || codigoAmbiente.isEmpty()) return ImmutableList.of();
 
         Optional<List<Aula>> aulasDoAmbiente = this.aulaRepository.findAllByCodigoAmbiente(codigoAmbiente);
 
