@@ -2,7 +2,6 @@ package io.github.pw2.professorservice.controllers;
 
 import io.github.pw2.professorservice.models.Professor;
 import io.github.pw2.professorservice.services.ProfessorService;
-import org.springframework.cloud.client.loadbalancer.reactive.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
