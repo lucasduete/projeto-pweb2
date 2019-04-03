@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 export class CoordenadorComponent implements OnInit {
 
-  coordenadores : any[];
+  coordenadores: any[];
 
   constructor(
     private coordendorService: CoordenadorService,
@@ -22,8 +22,21 @@ export class CoordenadorComponent implements OnInit {
     this.getCoordenadores();
   }
 
-  getCoordenadores(){
-    this.coordendorService.getCoordenador().subscribe(res=>{
+  deletar(matricula: number) {
+    let resp = confirm("Deseja deletar este coordenador?");
+    if (resp == true) {
+      this.coordendorService.deletarCoordenador(matricula).subscribe(res => {
+        if (res.status == 200) {
+          this.getCoordenadores();
+          alert("Coordenador deletado!");
+        }
+      });
+    }
+
+  }
+
+  getCoordenadores() {
+    this.coordendorService.getCoordenador().subscribe(res => {
       this.coordenadores = res.body;
     })
   }
