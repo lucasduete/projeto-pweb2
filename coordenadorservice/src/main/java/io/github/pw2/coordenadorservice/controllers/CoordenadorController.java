@@ -6,19 +6,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping("coordenador")
 public class CoordenadorController {
 
     private final CoordenadorService service;
+    private Logger logger;
 
     public CoordenadorController(CoordenadorService service) {
         this.service = service;
+        logger = LogManager.getLogger(CoordenadorController.class);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -27,13 +32,13 @@ public class CoordenadorController {
         // Verifica se o coordenador e nulo e se algum de seus atributos sao nulos
 
         if (coordenador == null) {
-            return ResponseEntity.badRequest().body("Nao foi enviado nenhum coordenador para ser persistido.");
+            return ResponseEntity.badRequest().body(logError("Nao foi enviado nenhum coordenador para ser persistido."));
         } else if (coordenador.getMatricula() == null) {
-            return ResponseEntity.badRequest().body("E necessario enviar uma matricula valida para que o coordenador seja persistido.");
+            return ResponseEntity.badRequest().body(logError("E necessario enviar uma matricula valida para que o coordenador seja persistido."));
         } else if (coordenador.getNome() == null || coordenador.getNome().isEmpty()) {
-            return ResponseEntity.badRequest().body("E necessario enviar um nome valido para que o coordenador seja persistido.");
+            return ResponseEntity.badRequest().body(logError("E necessario enviar um nome valido para que o coordenador seja persistido."));
         } else if (coordenador.getSenha() == null || coordenador.getSenha().isEmpty()) {
-            return ResponseEntity.badRequest().body("E necessario enviar uma senha valida para que o coordenador seja persistido.");
+            return ResponseEntity.badRequest().body(logError("E necessario enviar uma senha valida para que o coordenador seja persistido."));
         }
 
         // Se nada for null entao pode-se persistir o ambiente
@@ -41,7 +46,7 @@ public class CoordenadorController {
         Coordenador coordenadorSalvo = this.service.salvar(coordenador);
 
         if (coordenadorSalvo == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Nao foi possivel persitir esta entidade.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(logError("Nao foi possivel persitir esta entidade."));
         } else {
             return ResponseEntity.ok(coordenador);
 
@@ -65,16 +70,16 @@ public class CoordenadorController {
                                                 @RequestBody Coordenador coordenador) {
 
         if (matricula == null || matricula.isEmpty()) {
-            return ResponseEntity.badRequest().body("Voce deve informar uma matricula valida");
+            return ResponseEntity.badRequest().body(logError("Voce deve informar uma matricula valida"));
 
         } else if (coordenador == null) {
-            return ResponseEntity.badRequest().body("Voce deve informar os dados do coordenador para que sejam atualizados.");
+            return ResponseEntity.badRequest().body(logError("Voce deve informar os dados do coordenador para que sejam atualizados."));
 
         } else if (coordenador.getNome() == null || coordenador.getNome().isEmpty()) {
-            return ResponseEntity.badRequest().body("Voce deve informar um nome valido para o coordenador");
+            return ResponseEntity.badRequest().body(logError("Voce deve informar um nome valido para o coordenador"));
 
         } else if (coordenador.getSenha() == null || coordenador.getSenha().isEmpty()) {
-            return ResponseEntity.badRequest().body("Voce deve informar uma senha valida para o coordenador");
+            return ResponseEntity.badRequest().body(logError("Voce deve informar uma senha valida para o coordenador"));
         }
 
         try {
@@ -93,7 +98,7 @@ public class CoordenadorController {
     private ResponseEntity deletarCoordenador(@PathVariable(name = "matricula", required = true) String matricula) {
 
         if (matricula == null || matricula.isEmpty())
-            return ResponseEntity.badRequest().body("Voce deve informar uma matricula valida.");
+            return ResponseEntity.badRequest().body(logError("Voce deve informar uma matricula valida."));
 
         try {
 
@@ -107,4 +112,8 @@ public class CoordenadorController {
 
     }
 
+    private String logError(String msg) {
+        logger.error(msg);
+        return msg;
+    }
 }
