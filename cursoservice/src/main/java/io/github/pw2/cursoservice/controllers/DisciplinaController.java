@@ -2,6 +2,8 @@ package io.github.pw2.cursoservice.controllers;
 
 import io.github.pw2.cursoservice.models.Disciplina;
 import io.github.pw2.cursoservice.services.DisciplinaService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +19,11 @@ import java.util.Optional;
 public class DisciplinaController {
 
     private final DisciplinaService service;
+    private Logger logger;
 
     public DisciplinaController(DisciplinaService service) {
         this.service = service;
+        logger = LogManager.getLogger(DisciplinaService.class);
     }
 
     @GetMapping
@@ -46,7 +50,7 @@ public class DisciplinaController {
     public ResponseEntity buscarPorNome(@RequestParam(name = "nome", required = true) String nome) {
 
         if (Strings.isBlank(nome))
-            return ResponseEntity.badRequest().body("Para recuperar a disciplina e necessario passar o nome por parametro!");
+            return ResponseEntity.badRequest().body(logError("Para recuperar a disciplina e necessario passar o nome por parametro!"));
 
         Optional<Disciplina> disciplina = this.service.buscarPorNome(nome);
 
@@ -58,10 +62,10 @@ public class DisciplinaController {
                                                @RequestBody Disciplina disciplina) {
 
         if (codigoDisciplina == null || codigoDisciplina <= 0)
-            return ResponseEntity.badRequest().body("Voce deve informar um codigo de disciplina valido");
+            return ResponseEntity.badRequest().body(logError("Voce deve informar um codigo de disciplina valido"));
 
         if (disciplina == null || disciplina.getNome() == null || disciplina.getNome().isEmpty()) {
-            return ResponseEntity.badRequest().body("Voce deve informar o nome da disciplina para que seja atualizada");
+            return ResponseEntity.badRequest().body(logError("Voce deve informar o nome da disciplina para que seja atualizada"));
 
         }
 
@@ -81,7 +85,7 @@ public class DisciplinaController {
     private ResponseEntity deletarDisciplina(@PathVariable(name = "codigoDisciplina", required = true) Long codigoDisciplina) {
 
         if (codigoDisciplina == null || codigoDisciplina <= 0)
-            return ResponseEntity.badRequest().body("Voce deve informar um codigo de Disciplina valido");
+            return ResponseEntity.badRequest().body(logError("Voce deve informar um codigo de Disciplina valido"));
 
         try {
 
@@ -95,4 +99,8 @@ public class DisciplinaController {
 
     }
 
+    private String logError(String msg) {
+        logger.error(msg);
+        return msg;
+    }
 }

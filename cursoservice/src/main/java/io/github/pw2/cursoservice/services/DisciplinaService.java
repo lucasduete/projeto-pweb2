@@ -3,6 +3,8 @@ package io.github.pw2.cursoservice.services;
 import com.google.common.collect.ImmutableList;
 import io.github.pw2.cursoservice.models.Disciplina;
 import io.github.pw2.cursoservice.repositories.DisciplinaRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
@@ -13,6 +15,7 @@ import java.util.Optional;
 public class DisciplinaService {
 
     private final DisciplinaRepository repository;
+    private final Logger log = LogManager.getLogger(this.getClass());
 
     public DisciplinaService(DisciplinaRepository repository) {
         this.repository = repository;
@@ -26,7 +29,7 @@ public class DisciplinaService {
         if (disciplinaNova.getNome() != null && !disciplinaNova.getNome().isEmpty()) {
             disciplinaDB.setNome(disciplinaDB.getNome());
         } else return null;
-
+        log.info("Atualizando disciplina: "+ disciplinaNova );
         return this.repository.save(disciplinaDB);
     }
 
@@ -37,18 +40,23 @@ public class DisciplinaService {
 
         // Optou-se por esse metodo de delete ao inves de usar o deleteById para
         // tratar manualmente se a entidade existe ou nao no DB antes de remover
+        log.info("Deletando disciplina com código "+ codigoDisciplina);
+
         this.repository.delete(disciplina);
     }
 
     public List<Disciplina> listarAll() {
+        log.info("Listando todas as disciplinas");
         return ImmutableList.copyOf(this.repository.findAll());
     }
 
     public Optional<Disciplina> buscarPorCodigo(Long codigo) {
+        log.info("Buscando disciplina por código: "+ codigo);
         return this.repository.findById(codigo);
     }
 
     public Optional<Disciplina> buscarPorNome(String nome) {
+        log.info("Buscando disciplina pelo nome: "+ nome);
         return this.repository.findByNome(nome);
     }
 

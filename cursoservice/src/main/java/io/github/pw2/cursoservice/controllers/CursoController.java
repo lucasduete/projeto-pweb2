@@ -19,9 +19,10 @@ public class CursoController {
 
     private final CursoService service;
     private Logger logger;
+
     public CursoController(CursoService service) {
         this.service = service;
-        logger  = LogManager.getLogger(CursoController.class);
+        logger = LogManager.getLogger(CursoController.class);
     }
 
     @PostMapping
@@ -29,17 +30,16 @@ public class CursoController {
 
         logger.info("Tentativa de salvar um novo Curso");
         // Este unico EndPoint deve ser responsavel por persistir curso e Disciplina
-
         // Verifica se o curso e nulo e se algum de seus atributos sao nulos
 
         if (curso == null) {
-            return ResponseEntity.badRequest().body("Nao foi enviado nenhum curso para ser persistido.");
+            return ResponseEntity.badRequest().body(logError("Nao foi enviado nenhum curso para ser persistido."));
         } else if (curso.getCodigo() == null) {
-            return ResponseEntity.badRequest().body("E necessario enviar uma código válido para que o curso seja persistido.");
+            return ResponseEntity.badRequest().body(logError("E necessario enviar uma código válido para que o curso seja persistido."));
         } else if (curso.getNome() == null || curso.getNome().isEmpty()) {
-            return ResponseEntity.badRequest().body("E necessario enviar um nome valido para que o curso seja persistido.");
+            return ResponseEntity.badRequest().body(logError("E necessario enviar um nome valido para que o curso seja persistido."));
         } else if (curso.getDescricao() == null || curso.getDescricao().isEmpty()) {
-            return ResponseEntity.badRequest().body("E necessario enviar uma descricao valida para que o curso seja persistido.");
+            return ResponseEntity.badRequest().body(logError("E necessario enviar uma descricao valida para que o curso seja persistido."));
         }
 
 
@@ -48,7 +48,7 @@ public class CursoController {
         if (curso.getDisciplinas() == null) {
             //return ResponseEntity.badRequest().body("E necessario enviar as disciplinas do curso para que ele seja persistido.");
         } else if (verificaDisciplinasValidas(curso.getDisciplinas())) {
-            return ResponseEntity.badRequest().body("Uma ou mais Disciplinas enviadas sao invalidas, verifique os atributos e tente novamente.");
+            return ResponseEntity.badRequest().body(logError("Uma ou mais Disciplinas enviadas sao invalidas, verifique os atributos e tente novamente."));
         }
 
         // Se nada for null entao pode-se persistir o curso
@@ -56,9 +56,9 @@ public class CursoController {
         Curso cursoSalvo = this.service.salvar(curso);
 
         if (cursoSalvo == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Nao foi possivel persitir esta entidade.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(logError("Nao foi possivel persitir esta entidade."));
         } else {
-            logger.info("Curso salvo: "+ curso.getCodigo());
+            logger.info("Curso salvo: " + curso.getCodigo());
             return ResponseEntity.ok(curso);
         }
 
@@ -97,12 +97,12 @@ public class CursoController {
                                           @RequestBody Curso curso) {
 
         if (codigoCurso == null || codigoCurso <= 0)
-            return ResponseEntity.badRequest().body("Voce deve informar um codigo de curso valido");
+            return ResponseEntity.badRequest().body(logError("Voce deve informar um codigo de curso valido"));
 
         if (curso == null || ((curso.getNome() == null || curso.getNome().isEmpty()) &&
                 (curso.getDescricao() == null || curso.getDescricao().isEmpty()) &&
                 (curso.getDisciplinas() == null || curso.getDisciplinas().isEmpty()))) {
-            return ResponseEntity.badRequest().body("Voce deve informar os dados do curso que devem ser atualizados");
+            return ResponseEntity.badRequest().body(logError("Voce deve informar os dados do curso que devem ser atualizados"));
 
         }
 
@@ -122,7 +122,7 @@ public class CursoController {
     private ResponseEntity deletarCurso(@PathVariable(name = "codigoCurso", required = true) Long codigoCurso) {
 
         if (codigoCurso == null || codigoCurso <= 0)
-            return ResponseEntity.badRequest().body("Voce deve informar um codigo de curso valido");
+            return ResponseEntity.badRequest().body(logError("Voce deve informar um codigo de curso valido"));
 
         try {
 
@@ -144,5 +144,10 @@ public class CursoController {
                 .findAny();
 
         return anyDisciplinaInvalida.isPresent();
+    }
+
+    private String logError(String msg) {
+        logger.error(msg);
+        return msg;
     }
 }
