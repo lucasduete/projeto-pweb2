@@ -15,7 +15,7 @@ export class ProfessorComponent implements OnInit {
 
   constructor(
     private professorService: ProfessorService,
-    private horarioService : HorarioService,
+    private horarioService: HorarioService,
     private router: Router
   ) {
     this.getProfessores();
@@ -30,17 +30,13 @@ export class ProfessorComponent implements OnInit {
     })
   }
 
-  getHorario(id: number){
-    this.horarioService.getHorarioProfessor(id).subscribe(
-      res=>{
-        this.horarioService.saveHorario(res.body);
-        this.router.navigate(["/listaHorarioProfessor"]);  
-      }
-    )
+  getHorario(id: number) {
+    
+  this.router.navigate(["/listaHorarioProfessor"], {queryParams: {prof: id}});
   }
 
   atualizar(professor: Professor) {
-    this.router.navigate(['/addProfessor'],{queryParams: {prof: JSON.stringify(professor)}});
+    this.router.navigate(['/addProfessor'], { queryParams: { prof: JSON.stringify(professor) } });
   }
 
   deletar(matricula: number) {

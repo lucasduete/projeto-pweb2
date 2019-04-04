@@ -78,7 +78,6 @@ public class HorarioAcademicoController {
         }
 
         HorarioAcademicoVO horarioAcademicoVO = this.horarioVOService.processToVO(aulasDoProfessor);
-
         return ResponseEntity.ok(horarioAcademicoVO);
     }
 
