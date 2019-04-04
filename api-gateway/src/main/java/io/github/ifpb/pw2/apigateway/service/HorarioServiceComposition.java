@@ -16,14 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class HorarioService {
+public class HorarioServiceComposition {
 
     private final HorarioClient horarioClient;
     private final CursoDisciplinaClient cursoDisciplinaClient;
     private final AmbienteClient ambienteClient;
     private final ProfessorClient professorClient;
 
-    public HorarioService(HorarioClient client, CursoDisciplinaClient cursoDisciplinaClient,
+    public HorarioServiceComposition(HorarioClient client, CursoDisciplinaClient cursoDisciplinaClient,
                           AmbienteClient ambienteClient, ProfessorClient professorClient) {
         this.horarioClient = client;
         this.cursoDisciplinaClient = cursoDisciplinaClient;

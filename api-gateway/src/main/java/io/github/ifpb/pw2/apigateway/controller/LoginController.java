@@ -1,6 +1,5 @@
 package io.github.ifpb.pw2.apigateway.controller;
 
-import io.github.ifpb.pw2.apigateway.feingClients.CoordenadorClient;
 import io.github.ifpb.pw2.apigateway.service.jwt.TokenProvider;
 import io.github.pw2.coordenadorservice.models.Coordenador;
 import org.springframework.http.HttpHeaders;
@@ -11,8 +10,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("login")
