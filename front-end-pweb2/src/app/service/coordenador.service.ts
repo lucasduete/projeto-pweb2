@@ -40,4 +40,8 @@ export class CoordenadorService {
         return this.http.delete(this.url + '/'+ matricula, {observe:'response'});
   }
 
+  atualizarCoordenador(coordenador: Coordenador): Observable<HttpResponse<Coordenador>>{
+    return this.http.put(this.url + '/'+ coordenador.matricula, coordenador, {observe:'response'});
+  }
+
 }

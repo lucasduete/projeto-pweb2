@@ -1,13 +1,15 @@
 <app-menu-coordenador></app-menu-coordenador>
-<div class="container"> 
+<div class="container">
   <ul class="collection">
     <li class="collection-item" *ngFor="let coordenador of coordenadores">
       {{coordenador.matricula}} - {{coordenador.nome}}
       <div class="right-align"><button class="btn right-align"
-         (click)="deletar(coordenador.matricula)">Deletar</button></div>
+          (click)="atualizar(coordenador)">Atualizar</button>
+        <button class="btn right-align red" (click)="deletar(coordenador.matricula)">Deletar</button></div>
     </li>
   </ul>
   <div class="fixed-action-btn">
-      <button class="btn-floating waves-effect waves-light modal-trigger btn-large green" routerLink="/addCoordenador"><i class="large material-icons">add</i></button>
+    <button class="btn-floating waves-effect waves-light modal-trigger btn-large green" routerLink="/addCoordenador"><i
+        class="large material-icons">add</i></button>
   </div>
 </div>

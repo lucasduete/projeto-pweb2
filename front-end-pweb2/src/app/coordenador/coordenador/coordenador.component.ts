@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CoordenadorService } from '../../service/coordenador.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Coordenador } from 'src/app/model/coordenador';
 
 @Component({
   selector: 'app-coordenador',
@@ -14,7 +15,7 @@ export class CoordenadorComponent implements OnInit {
 
   constructor(
     private coordendorService: CoordenadorService,
-    private router: ActivatedRoute
+    private router: Router
   ) {
 
   }
@@ -33,6 +34,10 @@ export class CoordenadorComponent implements OnInit {
       });
     }
 
+  }
+
+  atualizar(coordenador: Coordenador) {
+    this.router.navigate(['/addCoordenador'],{queryParams: {coord: JSON.stringify(coordenador)}});
   }
 
   getCoordenadores() {

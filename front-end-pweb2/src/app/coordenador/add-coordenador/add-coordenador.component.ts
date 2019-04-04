@@ -11,20 +11,30 @@ import { Routes, ActivatedRoute, Router } from '@angular/router';
 })
 export class AddCoordenadorComponent implements OnInit {
 
+  ehUpdate: boolean = false;
+
   coordenador: Coordenador = {
-    matricula:null, 
-    nome:"", 
-    senha :""
+    matricula: null,
+    nome: "",
+    senha: ""
   };
 
   constructor(
     private coordenadorService: CoordenadorService,
-    private route: Router
+    private route: Router,
+    private actRouter: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.actRouter.queryParams.subscribe(params => {
+      if (params['coord']) {
+        this.coordenador = JSON.parse(params['coord']);
+        this.ehUpdate = true;
+      }
+      console.log(this.ehUpdate + "");
+    });
   }
-  
+
   addCoordenador(): void {
     this.coordenadorService.addCoordenador(this.coordenador).subscribe(
       data => {
@@ -46,5 +56,18 @@ export class AddCoordenadorComponent implements OnInit {
         }
       }
     )
+  }
+
+
+  update() {
+    return this.ehUpdate;
+  }
+
+  atualizar() {
+    this.coordenadorService.atualizarCoordenador(this.coordenador).subscribe(res => {
+      if(res.status ==200){
+        alert("Coordenador atualizado!");
+      }
+    });
   }
 }

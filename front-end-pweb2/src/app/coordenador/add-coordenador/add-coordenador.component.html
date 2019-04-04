@@ -22,7 +22,8 @@
                 </div>
               </div>
               <div class="row center-align">
-                <button (click)="addCoordenador()" class="btn green">Salvar</button>
+                <button (click)="addCoordenador()" class="btn green" *ngIf="!update()">Salvar</button>
+                <button (click)="atualizar()" class="btn green" *ngIf="update()">Atualizar</button>
               </div>
             </div>
         </div>  
