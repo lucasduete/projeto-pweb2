@@ -10,6 +10,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AddAmbienteComponent implements OnInit {
 
+  ehUpdate: boolean = false;
+
   ambiente: Ambiente = {
     codigo: null,
     nome: ''
@@ -21,6 +23,12 @@ export class AddAmbienteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.router.queryParams.subscribe(params => {
+      if (params['ambiente']) {
+        this.ambiente = JSON.parse(params['ambiente']);
+        this.ehUpdate = true;
+      }
+    });
   }
 
   addAmbiente(): void {
@@ -44,5 +52,17 @@ export class AddAmbienteComponent implements OnInit {
         }
       }
     )
+  }
+
+  atualizar() {
+    this.ambienteService.atualizar(this.ambiente).subscribe(res => {
+      if (res.status == 200) {
+        alert("Ambiente atualizado");
+      }
+    });
+  }
+
+  update() {
+    return this.ehUpdate;
   }
 }

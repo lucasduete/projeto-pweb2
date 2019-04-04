@@ -1,5 +1,6 @@
 <app-menu-coordenador></app-menu-coordenador>
 <div class="container">
+    <h2>Gerenciamento de Professores</h2>
   <ul class="collection">
     <li class="collection-item" *ngFor="let professor of professores" (click) = getHorario(professor.matricula)>{{professor.nome}}</li>
   </ul>

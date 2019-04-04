@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CursoService } from './../../service/curso.service';
 import { Curso } from 'src/app/model/curso';
 import { ListaCursoComponent } from '../../visitante/lista-curso/lista-curso.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-curso',
@@ -10,8 +11,8 @@ import { ListaCursoComponent } from '../../visitante/lista-curso/lista-curso.com
 })
 export class AddCursoComponent implements OnInit {
 
-  disciplinas : any [];
-
+  disciplinas: any[];
+  ehUpdate: boolean = false;
   curso: Curso = {
     codigo: null,
     nome: '',
@@ -19,11 +20,17 @@ export class AddCursoComponent implements OnInit {
     disciplinas: null
   };
 
-  constructor(private cursoService: CursoService) { }
+  constructor(private cursoService: CursoService, private router: ActivatedRoute) { }
 
   ngOnInit() {
     this.disciplinas = this.cursoService.getDisciplina();
-    console.log(this.disciplinas);
+    this.router.queryParams.subscribe(params => {
+      if (params['curso']) {
+        this.curso = JSON.parse(params['curso']);
+        this.disciplinas = this.curso.disciplinas;
+        this.ehUpdate = true;
+      }
+    });
   }
 
   addCurso(): void {
@@ -52,4 +59,15 @@ export class AddCursoComponent implements OnInit {
     )
   }
 
+  atualizar(){
+    this.cursoService.atualizarCurso(this.curso).subscribe(res=>{
+      if(res.status == 200){
+        alert("Curso atualizado!");
+      }
+    })
+  }
+
+  update() {
+    return this.ehUpdate;
+  }
 }

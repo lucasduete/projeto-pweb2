@@ -1,24 +1,25 @@
 <div class="container">
+  <div class="container">
     <div class="container">
-        <div class="container">
-            <div class="container">
-              <br><br><br><br>
-              <div class="row">
-                  <div class="input-field col s12">
-                    <input [(ngModel)]="ambiente.nome" class="green-text" type="text">
-                    <label for="">Nome</label>
-                  </div>
-                </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input [(ngModel)]="ambiente.codigo" class="green-text" type="number">
-                  <label for="">Codigo</label>
-                </div>
-              </div>
-              <div class="row center-align">
-                <button (click)="addAmbiente()" class="btn green">Salvar</button>
-              </div>
-            </div>
-        </div>  
+      <div class="container">
+        <br><br><br><br>
+        <div class="row">
+          <div class="input-field col s12">
+            <input [(ngModel)]="ambiente.nome" class="green-text" type="text">
+            <label for="">Nome</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input [(ngModel)]="ambiente.codigo" class="green-text" type="number">
+            <label for="">Codigo</label>
+          </div>
+        </div>
+        <div class="row center-align">
+          <button (click)="addAmbiente()" class="btn green" *ngIf="!update()">Salvar</button>
+          <button (click)="atualizar()" class="btn green" *ngIf="update()">Atualizar</button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

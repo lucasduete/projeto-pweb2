@@ -83,7 +83,6 @@ public class CoordenadorController {
         }
 
         try {
-
             Coordenador coordenadorAtualiado = this.service.atualizar(coordenador, matricula);
             return ResponseEntity.ok(coordenadorAtualiado);
 
