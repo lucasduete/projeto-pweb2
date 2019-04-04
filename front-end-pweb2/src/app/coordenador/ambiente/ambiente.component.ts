@@ -40,14 +40,19 @@ export class AmbienteComponent implements OnInit {
   }
 
   atualizar(ambiente: Ambiente) {
-    this.router.navigate(['/addAmbiente'], { queryParams: { ambiente: ambiente } });
+    this.router.navigate(['/addAmbiente'], { queryParams: { ambiente: JSON.stringify(ambiente) } });
   }
 
   deletar(codigo: number) {
-    this.ambienteService.deletar(codigo).subscribe(res => {
-      if (res.status == 200) {
-        alert("Ambiente deletado");
-      }
-    });
+    let opcao = confirm("Deseja deletar este ambiente?");
+    if (opcao) {
+      this.ambienteService.deletar(codigo).subscribe(res => {
+        if (res.status == 200) {
+          this.getAmbientes();
+          alert("Ambiente deletado");
+        }
+      });
+    }
+
   }
 }

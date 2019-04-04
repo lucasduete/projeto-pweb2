@@ -33,6 +33,6 @@ export class AmbienteService {
   }
 
   atualizar(ambiente: Ambiente):Observable<HttpResponse<Ambiente>>{
-    return this.http.put<Ambiente>(this.url, ambiente, {observe: 'response'});
+    return this.http.put<Ambiente>(this.url + '/' + ambiente.codigo, ambiente, {observe: 'response'});
   }
 }
