@@ -1,8 +1,14 @@
 <app-menu-coordenador></app-menu-coordenador>
 <div class="container">
-    <h2>Gerenciamento de Professores</h2>
+  <h4>Gerenciamento de Professores</h4>
   <ul class="collection">
-    <li class="collection-item" *ngFor="let professor of professores" (click) = getHorario(professor.matricula)>{{professor.nome}}</li>
+    <li class="collection-item" *ngFor="let professor of professores" (click)=getHorario(professor.matricula)>
+      {{professor.nome}}
+      <div class="right-align"><button class="btn right-align"
+         (click)="atualizar(professor)">Atualizar</button>
+        <button class="btn right-align red" 
+        (click)="deletar(professor.matricula)">Deletar</button></div>
+    </li>
   </ul>
   <div class="fixed-action-btn">
     <button class="btn-floating waves-effect waves-light modal-trigger btn-large green" routerLink="/addProfessor"><i
