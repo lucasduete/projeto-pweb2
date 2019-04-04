@@ -50,11 +50,6 @@ export class CursoComponent implements OnInit {
   }
 
   getHorario(id: number) {
-    this.horarioService.getHorarioCurso(id).subscribe(
-      res => {
-        this.horarioService.saveHorario(res.body);
-        this.router.navigate(["/listaHorarioCurso"]);
-      }
-    )
+    this.router.navigate(["/listaHorarioCurso"], { queryParams: { curso: id } });
   }
 }

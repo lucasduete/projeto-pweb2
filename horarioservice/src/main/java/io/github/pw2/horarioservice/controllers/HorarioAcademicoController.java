@@ -99,4 +99,10 @@ public class HorarioAcademicoController {
         return ResponseEntity.ok(horarioAcademicoVO);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deletar(@PathVariable("id") Long id){
+        horarioService.deletar(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

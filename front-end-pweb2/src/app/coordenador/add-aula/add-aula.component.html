@@ -1,14 +1,15 @@
 <div class="container">
   <div class="row">
+    <h4>Adicionar aula</h4>
     <div class="input-field col s12">
       <input [(ngModel)]="aula.numeroAula" class="green-text" type="number">
-      <label for="">Numero aula</label>
+      <label for="">Número da aula</label>
     </div>
   </div>
   <div class="row">
     <div class="input-field col s12 m12">
       <select class="browser-default" [(ngModel)]="aula.turno">
-        <option value="" disabled selected>Turno</option>
+        <option value="" disabled selected>Selecione o turno da aula ...</option>
         <option value="MANHA">Manhã</option>
         <option value="TARDE">Tarde</option>
         <option value="NOITE">Noite</option>
@@ -18,7 +19,7 @@
   <div class="row">
     <div class="input-field col s12">
       <input type="time" [(ngModel)]="aula.horaInicio" class="green-text">
-      <label for="">Hora de inicio</label>
+      <label for="">Hora de início</label>
     </div>
   </div>
   <div class="row">
@@ -30,19 +31,19 @@
   <div class="row">
     <div class="input-field col s12">
       <input [(ngModel)]="aula.matriculaProfessor" class="green-text" type="text">
-      <label for="">Codigo professor</label>
+      <label for="">Codigo do Professor</label>
     </div>
   </div>
   <div class="row">
     <div class="input-field col s12">
       <input [(ngModel)]="aula.codigoDisciplina" class="green-text" type="number">
-      <label for="">Codigo disciplina</label>
+      <label for="">Codigo da disciplina</label>
     </div>
   </div>
   <div class="row">
     <div class="input-field col s12">
       <input [(ngModel)]="aula.codigoAmbiente" class="green-text" type="text">
-      <label for="">Codigo ambiente</label>
+      <label for="">Codigo do ambiente</label>
     </div>
   </div>
   <div class="fixed-action-btn">

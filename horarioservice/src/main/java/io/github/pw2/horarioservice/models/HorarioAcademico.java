@@ -32,7 +32,7 @@ public final class HorarioAcademico implements Serializable {
     private Integer numeroPeriodo;
 
     @JsonManagedReference
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "horarioAcademico")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "horarioAcademico")
     private List<DiaLetivo> diasLetivos;
 
     {

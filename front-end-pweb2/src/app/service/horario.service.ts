@@ -4,7 +4,7 @@ import { Aula } from '../model/aula';
 import { DiaLetivo } from '../model/diaLetivo';
 import { Horario } from '../model/horario';
 import { Observable } from 'rxjs';
-import {environment} from "../../environments/environment";
+import { environment } from "../../environments/environment";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -21,46 +21,50 @@ export class HorarioService {
   private url = environment.apiUrl + 'horario';
 
   constructor(
-    private http : HttpClient
+    private http: HttpClient
   ) { }
 
-  addAula(aula: Aula){
+  addAula(aula: Aula) {
     this.aulas.push(aula);
   }
 
-  getAulas(){
+  getAulas() {
     return this.aulas;
   }
 
-  addDias(diaLetivo: DiaLetivo){
+  addDias(diaLetivo: DiaLetivo) {
     this.diasLetivos.push(diaLetivo);
   }
 
-  getDias(){
+  getDias() {
     return this.diasLetivos;
   }
 
-  addHorario(horario : Horario) : Observable<HttpResponse<Horario>>{
-    return this.http.post<Horario>(this.url, horario, {observe:'response'});
+  addHorario(horario: Horario): Observable<HttpResponse<Horario>> {
+    return this.http.post<Horario>(this.url, horario, { observe: 'response' });
   }
 
-  getHorarioCurso(id: number) : Observable<HttpResponse<Horario[]>>{
-    return this.http.get<Horario[]>(this.url + '/curso/' + id, {observe: "response" });
+  getHorarioCurso(id: number): Observable<HttpResponse<Horario[]>> {
+    return this.http.get<Horario[]>(this.url + '/curso/' + id, { observe: "response" });
   }
 
-  getHorarioAmbiente(id: number) : Observable<HttpResponse<Horario[]>>{
-    return this.http.get<Horario[]>(this.url + '/ambiente/' + id, {observe: "response" });
+  getHorarioAmbiente(id: number): Observable<HttpResponse<Horario[]>> {
+    return this.http.get<Horario[]>(this.url + '/ambiente/' + id, { observe: "response" });
   }
 
-  getHorarioProfessor(id: number) : Observable<HttpResponse<Horario[]>>{
-    return this.http.get<Horario[]>(this.url + '/professor/' + id, {observe: "response" });
+  getHorarioProfessor(id: number): Observable<HttpResponse<Horario[]>> {
+    return this.http.get<Horario[]>(this.url + '/professor/' + id, { observe: "response" });
   }
 
-  saveHorario(horarios : Horario []){
+  saveHorario(horarios: Horario[]) {
     this.horarios = horarios;
   }
 
-  getHorario(){
+  deletarHorario(id: number): Observable<HttpResponse<Horario>> {
+    return this.http.delete(this.url + '/' + id, { observe: 'response' });
+  }
+
+  getHorario() {
     return this.horarios;
   }
 }
