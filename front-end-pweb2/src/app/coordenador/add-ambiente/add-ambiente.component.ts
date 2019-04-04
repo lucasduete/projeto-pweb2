@@ -56,9 +56,13 @@ export class AddAmbienteComponent implements OnInit {
 
   atualizar() {
     this.ambienteService.atualizar(this.ambiente).subscribe(res => {
+      
       if (res.status == 200) {
         alert("Ambiente atualizado");
       }
+    },
+    error =>{
+      alert("Não foi possível atualizar");
     });
   }
 
