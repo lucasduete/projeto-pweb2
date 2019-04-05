@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -123,8 +124,34 @@ public class HorarioAcademicoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deletar(@PathVariable("id") Long id){
-        horarioService.deletar(id);
+
+        try {
+            horarioService.deletar(id);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.error("Falha ao remover HorarioAcademico de id: " + id);
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+
+        HorarioAcademico horarioAcademico = new HorarioAcademico();
+        horarioAcademico.setId(id);
+
+        this.messageChannel.send(
+                MessageBuilder.withPayload(
+                        EventMessage
+                                .builder()
+                                .serviceName("horarioservice")
+                                .operation(EventMessage.Operation.PERSIST)
+                                .payload(horarioAcademico)
+                                .build()
+                ).build()
+        );
+
         return ResponseEntity.ok().build();
+
     }
 
 }
