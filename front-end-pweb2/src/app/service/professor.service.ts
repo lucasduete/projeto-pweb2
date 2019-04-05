@@ -13,7 +13,7 @@ const httpOptions = {
 })
 export class ProfessorService {
 
-  private url = environment.apiUrl + 'professor';
+  private url = environment.apiUrl + 'api/professor';
 
   constructor(
     private http: HttpClient
