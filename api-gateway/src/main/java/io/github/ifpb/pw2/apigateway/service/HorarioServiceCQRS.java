@@ -5,11 +5,10 @@ import io.github.ifpb.pw2.apigateway.valueObjects.DiaLetivoVO;
 import io.github.ifpb.pw2.apigateway.valueObjects.HorarioVO;
 import io.github.pw2.ambienteservice.services.AmbienteService;
 import io.github.pw2.cursoservice.models.Curso;
-import io.github.pw2.cursoservice.services.CursoService;
+import io.github.pw2.cursoservice.services.*;
 import io.github.pw2.horarioservice.models.HorarioAcademico;
 import io.github.pw2.horarioservice.services.HorarioAcademicoService;
 import io.github.pw2.professorservice.services.ProfessorService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,15 +17,18 @@ import java.util.List;
 @Service
 public class HorarioServiceCQRS {
 
-    private final HorarioAcademicoService horarioservice;
     private final CursoService cursoService;
     private final AmbienteService ambienteService;
     private final ProfessorService professorService;
+    private final DisciplinaService disciplinaService;
+    private final HorarioAcademicoService horarioservice;
 
-    public HorarioServiceCQRS(HorarioAcademicoService horarioservice, CursoService cursoService, AmbienteService ambienteService, ProfessorService professorService) {        this.horarioservice = horarioservice;
+    public HorarioServiceCQRS(CursoService cursoService, AmbienteService ambienteService, ProfessorService professorService, DisciplinaService disciplinaService, HorarioAcademicoService horarioservice) {
         this.cursoService = cursoService;
         this.ambienteService = ambienteService;
         this.professorService = professorService;
+        this.disciplinaService = disciplinaService;
+        this.horarioservice = horarioservice;
     }
 
     public List<HorarioVO> buscarPorCurso(Long codCurso) throws Exception {
@@ -57,7 +59,7 @@ public class HorarioServiceCQRS {
                     aulaVO.setTurno(AulaVO.TipoTurno.valueOf(a.getTurno().name()));
                     aulaVO.setNomeAmbiente(ambienteService.recuperarPorCodigo(a.getCodigoAmbiente()).get().getNome());
                     aulaVO.setNomeProfessor(professorService.buscarPorMatricula(a.getMatriculaProfessor()).get().getNome());
-                    aulaVO.setNomeDisciplina(cursoService.buscarPorCodigo(a.getCodigoDisciplina()).get().getNome());
+                    aulaVO.setNomeDisciplina(disciplinaService.buscarPorCodigo(a.getCodigoDisciplina()).get().getNome());
                     aulaVOS.add(aulaVO);
                 });
 
