@@ -1,4 +1,4 @@
-package io.github.pw2.horarioservice.models.exception;
+package io.github.pw2.horarioservice.exceptions;
 
 public class DiaLetivoRepetidoException extends RuntimeException {
 

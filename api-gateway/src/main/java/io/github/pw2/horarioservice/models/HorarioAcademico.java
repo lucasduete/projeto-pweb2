@@ -1,15 +1,16 @@
 package io.github.pw2.horarioservice.models;
 
-
-import io.github.pw2.horarioservice.models.exception.DiaLetivoRepetidoException;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.github.pw2.horarioservice.exceptions.DiaLetivoRepetidoException;
 import lombok.*;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-    import java.io.Serializable;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Entity
 @Getter
 @Setter
 @ToString
@@ -18,17 +19,22 @@ import java.util.List;
 @AllArgsConstructor
 public final class HorarioAcademico implements Serializable {
 
+    @Id
+    @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
     private Long codigoCurso;
 
-
+    @Column(nullable = false)
     private Integer numeroPeriodo;
 
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "horarioAcademico")
     private List<DiaLetivo> diasLetivos;
 
     {
-        diasLetivos = new ArrayList<>();
+        this.diasLetivos = new ArrayList<>();
     }
 
     public void setDiasLetivos(@NotNull final List<DiaLetivo> diasLetivos) {
@@ -44,7 +50,7 @@ public final class HorarioAcademico implements Serializable {
     }
 
     /**
-     * Adiciona um DiaLetivo a lista de diasLetivos da classe
+     * Adiciona um DiaLetivo repositories lista de diasLetivos da classe
      *
      * @param diaLetivo Objeto do tipo DiaLetivo que sera adicionado
      * @throws DiaLetivoRepetidoException Caso ja exista um DiaLetivo com o mesmo
@@ -74,10 +80,10 @@ public final class HorarioAcademico implements Serializable {
     }
 
     public boolean validate() {
-        return this.numeroPeriodo == null || this.numeroPeriodo <= 0 ||
-                this.codigoCurso == null || this.codigoCurso <= 0 ||
-                this.diasLetivos == null || this.diasLetivos.isEmpty() ||
-                this.diasLetivos.stream().anyMatch(diaLetivo -> !diaLetivo.validate());
+        return this.numeroPeriodo != null && this.numeroPeriodo >= 0 &&
+                this.codigoCurso != null && this.codigoCurso >= 0 &&
+                this.diasLetivos != null && !this.diasLetivos.isEmpty() &&
+                this.diasLetivos.stream().allMatch(DiaLetivo::validate);
     }
 
 }

@@ -1,4 +1,4 @@
-package io.github.pw2.professorservice.a;
+package io.github.pw2.professorservice.repositories;
 
 import io.github.pw2.professorservice.models.Professor;
 import org.springframework.data.jpa.repository.JpaRepository;
