@@ -1,5 +1,7 @@
 package io.github.ifpb.pw2.apigateway.controller;
 
+import io.github.ifpb.pw2.apigateway.service.HorarioServiceCQRS;
+import io.github.ifpb.pw2.apigateway.valueObjects.HorarioVO;
 import io.github.pw2.horarioservice.services.AulaService;
 import io.github.pw2.horarioservice.services.HorarioAcademicoService;
 import io.github.ifpb.pw2.apigateway.service.HorarioServiceComposition;
@@ -9,6 +11,7 @@ import io.github.pw2.horarioservice.models.Aula;
 import io.github.pw2.horarioservice.models.HorarioAcademico;
 import io.github.pw2.horarioservice.valueObjects.HorarioAcademicoVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,23 +28,23 @@ public class HorarioVisitanteController {
     private final AulaService aulaService;
     private final HorarioVOService horarioVOService;
     private final HorarioAcademicoService horarioService;
-    private final HorarioServiceComposition service;
+    private final HorarioServiceCQRS horarioServiceCQRS;
 
-    public HorarioVisitanteController(AulaService aulaService, HorarioVOService horarioVOService, HorarioAcademicoService horarioService, HorarioServiceComposition service) {
+    public HorarioVisitanteController(AulaService aulaService, HorarioVOService horarioVOService, HorarioAcademicoService horarioService, HorarioServiceCQRS horarioServiceCQRS) {
         this.aulaService = aulaService;
         this.horarioVOService = horarioVOService;
         this.horarioService = horarioService;
-        this.service = service;
+        this.horarioServiceCQRS = horarioServiceCQRS;
     }
 
     @GetMapping("/curso/{codigoCurso}")
-    public ResponseEntity<List<HorarioAcademico>> buscarPorCurso(@PathVariable(name = "codigoCurso", required = true) Long codigoCurso) {
+    public ResponseEntity buscarPorCurso(@PathVariable(name = "codigoCurso", required = true) Long codigoCurso) {
 
         if (codigoCurso == null || codigoCurso <= 0)
             return ResponseEntity.badRequest().build();
 
         try {
-            List<HorarioAcademico> horariosPorCurso = this.horarioService.listarPorCurso(codigoCurso);
+            List<HorarioVO> horariosPorCurso = this.horarioServiceCQRS.buscarPorCurso(codigoCurso);
 
             if (horariosPorCurso.isEmpty()) {
                 return ResponseEntity.noContent().build();
@@ -52,6 +55,9 @@ public class HorarioVisitanteController {
         } catch (CursoSemHorarioAcademicoException cshaEx) {
             cshaEx.printStackTrace();
             return ResponseEntity.noContent().build();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
     }
