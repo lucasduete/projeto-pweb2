@@ -1,6 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule }    from '@angular/forms';
+import { NgModule, Injectable } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { tap } from 'rxjs/operators';
+import {
+  HttpEvent,
+  HttpInterceptor,
+  HttpHandler,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +40,31 @@ import { AddDisciplinaComponent } from './coordenador/add-disciplina/add-discipl
 import { ListaHorarioProfessorComponent } from './horario/lista-horario-professor/lista-horario-professor.component';
 import { ListaHorarioCursoComponent } from './horario/lista-horario-curso/lista-horario-curso.component';
 import { ListaHorarioAmbienteComponent } from './horario/lista-horario-ambiente/lista-horario-ambiente.component';
+import { Observable } from 'rxjs';
+
+
+@Injectable()
+export class HttpsRequestInterceptor implements HttpInterceptor {
+  intercept(  req: HttpRequest<any>,next: HttpHandler,): Observable<HttpEvent<any>> {
+    console.log("intercept");
+    const dupReq = req.clone({
+      headers: req.headers.set('Authorization', 'DCtbqRXC8L'),
+    });
+  
+    return next.handle(req).pipe(
+      tap(
+        event => {
+          if (event instanceof HttpResponse) {
+            console.log(event.headers.get("Authorization"));
+            localStorage.setItem("token", event.headers.get("Authorization"));
+
+            console.log(localStorage.getItem("token"));
+          }
+        }
+      )
+  );
+  }
+}
 
 @NgModule({
   declarations: [
@@ -67,7 +101,11 @@ import { ListaHorarioAmbienteComponent } from './horario/lista-horario-ambiente/
     NgbModalModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpsRequestInterceptor,
+    multi: true,
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
