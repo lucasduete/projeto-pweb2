@@ -1,5 +1,6 @@
 package io.github.ifpb.pw2.apigateway.eventsourcing;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.pw2.EventMessage;
 import io.github.pw2.ambienteservice.models.Ambiente;
 import io.github.pw2.ambienteservice.services.AmbienteService;
@@ -23,6 +24,8 @@ public class EventsHandle {
     private final AmbienteService ambienteService;
     private final ProfessorService professorService;
     private final HorarioAcademicoService horarioAcademicoService;
+
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public EventsHandle(CursoService cursoService, AmbienteService ambienteService, ProfessorService professorService, HorarioAcademicoService horarioAcademicoService) {
         this.cursoService = cursoService;
@@ -62,13 +65,15 @@ public class EventsHandle {
         HorarioAcademico horarioAcademico = null;
 
         try {
-            horarioAcademico = (HorarioAcademico) message.getPayload();
+            horarioAcademico = mapper.convertValue(message.getPayload(), HorarioAcademico.class);
 
             if (horarioAcademico == null) throw new ClassCastException();
 
-        } catch (ClassCastException ccEx) {
+        } catch (Exception ex) {
             log.error("Invalid Payload on processing Message as HORARIOSERVICE: {}", message);
-            ccEx.printStackTrace();
+
+            ex.printStackTrace();
+            return;
         }
 
 
@@ -89,13 +94,15 @@ public class EventsHandle {
         Professor professor = null;
 
         try {
-            professor = (Professor) message.getPayload();
+            professor = mapper.convertValue(message.getPayload(), Professor.class);
 
             if (professor == null) throw new ClassCastException();
 
-        } catch (ClassCastException ccEx) {
+        } catch (Exception ex) {
             log.error("Invalid Payload on processing Message as PROFESSORSERVICE: {}", message);
-            ccEx.printStackTrace();
+
+            ex.printStackTrace();
+            return;
         }
 
 
@@ -118,13 +125,15 @@ public class EventsHandle {
         Ambiente ambiente = null;
 
         try {
-            ambiente = (Ambiente) message.getPayload();
+            ambiente = mapper.convertValue(message.getPayload(), Ambiente.class);
 
             if (ambiente == null) throw new ClassCastException();
 
-        } catch (ClassCastException ccEx) {
+        } catch (Exception ex) {
             log.error("Invalid Payload on processing Message as AMBIENTESERVICE: {}", message);
-            ccEx.printStackTrace();
+
+            ex.printStackTrace();
+            return;
         }
 
         switch (message.getOperation()) {
@@ -146,18 +155,23 @@ public class EventsHandle {
         Curso curso = null;
 
         try {
-            curso = (Curso) message.getPayload();
+            curso = mapper.convertValue(message.getPayload(), Curso.class);
 
             if (curso == null) throw new ClassCastException();
 
-        } catch (ClassCastException ccEx) {
+        } catch (Exception ex) {
             log.error("Invalid Payload on processing Message as CURSOSERVICE: {}", message);
-            ccEx.printStackTrace();
+
+            ex.printStackTrace();
+            return;
         }
 
         switch (message.getOperation()) {
             case PERSIST:
-                this.cursoService.salvar(curso);
+                Curso cursoPersistido = this.cursoService.salvar(curso);
+
+                log.info("Course persisted for CQRS : " + cursoPersistido);
+
                 break;
             case DELETE:
                 this.cursoService.deletar(curso.getCodigo());

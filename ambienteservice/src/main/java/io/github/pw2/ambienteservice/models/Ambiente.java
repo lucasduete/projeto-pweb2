@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
 @Getter
@@ -13,8 +14,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class Ambiente {
-
+public class Ambiente implements Serializable {
 
     @Id
     private String codigo;
