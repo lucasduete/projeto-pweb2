@@ -26,7 +26,7 @@ export class ListaAmbienteComponent implements OnInit {
   }
 
   getAmbientes(){
-    this.ambienteService.getAmbientes().subscribe(res=>{
+    this.ambienteService.getAmbientesVisitante().subscribe(res=>{
       this.ambientes = res.body;
     })
   }

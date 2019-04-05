@@ -15,6 +15,7 @@ const httpOptions = {
 export class AmbienteService {
   
   private url = environment.apiUrl + 'api/ambiente';
+  private url_visitante = environment.apiUrl + 'visitante/ambiente';
 
   constructor(
     private http : HttpClient
@@ -22,6 +23,10 @@ export class AmbienteService {
   
   getAmbientes() : Observable<HttpResponse<Ambiente[]>>{
     return this.http.get<Ambiente[]>(this.url, {observe:'response'});
+  }
+
+  getAmbientesVisitante(): Observable<HttpResponse<Ambiente[]>> {
+    return this.http.get<Ambiente[]>(this.url_visitante, {observe:'response'});
   }
 
   addAmbinete(ambiente : Ambiente) : Observable<HttpResponse<Ambiente>>{
