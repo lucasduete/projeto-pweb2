@@ -52,7 +52,7 @@ public class HorarioAcademicoController {
                     MessageBuilder.withPayload(
                             EventMessage
                                     .builder()
-                                    .entityName("horario")
+                                    .serviceName("horarioservice")
                                     .operation(EventMessage.Operation.PERSIST)
                                     .payload(horarioSalvo)
                                     .build()
@@ -92,7 +92,7 @@ public class HorarioAcademicoController {
     public ResponseEntity buscarPorProfessor(@PathVariable(name = "matriculaProfessor", required = true) String matriculaProfessor) {
 
         if (matriculaProfessor == null || matriculaProfessor.isEmpty())
-            return ResponseEntity.badRequest().body("Voce deve informar a Matricula do Professor para realizar a listagem");
+            return ResponseEntity.badRequest().body("Voce deve informar repositories Matricula do Professor para realizar repositories listagem");
 
         List<Aula> aulasDoProfessor = this.aulaService.findAllByMatriculaProfessor(matriculaProfessor);
 
@@ -108,7 +108,7 @@ public class HorarioAcademicoController {
     public ResponseEntity buscarPorAmbiente(@PathVariable(name = "codigoAmbiente", required = true) String codigoAmbiente) {
 
         if (codigoAmbiente == null || codigoAmbiente.isEmpty())
-            return ResponseEntity.badRequest().body("Voce deve informar um Codigo de Ambiente valido para realizar a listagem");
+            return ResponseEntity.badRequest().body("Voce deve informar um Codigo de Ambiente valido para realizar repositories listagem");
 
         List<Aula> aulasNoAmbiente = this.aulaService.findAllByCodigoAmbiente(codigoAmbiente);
 

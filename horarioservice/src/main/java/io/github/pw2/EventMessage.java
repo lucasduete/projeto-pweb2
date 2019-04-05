@@ -13,7 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public final class EventMessage implements Serializable {
 
-    private String entityName;
+    private String serviceName;
     private Object payload;
     private Operation operation;
 
