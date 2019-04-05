@@ -1,12 +1,18 @@
 package io.github.pw2.cursoservice.controllers;
 
+import io.github.pw2.EventMessage;
 import io.github.pw2.cursoservice.models.Curso;
 import io.github.pw2.cursoservice.models.Disciplina;
 import io.github.pw2.cursoservice.services.CursoService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.annotation.Output;
+import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -19,6 +25,10 @@ public class CursoController {
 
     private final CursoService service;
     private Logger logger;
+
+    @Output(Source.OUTPUT)
+    @Autowired
+    private MessageChannel messageChannel;
 
     public CursoController(CursoService service) {
         this.service = service;
@@ -58,8 +68,20 @@ public class CursoController {
         if (cursoSalvo == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(logError("Nao foi possivel persitir esta entidade."));
         } else {
-            logger.info("Curso salvo: " + curso.getCodigo());
-            return ResponseEntity.ok(curso);
+            logger.info("Curso salvo: " + cursoSalvo.getCodigo());
+
+            this.messageChannel.send(
+                    MessageBuilder.withPayload(
+                            EventMessage
+                                    .builder()
+                                    .serviceName(EventMessage.ServiceType.CURSOSERVICE)
+                                    .operation(EventMessage.Operation.PERSIST)
+                                    .payload(cursoSalvo)
+                                    .build()
+                    ).build()
+            );
+
+            return ResponseEntity.ok(cursoSalvo);
         }
 
     }
@@ -109,6 +131,18 @@ public class CursoController {
         try {
 
             Curso cursoAtualizado = this.service.atualizar(curso, codigoCurso);
+
+            this.messageChannel.send(
+                    MessageBuilder.withPayload(
+                            EventMessage
+                                    .builder()
+                                    .serviceName(EventMessage.ServiceType.CURSOSERVICE)
+                                    .operation(EventMessage.Operation.UPDATE)
+                                    .payload(cursoAtualizado)
+                                    .build()
+                    ).build()
+            );
+
             return ResponseEntity.ok(cursoAtualizado);
 
         } catch (EntityNotFoundException enfEx) {
@@ -127,6 +161,21 @@ public class CursoController {
         try {
 
             this.service.deletar(codigoCurso);
+
+            Curso curso = new Curso();
+            curso.setCodigo(codigoCurso);
+
+            this.messageChannel.send(
+                    MessageBuilder.withPayload(
+                            EventMessage
+                                    .builder()
+                                    .serviceName(EventMessage.ServiceType.CURSOSERVICE)
+                                    .operation(EventMessage.Operation.DELETE)
+                                    .payload(curso)
+                                    .build()
+                    ).build()
+            );
+
             return ResponseEntity.ok().build();
 
         } catch (EntityNotFoundException enfEx) {
@@ -150,4 +199,5 @@ public class CursoController {
         logger.error(msg);
         return msg;
     }
+
 }

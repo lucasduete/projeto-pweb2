@@ -1,9 +1,15 @@
 package io.github.pw2.professorservice.controllers;
 
+import io.github.pw2.EventMessage;
 import io.github.pw2.professorservice.models.Professor;
 import io.github.pw2.professorservice.services.ProfessorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.annotation.Output;
+import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -15,6 +21,10 @@ import java.util.Optional;
 public class ProfessorController {
 
     private final ProfessorService service;
+
+    @Output(Source.OUTPUT)
+    @Autowired
+    private MessageChannel messageChannel;
 
     public ProfessorController(ProfessorService service) {
         this.service = service;
@@ -40,6 +50,18 @@ public class ProfessorController {
         if (professorSalvo == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Nao foi possivel persitir esta entidade.");
         } else {
+
+            this.messageChannel.send(
+                    MessageBuilder.withPayload(
+                            EventMessage
+                                    .builder()
+                                    .serviceName(EventMessage.ServiceType.PROFESSORSERVICE)
+                                    .operation(EventMessage.Operation.PERSIST)
+                                    .payload(professorSalvo)
+                                    .build()
+                    ).build()
+            );
+
             return ResponseEntity.ok(professor);
         }
 
@@ -97,6 +119,18 @@ public class ProfessorController {
         try {
 
             Professor professorAtualizado = this.service.atualizar(professor, matricula);
+
+            this.messageChannel.send(
+                    MessageBuilder.withPayload(
+                            EventMessage
+                                    .builder()
+                                    .serviceName(EventMessage.ServiceType.PROFESSORSERVICE)
+                                    .operation(EventMessage.Operation.UPDATE)
+                                    .payload(professorAtualizado)
+                                    .build()
+                    ).build()
+            );
+
             return ResponseEntity.ok(professorAtualizado);
 
         } catch (EntityNotFoundException enfEx) {
@@ -115,6 +149,20 @@ public class ProfessorController {
         try {
 
             this.service.deletar(matricula);
+
+            Professor professor = new Professor(matricula, null);
+
+            this.messageChannel.send(
+                    MessageBuilder.withPayload(
+                            EventMessage
+                                    .builder()
+                                    .serviceName(EventMessage.ServiceType.PROFESSORSERVICE)
+                                    .operation(EventMessage.Operation.DELETE)
+                                    .payload(professor)
+                                    .build()
+                    ).build()
+            );
+
             return ResponseEntity.ok().build();
 
         } catch (EntityNotFoundException enfEx) {

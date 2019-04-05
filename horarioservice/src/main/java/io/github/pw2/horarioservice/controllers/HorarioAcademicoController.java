@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -52,7 +53,7 @@ public class HorarioAcademicoController {
                     MessageBuilder.withPayload(
                             EventMessage
                                     .builder()
-                                    .entityName("horario")
+                                    .serviceName(EventMessage.ServiceType.HORARIOSERVICE)
                                     .operation(EventMessage.Operation.PERSIST)
                                     .payload(horarioSalvo)
                                     .build()
@@ -92,7 +93,7 @@ public class HorarioAcademicoController {
     public ResponseEntity buscarPorProfessor(@PathVariable(name = "matriculaProfessor", required = true) String matriculaProfessor) {
 
         if (matriculaProfessor == null || matriculaProfessor.isEmpty())
-            return ResponseEntity.badRequest().body("Voce deve informar a Matricula do Professor para realizar a listagem");
+            return ResponseEntity.badRequest().body("Voce deve informar repositories Matricula do Professor para realizar repositories listagem");
 
         List<Aula> aulasDoProfessor = this.aulaService.findAllByMatriculaProfessor(matriculaProfessor);
 
@@ -108,7 +109,7 @@ public class HorarioAcademicoController {
     public ResponseEntity buscarPorAmbiente(@PathVariable(name = "codigoAmbiente", required = true) String codigoAmbiente) {
 
         if (codigoAmbiente == null || codigoAmbiente.isEmpty())
-            return ResponseEntity.badRequest().body("Voce deve informar um Codigo de Ambiente valido para realizar a listagem");
+            return ResponseEntity.badRequest().body("Voce deve informar um Codigo de Ambiente valido para realizar repositories listagem");
 
         List<Aula> aulasNoAmbiente = this.aulaService.findAllByCodigoAmbiente(codigoAmbiente);
 
@@ -123,8 +124,33 @@ public class HorarioAcademicoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deletar(@PathVariable("id") Long id){
-        horarioService.deletar(id);
+
+        try {
+            horarioService.deletar(id);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.error("Falha ao remover HorarioAcademico de id: " + id);
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+        HorarioAcademico horarioAcademico = new HorarioAcademico();
+        horarioAcademico.setId(id);
+
+        this.messageChannel.send(
+                MessageBuilder.withPayload(
+                        EventMessage
+                                .builder()
+                                .serviceName(EventMessage.ServiceType.HORARIOSERVICE)
+                                .operation(EventMessage.Operation.DELETE)
+                                .payload(horarioAcademico)
+                                .build()
+                ).build()
+        );
+
         return ResponseEntity.ok().build();
+
     }
 
 }

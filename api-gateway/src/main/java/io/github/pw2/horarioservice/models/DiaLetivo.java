@@ -1,17 +1,26 @@
 package io.github.pw2.horarioservice.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.pw2.horarioservice.models.exception.AulaNaoCadastradaException;
-import io.github.pw2.horarioservice.models.exception.AulaRepetidaException;
-import io.github.pw2.horarioservice.models.exception.AulasRepetidasException;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import io.github.pw2.horarioservice.exceptions.AulaNaoCadastradaException;
+import io.github.pw2.horarioservice.exceptions.AulaRepetidaException;
+import io.github.pw2.horarioservice.exceptions.AulasRepetidasException;
 import lombok.*;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.DayOfWeek;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.TextStyle;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-
+@Entity
 @Getter
 @Setter
 @ToString
@@ -20,17 +29,47 @@ import java.util.List;
 @AllArgsConstructor
 public final class DiaLetivo implements Serializable, Cloneable {
 
+    @Id
+    @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
     private DayOfWeek dia;
 
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+            orphanRemoval = true, mappedBy = "diaLetivo")
     private List<Aula> aulas;
 
-    @JsonIgnore
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "horarioacademico_id", nullable = false)
     private HorarioAcademico horarioAcademico;
+
+    @Transient
+    private static final Locale LOCALE = Locale.getDefault();
+
+    @Transient
+    private static final TextStyle TEXTSTYLE = TextStyle.FULL;
 
     {
         this.aulas = new ArrayList<>();
+    }
+
+    @JsonGetter("dia")
+    public String getDiaFromJson() {
+
+        if (this.dia != null) return this.dia.getDisplayName(TEXTSTYLE, LOCALE);
+        else return "";
+    }
+
+    @JsonSetter("dia")
+    public void setDiaFromJson(String dia) {
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendText(ChronoField.DAY_OF_WEEK, TEXTSTYLE)
+                .toFormatter(LOCALE);
+
+        this.dia = formatter.parse(dia, DayOfWeek::from);
     }
 
     public void addAula(Aula aula) throws AulaRepetidaException {
@@ -66,10 +105,9 @@ public final class DiaLetivo implements Serializable, Cloneable {
     }
 
     public boolean validate() {
-        return this.dia == null ||
-                this.aulas == null ||
-                this.aulas.isEmpty() ||
-                this.aulas.stream().anyMatch(aula -> !aula.validate());
+        return this.dia != null && this.aulas != null
+                && !this.aulas.isEmpty() &&
+                this.aulas.stream().allMatch(Aula::validate);
     }
 
 }

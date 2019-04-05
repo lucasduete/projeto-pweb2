@@ -1,4 +1,4 @@
-package io.github.pw2.horarioservice.models;
+package io.github.pw2.horarioservice.enums;
 
 import com.google.common.collect.ImmutableList;
 

@@ -52,7 +52,7 @@ public final class HorarioAcademico implements Serializable {
     }
 
     /**
-     * Adiciona um DiaLetivo a lista de diasLetivos da classe
+     * Adiciona um DiaLetivo repositories lista de diasLetivos da classe
      *
      * @param diaLetivo Objeto do tipo DiaLetivo que sera adicionado
      * @throws DiaLetivoRepetidoException Caso ja exista um DiaLetivo com o mesmo

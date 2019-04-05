@@ -33,9 +33,9 @@ public class LoginController {
         if (coordenador == null) {
             return ResponseEntity.badRequest().body("Para efeturar o login voce deve enviar as credencias do Coordenador");
         } else if (coordenador.getMatricula() == null || coordenador.getMatricula().isEmpty()) {
-            return ResponseEntity.badRequest().body("Para efeturar o login voce deve enviar a matricula do Coordenador");
+            return ResponseEntity.badRequest().body("Para efeturar o login voce deve enviar repositories matricula do Coordenador");
         } else if (coordenador.getSenha() == null || coordenador.getSenha().isEmpty()) {
-            return ResponseEntity.badRequest().body("Para efeturar o login voce deve enviar a senha do Coordenador");
+            return ResponseEntity.badRequest().body("Para efeturar o login voce deve enviar repositories senha do Coordenador");
         }
 
         UsernamePasswordAuthenticationToken authenticationToken = new

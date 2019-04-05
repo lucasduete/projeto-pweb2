@@ -1,9 +1,15 @@
 package io.github.pw2.ambienteservice.controllers;
 
+import io.github.pw2.EventMessage;
 import io.github.pw2.ambienteservice.models.Ambiente;
 import io.github.pw2.ambienteservice.services.AmbienteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.annotation.Output;
+import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -12,9 +18,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("ambiente")
-public class AmbienteController     {
+public class AmbienteController {
 
     private final AmbienteService service;
+
+    @Output(Source.OUTPUT)
+    @Autowired
+    private MessageChannel messageChannel;
 
     public AmbienteController(AmbienteService service) {
         this.service = service;
@@ -38,6 +48,18 @@ public class AmbienteController     {
         if (ambientePersistido == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Nao foi possivel persitir esta entidade.");
         } else {
+
+            this.messageChannel.send(
+                    MessageBuilder.withPayload(
+                            EventMessage
+                                    .builder()
+                                    .serviceName(EventMessage.ServiceType.AMBIENTESERVICE)
+                                    .operation(EventMessage.Operation.PERSIST)
+                                    .payload(ambientePersistido)
+                                    .build()
+                    ).build()
+            );
+
             return ResponseEntity.ok(ambiente);
         }
 
@@ -86,6 +108,18 @@ public class AmbienteController     {
         try {
 
             Ambiente ambienteAtualizado = this.service.atualizar(ambiente, codigoAmbiente);
+
+            this.messageChannel.send(
+                    MessageBuilder.withPayload(
+                            EventMessage
+                                    .builder()
+                                    .serviceName(EventMessage.ServiceType.AMBIENTESERVICE)
+                                    .operation(EventMessage.Operation.UPDATE)
+                                    .payload(ambienteAtualizado)
+                                    .build()
+                    ).build()
+            );
+
             return ResponseEntity.ok(ambienteAtualizado);
 
         } catch (EntityNotFoundException enfEx) {
@@ -104,6 +138,20 @@ public class AmbienteController     {
         try {
 
             this.service.remover(codigoAmbiente);
+
+            Ambiente ambiente = new Ambiente(codigoAmbiente, null);
+
+            this.messageChannel.send(
+                    MessageBuilder.withPayload(
+                            EventMessage
+                                    .builder()
+                                    .serviceName(EventMessage.ServiceType.AMBIENTESERVICE)
+                                    .operation(EventMessage.Operation.DELETE)
+                                    .payload(ambiente)
+                                    .build()
+                    ).build()
+            );
+
             return ResponseEntity.ok().build();
 
         } catch (EntityNotFoundException enfEx) {

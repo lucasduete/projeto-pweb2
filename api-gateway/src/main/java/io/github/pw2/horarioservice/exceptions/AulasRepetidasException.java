@@ -1,4 +1,4 @@
-package io.github.pw2.horarioservice.models.exception;
+package io.github.pw2.horarioservice.exceptions;
 
 import com.google.common.collect.ImmutableList;
 import io.github.pw2.horarioservice.models.Aula;
