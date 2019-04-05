@@ -13,7 +13,7 @@ const httpOptions = {
 })
 export class CoordenadorService {
 
-  private url = environment.apiUrl + 'coordenador';
+  private url = environment.apiUrl + 'api/coordenador';
   private urlLogin = environment.apiUrl + 'login';
 
   constructor(

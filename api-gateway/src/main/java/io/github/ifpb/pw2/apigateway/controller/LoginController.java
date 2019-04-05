@@ -53,7 +53,7 @@ public class LoginController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + jwt);
-
+        headers.add("Access-Control-Expose-Headers", "*");
         coordenador.setSenha(jwt);
 
         return new ResponseEntity<>(coordenador, headers, HttpStatus.OK);

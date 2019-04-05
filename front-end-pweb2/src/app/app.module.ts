@@ -45,24 +45,30 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class HttpsRequestInterceptor implements HttpInterceptor {
-  intercept(  req: HttpRequest<any>,next: HttpHandler,): Observable<HttpEvent<any>> {
-    console.log("intercept");
+  intercept(req: HttpRequest<any>, next: HttpHandler, ): Observable<HttpEvent<any>> {
+    console.log("interceptor");
     const dupReq = req.clone({
-      headers: req.headers.set('Authorization', 'DCtbqRXC8L'),
+      headers: req.headers.set('Authorization',this.recuperarLocalStorage())
     });
-  
-    return next.handle(req).pipe(
+    
+    return next.handle(dupReq).pipe(
       tap(
         event => {
           if (event instanceof HttpResponse) {
-            console.log(event.headers.get("Authorization"));
-            localStorage.setItem("token", event.headers.get("Authorization"));
-
-            console.log(localStorage.getItem("token"));
+            this.setarLocalStorage(event.headers.get("Authorization"));
           }
         }
       )
-  );
+    );
+  }
+
+  recuperarLocalStorage() {
+    let token = localStorage.getItem("token");
+    return token;
+  }
+
+  setarLocalStorage(token){
+    localStorage.setItem("token",token);
   }
 }
 
