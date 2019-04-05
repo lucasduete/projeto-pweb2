@@ -33,7 +33,7 @@ public class TokenProvider {
 
         return Jwts.builder()
                 .setSubject(user.getUsername())
-                .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(20).toInstant()))
+                .setExpiration(Date.from(ZonedDateTime.now().plusHours(1).toInstant()))
                 .setIssuedAt(Date.from(ZonedDateTime.now().toInstant()))
                 .claim("auth", authorities)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
