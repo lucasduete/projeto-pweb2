@@ -19,7 +19,7 @@ public final class EventMessage implements Serializable {
 
     public enum ServiceType {
 
-        HORARIOSERVICE, PROFESSORSERVICE, AMBIENTESERVICE
+        HORARIOSERVICE, PROFESSORSERVICE, AMBIENTESERVICE, CURSOSERVICE
     }
 
     public enum Operation {
