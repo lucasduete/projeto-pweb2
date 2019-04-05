@@ -25,7 +25,7 @@ export class ListaProfessorComponent implements OnInit {
   }
 
   getProfessores() {
-    this.professorService.getProfessor().subscribe(res => {
+    this.professorService.getProfessoresVisitante().subscribe(res => {
       this.professores = res.body;
     })
   }

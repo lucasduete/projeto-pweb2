@@ -26,7 +26,7 @@ export class ListaCursoComponent implements OnInit {
   }
 
   getCursos(){
-    this.cursoService.getCurso().subscribe(res=>{
+    this.cursoService.getCursoVisitante().subscribe(res=>{
       this.cursos = res.body;
       console.log(this.cursos);
     });

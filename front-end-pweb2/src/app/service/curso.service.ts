@@ -17,6 +17,7 @@ export class CursoService {
   disciplinas: Disciplina[] = [];
 
   private url = environment.apiUrl + 'api/curso';
+  private url_visitante = environment.apiUrl + 'visitante/curso';
 
   constructor(
     private http: HttpClient
@@ -32,6 +33,10 @@ export class CursoService {
 
   getCurso(): Observable<HttpResponse<Curso[]>> {
     return this.http.get<Curso[]>(this.url, { observe: "response" });
+  }
+
+  getCursoVisitante(): Observable<HttpResponse<Curso[]>>{
+    return this.http.get<Curso[]>(this.url_visitante, { observe: "response" });
   }
 
   addCurso(curso: Curso): Observable<HttpResponse<Curso>> {

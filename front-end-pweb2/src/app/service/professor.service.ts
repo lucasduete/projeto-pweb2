@@ -12,8 +12,10 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ProfessorService {
+  
 
   private url = environment.apiUrl + 'api/professor';
+  private url_visitante = environment.apiUrl + 'visitante/professor';
 
   constructor(
     private http: HttpClient
@@ -21,6 +23,10 @@ export class ProfessorService {
 
   getProfessor(): Observable<HttpResponse<Professor[]>> {
     return this.http.get<Professor[]>(this.url, { observe: 'response' });
+  }
+
+  getProfessoresVisitante(): Observable<HttpResponse<Professor[]>> {
+    return this.http.get<Professor[]>(this.url_visitante, { observe: 'response' });
   }
 
   addProfessor(professor: Professor): Observable<HttpResponse<Professor>> {
