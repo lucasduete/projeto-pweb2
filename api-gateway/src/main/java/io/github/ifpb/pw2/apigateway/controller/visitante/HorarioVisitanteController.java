@@ -1,14 +1,11 @@
-package io.github.ifpb.pw2.apigateway.controller;
+package io.github.ifpb.pw2.apigateway.controller.visitante;
 
 import io.github.ifpb.pw2.apigateway.service.HorarioServiceCQRS;
 import io.github.ifpb.pw2.apigateway.valueObjects.HorarioVO;
-import io.github.pw2.horarioservice.services.AulaService;
-import io.github.pw2.horarioservice.services.HorarioAcademicoService;
-import io.github.ifpb.pw2.apigateway.service.HorarioServiceComposition;
-import io.github.pw2.horarioservice.services.HorarioVOService;
 import io.github.pw2.horarioservice.exceptions.CursoSemHorarioAcademicoException;
 import io.github.pw2.horarioservice.models.Aula;
-import io.github.pw2.horarioservice.models.HorarioAcademico;
+import io.github.pw2.horarioservice.services.AulaService;
+import io.github.pw2.horarioservice.services.HorarioVOService;
 import io.github.pw2.horarioservice.valueObjects.HorarioAcademicoVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -27,13 +24,11 @@ public class HorarioVisitanteController {
 
     private final AulaService aulaService;
     private final HorarioVOService horarioVOService;
-    private final HorarioAcademicoService horarioService;
     private final HorarioServiceCQRS horarioServiceCQRS;
 
-    public HorarioVisitanteController(AulaService aulaService, HorarioVOService horarioVOService, HorarioAcademicoService horarioService, HorarioServiceCQRS horarioServiceCQRS) {
+    public HorarioVisitanteController(AulaService aulaService, HorarioVOService horarioVOService, HorarioServiceCQRS horarioServiceCQRS) {
         this.aulaService = aulaService;
         this.horarioVOService = horarioVOService;
-        this.horarioService = horarioService;
         this.horarioServiceCQRS = horarioServiceCQRS;
     }
 
