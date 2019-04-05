@@ -1,5 +1,7 @@
 package io.github.pw2.cursoservice.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.pw2.EventMessage;
 import io.github.pw2.cursoservice.models.Curso;
 import io.github.pw2.cursoservice.models.Disciplina;
@@ -36,7 +38,7 @@ public class CursoController {
     }
 
     @PostMapping
-    public ResponseEntity saveCursoDisciplinas(@RequestBody Curso curso) {
+    public ResponseEntity saveCursoDisciplinas(@RequestBody Curso curso) throws JsonProcessingException, CloneNotSupportedException {
 
         logger.info("Tentativa de salvar um novo Curso");
         // Este unico EndPoint deve ser responsavel por persistir curso e Disciplina
@@ -52,17 +54,15 @@ public class CursoController {
             return ResponseEntity.badRequest().body(logError("E necessario enviar uma descricao valida para que o curso seja persistido."));
         }
 
-
         // Verifica se as disciplinas sao nulas e se algum de seus atributos sao nulos
-
         if (curso.getDisciplinas() == null) {
-            //return ResponseEntity.badRequest().body("E necessario enviar as disciplinas do curso para que ele seja persistido.");
+            logger.info("Tentando persistir curso sem disciplinas, CodigoCurso = " + curso.getCodigo());
+//            return ResponseEntity.badRequest().body(logError("E necessario enviar as disciplinas do curso para que ele seja persistido."));
         } else if (verificaDisciplinasValidas(curso.getDisciplinas())) {
             return ResponseEntity.badRequest().body(logError("Uma ou mais Disciplinas enviadas sao invalidas, verifique os atributos e tente novamente."));
         }
 
         // Se nada for null entao pode-se persistir o curso
-
         Curso cursoSalvo = this.service.salvar(curso);
 
         if (cursoSalvo == null) {

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -13,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class Curso {
+public class Curso implements Serializable, Cloneable {
 
     @Id
     private Long codigo;
@@ -27,5 +28,10 @@ public class Curso {
     @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "curso")
     private List<Disciplina> disciplinas;
+
+    @Override
+    public Curso clone() throws CloneNotSupportedException {
+        return (Curso) super.clone();
+    }
 
 }
