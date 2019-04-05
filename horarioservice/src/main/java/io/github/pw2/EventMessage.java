@@ -13,9 +13,14 @@ import java.io.Serializable;
 @AllArgsConstructor
 public final class EventMessage implements Serializable {
 
-    private String serviceName;
+    private ServiceType serviceName;
     private Object payload;
     private Operation operation;
+
+    public enum ServiceType {
+
+        HORARIOSERVICE, PROFESSORSERVICE, AMBIENTESERVICE
+    }
 
     public enum Operation {
 

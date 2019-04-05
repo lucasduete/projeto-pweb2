@@ -53,7 +53,7 @@ public class HorarioAcademicoController {
                     MessageBuilder.withPayload(
                             EventMessage
                                     .builder()
-                                    .serviceName("horarioservice")
+                                    .serviceName(EventMessage.ServiceType.HORARIOSERVICE)
                                     .operation(EventMessage.Operation.PERSIST)
                                     .payload(horarioSalvo)
                                     .build()
@@ -135,7 +135,6 @@ public class HorarioAcademicoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
-
         HorarioAcademico horarioAcademico = new HorarioAcademico();
         horarioAcademico.setId(id);
 
@@ -143,8 +142,8 @@ public class HorarioAcademicoController {
                 MessageBuilder.withPayload(
                         EventMessage
                                 .builder()
-                                .serviceName("horarioservice")
-                                .operation(EventMessage.Operation.PERSIST)
+                                .serviceName(EventMessage.ServiceType.HORARIOSERVICE)
+                                .operation(EventMessage.Operation.DELETE)
                                 .payload(horarioAcademico)
                                 .build()
                 ).build()
