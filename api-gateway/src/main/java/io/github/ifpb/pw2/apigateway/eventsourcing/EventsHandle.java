@@ -16,6 +16,8 @@ import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+import java.util.LinkedHashMap;
+
 @Slf4j
 @Component
 public class EventsHandle {
@@ -170,8 +172,7 @@ public class EventsHandle {
             case PERSIST:
                 Curso cursoPersistido = this.cursoService.salvar(curso);
 
-                log.info("Course persisted for CQRS : " + cursoPersistido);
-
+                log.info("Course persisted for CQRS : {Codigo" + cursoPersistido.getCodigo() + ", Nome=" + cursoPersistido.getNome() + ", Descricao=" + cursoPersistido.getDescricao() + ", Count_Disciplinas=" + cursoPersistido.getDisciplinas().size() + "}");
                 break;
             case DELETE:
                 this.cursoService.deletar(curso.getCodigo());

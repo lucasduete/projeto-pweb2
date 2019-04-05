@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class Curso implements Serializable, Cloneable {
+public class Curso implements Serializable {
 
     @Id
     private Long codigo;
@@ -29,9 +30,9 @@ public class Curso implements Serializable, Cloneable {
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "curso")
     private List<Disciplina> disciplinas;
 
-    @Override
-    public Curso clone() throws CloneNotSupportedException {
-        return (Curso) super.clone();
+    public Curso clone() {
+
+        return new Curso(this.codigo, this.nome, this.descricao, new ArrayList<>(this.getDisciplinas()));
     }
 
 }

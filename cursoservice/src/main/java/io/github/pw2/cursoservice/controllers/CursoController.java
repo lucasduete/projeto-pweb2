@@ -70,13 +70,17 @@ public class CursoController {
         } else {
             logger.info("Curso salvo: " + cursoSalvo.getCodigo());
 
+            Curso cursoClone = cursoSalvo.clone();
+            cursoClone.getDisciplinas().forEach(disciplina -> disciplina.setCurso(null));
+
+            System.out.println(cursoClone);
             this.messageChannel.send(
                     MessageBuilder.withPayload(
                             EventMessage
                                     .builder()
                                     .serviceName(EventMessage.ServiceType.CURSOSERVICE)
                                     .operation(EventMessage.Operation.PERSIST)
-                                    .payload(cursoSalvo)
+                                    .payload(cursoClone)
                                     .build()
                     ).build()
             );
