@@ -14,7 +14,7 @@ const httpOptions = {
 })
 export class AmbienteService {
   
-  private url = environment.apiUrl + 'ambiente';
+  private url = environment.apiUrl + 'api/ambiente';
 
   constructor(
     private http : HttpClient

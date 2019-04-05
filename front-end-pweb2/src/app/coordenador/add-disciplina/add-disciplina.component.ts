@@ -29,6 +29,6 @@ export class AddDisciplinaComponent implements OnInit {
       codigo: null,
       nome: null
     }
-    alert("Disciplinas cadastrada!");
+    alert("Disciplina cadastrada!");
   }
 }

@@ -18,7 +18,7 @@ export class HorarioService {
   aulas: Aula[] = [];
   diasLetivos: DiaLetivo[] = [];
   horarios: Horario[] = [];
-  private url = environment.apiUrl + 'horario';
+  private url = environment.apiUrl + 'api/horario';
 
   constructor(
     private http: HttpClient

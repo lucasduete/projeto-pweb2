@@ -16,7 +16,7 @@ export class CursoService {
 
   disciplinas: Disciplina[] = [];
 
-  private url = environment.apiUrl + 'curso';
+  private url = environment.apiUrl + 'api/curso';
 
   constructor(
     private http: HttpClient
