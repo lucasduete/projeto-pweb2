@@ -1,4 +1,4 @@
-    package io.github.pw2.cursoservice.models;
+package io.github.pw2.cursoservice.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;

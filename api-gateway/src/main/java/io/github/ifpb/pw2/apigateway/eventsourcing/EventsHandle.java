@@ -3,6 +3,8 @@ package io.github.ifpb.pw2.apigateway.eventsourcing;
 import io.github.pw2.EventMessage;
 import io.github.pw2.ambienteservice.models.Ambiente;
 import io.github.pw2.ambienteservice.services.AmbienteService;
+import io.github.pw2.cursoservice.models.Curso;
+import io.github.pw2.cursoservice.services.CursoService;
 import io.github.pw2.horarioservice.models.HorarioAcademico;
 import io.github.pw2.horarioservice.services.HorarioAcademicoService;
 import io.github.pw2.professorservice.models.Professor;
@@ -17,11 +19,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class EventsHandle {
 
+    private final CursoService cursoService;
     private final AmbienteService ambienteService;
     private final ProfessorService professorService;
     private final HorarioAcademicoService horarioAcademicoService;
 
-    public EventsHandle(AmbienteService ambienteService, ProfessorService professorService, HorarioAcademicoService horarioAcademicoService) {
+    public EventsHandle(CursoService cursoService, AmbienteService ambienteService, ProfessorService professorService, HorarioAcademicoService horarioAcademicoService) {
+        this.cursoService = cursoService;
         this.ambienteService = ambienteService;
         this.professorService = professorService;
         this.horarioAcademicoService = horarioAcademicoService;
@@ -44,6 +48,10 @@ public class EventsHandle {
             case PROFESSORSERVICE:
                 log.info("Processing Message as PROFESSORSERVICE: {}", message);
                 handleProfessor(message);
+                break;
+            case CURSOSERVICE:
+                log.info("Processing Message as CURSOSERVICE: {}", message);
+                handleCurso(message);
                 break;
         }
 
@@ -128,6 +136,34 @@ public class EventsHandle {
                 break;
             case UPDATE:
                 this.ambienteService.atualizar(ambiente, ambiente.getCodigo());
+                break;
+        }
+
+    }
+
+    private void handleCurso(EventMessage message) {
+
+        Curso curso = null;
+
+        try {
+            curso = (Curso) message.getPayload();
+
+            if (curso == null) throw new ClassCastException();
+
+        } catch (ClassCastException ccEx) {
+            log.error("Invalid Payload on processing Message as CURSOSERVICE: {}", message);
+            ccEx.printStackTrace();
+        }
+
+        switch (message.getOperation()) {
+            case PERSIST:
+                this.cursoService.salvar(curso);
+                break;
+            case DELETE:
+                this.cursoService.deletar(curso.getCodigo());
+                break;
+            case UPDATE:
+                this.cursoService.atualizar(curso, curso.getCodigo());
                 break;
         }
 
