@@ -76,7 +76,7 @@ public class AmbienteController     {
     private ResponseEntity atualizarAmbiente(@PathVariable(name = "codigoAmbiente", required = true) String codigoAmbiente,
                                              @RequestBody Ambiente ambiente) {
 
-        if (codigoAmbiente == null || codigoAmbiente.isEmpty())
+        if (codigoAmbiente == "null" || codigoAmbiente.isEmpty())
             return ResponseEntity.badRequest().body("Voce deve informar um codigo de ambiente valido");
 
         if (ambiente == null || ambiente.getNome() == null || ambiente.getNome().isEmpty()) {

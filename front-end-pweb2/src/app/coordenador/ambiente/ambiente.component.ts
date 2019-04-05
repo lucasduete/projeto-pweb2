@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AmbienteService } from './../../service/ambiente.service';
 import { HorarioService } from './../../service/horario.service';
 import { Routes, ActivatedRoute, Router } from '@angular/router';
+import { Ambiente } from 'src/app/model/ambiente';
 
 @Component({
   selector: 'app-ambiente',
@@ -10,31 +11,48 @@ import { Routes, ActivatedRoute, Router } from '@angular/router';
 })
 export class AmbienteComponent implements OnInit {
 
-  ambientes : any[];
-    
+  ambientes: any[];
+
   constructor(
-    private ambienteService : AmbienteService,
-    private horarioService : HorarioService,
+    private ambienteService: AmbienteService,
+    private horarioService: HorarioService,
     private router: Router
-  ) { 
+  ) {
     this.getAmbientes();
   }
 
   ngOnInit() {
   }
 
-  getAmbientes(){
-    this.ambienteService.getAmbientes().subscribe(res=>{
+  getAmbientes() {
+    this.ambienteService.getAmbientes().subscribe(res => {
       this.ambientes = res.body;
-    })
+    });
   }
 
-  getHorario(id: number){
+  getHorario(id: number) {
     this.horarioService.getHorarioAmbiente(id).subscribe(
-      res=>{
+      res => {
         this.horarioService.saveHorario(res.body);
-        this.router.navigate(["/listaHorarioAmbiente"]);  
+        this.router.navigate(["/listaHorarioAmbiente"]);
       }
     )
+  }
+
+  atualizar(ambiente: Ambiente) {
+    this.router.navigate(['/addAmbiente'], { queryParams: { ambiente: JSON.stringify(ambiente) } });
+  }
+
+  deletar(codigo: number) {
+    let opcao = confirm("Deseja deletar este ambiente?");
+    if (opcao) {
+      this.ambienteService.deletar(codigo).subscribe(res => {
+        if (res.status == 200) {
+          this.getAmbientes();
+          alert("Ambiente deletado");
+        }
+      });
+    }
+
   }
 }

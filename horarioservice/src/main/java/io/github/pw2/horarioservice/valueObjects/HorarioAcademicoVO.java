@@ -17,6 +17,7 @@ import java.util.List;
 @Builder
 public final class HorarioAcademicoVO implements Serializable {
 
+    private int id;
     private List<DiaLetivoVO> diasLetivos;
 
     {

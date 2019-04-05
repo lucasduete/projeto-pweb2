@@ -27,12 +27,10 @@
           </li>
         </ul>
         <div class="row center-align">
-          <button (click)="addCurso()" class="btn green">Salvar</button>
+          <button (click)="addCurso()" class="btn green" *ngIf="!update()">Salvar</button>
+          <button (click)="atualizar()" class="btn green" *ngIf="update()">Atualizar</button>
         </div>
-        <div class="fixed-action-btn">
-          <button class="btn-floating waves-effect waves-light modal-trigger btn-large green"><i class="large material-icons"
-              routerLink="/addDisciplina">add</i></button>
-        </div>
+        
       </div>
     </div>
   </div>

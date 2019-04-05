@@ -11,33 +11,45 @@ import { Routes, ActivatedRoute, Router } from '@angular/router';
 })
 export class CursoComponent implements OnInit {
 
-  cursos : any[] = [];
-  
+  cursos: any[] = [];
+
   constructor(
-    private cursoService : CursoService,
-    private horarioService : HorarioService,
+    private cursoService: CursoService,
+    private horarioService: HorarioService,
     private router: Router
   ) {
-    
+
   }
 
   ngOnInit() {
     this.getCursos();
   }
 
-  getCursos(){
-    this.cursoService.getCurso().subscribe(res=>{
+  getCursos() {
+    this.cursoService.getCurso().subscribe(res => {
       this.cursos = res.body;
     });
     console.log(this.cursos);
   }
 
-  getHorario(id: number){
-    this.horarioService.getHorarioCurso(id).subscribe(
-      res=>{
-        this.horarioService.saveHorario(res.body);
-        this.router.navigate(["/listaHorarioCurso"]);  
-      }
-    )
+  deletar(codigo: number) {
+    let opcao = confirm("Deseja deletar este curso?");
+    if (opcao) {
+      this.cursoService.deletarCurso(codigo).subscribe(res => {
+        if (res.status == 200) {
+          this.getCursos();
+          alert("Curso deletado!");
+        }
+      });
+    }
+
+  }
+
+  atualizar(curso: Curso) {
+    this.router.navigate(['/addCurso'], { queryParams: { curso: JSON.stringify(curso) } });
+  }
+
+  getHorario(id: number) {
+    this.router.navigate(["/listaHorarioCurso"], { queryParams: { curso: id } });
   }
 }

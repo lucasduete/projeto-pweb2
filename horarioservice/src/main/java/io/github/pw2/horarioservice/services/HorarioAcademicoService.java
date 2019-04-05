@@ -16,7 +16,6 @@ public class HorarioAcademicoService {
 
     private final HorarioAcademicoRepository repository;
 
-
     public HorarioAcademicoService(HorarioAcademicoRepository repository) {
         this.repository = repository;
     }
@@ -43,6 +42,13 @@ public class HorarioAcademicoService {
     public List<HorarioAcademico> listarPorAmbiente() {
         // todo
         return new ArrayList<>();
+    }
+
+    public void deletar(Long id){
+        Optional<HorarioAcademico> horarioAcademico = repository.findById(id);
+        if(horarioAcademico.isPresent()){
+            repository.delete(horarioAcademico.get());
+        }
     }
 
 }

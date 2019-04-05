@@ -28,4 +28,11 @@ export class AmbienteService {
     return this.http.post<Ambiente>(this.url, ambiente, {observe:'response'});
   }
 
+  deletar(codigo: number):  Observable<HttpResponse<Ambiente>>{
+    return this.http.delete<Ambiente>(this.url + '/' + codigo, {observe: 'response'});
+  }
+
+  atualizar(ambiente: Ambiente):Observable<HttpResponse<Ambiente>>{
+    return this.http.put<Ambiente>(this.url + '/' + ambiente.codigo, ambiente, {observe: 'response'});
+  }
 }

@@ -1,16 +1,25 @@
 <div class="container">
+  <h4>Adicionar dia letivo</h4>
   <div class="input-field col s12 m12">
     <select class="browser-default" [(ngModel)]="diaLetivo.dia">
-      <option value="" disabled selected>Dia Letivo</option>
-      <option value="MONDAY">Segunda</option>
-      <option value="TUESDAY">Terça</option>
-      <option value="WEDNESDAY">Quarta</option>
-      <option value="THURSDAY">Quinta</option>
-      <option value="FRIDAY">Sexta</option>
+      <option value="" disabled selected>Selecionar dia letivo ...</option>
+      <option value="Segunda-feira">Segunda</option>
+      <option value="Terça-feira">Terça</option>
+      <option value="Quarta-feira">Quarta</option>
+      <option value="Quinta-feira">Quinta</option>
+      <option value="Sexta-feira">Sexta</option>
     </select>
   </div>
+  <h5>Aulas</h5>
   <ul class="collection">
-      <li class="collection-item" *ngFor="let aula of aulas">{{aula.horaInicio}} -  {{aula.horaFim}}</li>
+    <li class="collection-item" *ngFor="let aula of aulas">
+        <b>Horário: </b> {{aula.horaInicio}} -  {{aula.horaFim}}<br>
+        <b>Matrícula do professor: </b> {{aula.matriculaProfessor}}<br>
+        <b>Código da disciplina: </b> {{aula.codigoDisciplina}} <br>
+        <b>Código do ambiente: </b> {{aula.codigoAmbiente}}
+        <br>
+        
+      </li>
     </ul>
   <div class="fixed-action-btn" style="margin-bottom: 7%">
     <button class="btn-floating waves-effect waves-light modal-trigger btn-large blue"><i class="large material-icons"

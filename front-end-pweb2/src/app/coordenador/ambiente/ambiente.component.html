@@ -1,7 +1,14 @@
 <app-menu-coordenador></app-menu-coordenador>
 <div class="container">
+  <h4>Gerenciamento de Ambientes</h4>
   <ul class="collection">
-    <li class="collection-item" *ngFor="let ambiente of ambientes" (click) = getHorario(ambiente.codigo)>{{ambiente.nome}}</li>
+    <li class="collection-item" *ngFor="let ambiente of ambientes" (click)=getHorario(ambiente.codigo)>
+      {{ambiente.nome}}
+      <div class="right-align">
+        <button class="btn right-align" (click)="atualizar(ambiente)">Atualizar</button>
+        <button class="btn right-align red" (click)="deletar(ambiente.codigo)">Deletar</button>
+      </div>
+    </li>
   </ul>
   <div class="fixed-action-btn">
     <button class="btn-floating waves-effect waves-light modal-trigger btn-large green" routerLink="/addAmbiente"><i

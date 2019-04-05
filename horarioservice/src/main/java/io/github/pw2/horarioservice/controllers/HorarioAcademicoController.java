@@ -101,7 +101,6 @@ public class HorarioAcademicoController {
         }
 
         HorarioAcademicoVO horarioAcademicoVO = this.horarioVOService.processToVO(aulasDoProfessor);
-
         return ResponseEntity.ok(horarioAcademicoVO);
     }
 
@@ -120,6 +119,12 @@ public class HorarioAcademicoController {
         HorarioAcademicoVO horarioAcademicoVO = this.horarioVOService.processToVO(aulasNoAmbiente);
 
         return ResponseEntity.ok(horarioAcademicoVO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deletar(@PathVariable("id") Long id){
+        horarioService.deletar(id);
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -2,7 +2,9 @@
     <div class="container">
         <div class="container">
             <div class="container">
-              <br><br><br><br>
+              <br><br>
+              <h4>Gerenciamento de professores</h4>
+              <br><br>
               <div class="row">
                   <div class="input-field col s12">
                     <input [(ngModel)]="professor.nome" class="green-text" type="text">
@@ -16,7 +18,8 @@
                 </div>
               </div>
               <div class="row center-align">
-                <button (click)="addProfessor()" class="btn green">Salvar</button>
+                <button (click)="addProfessor()" class="btn green" *ngIf="!update()">Salvar</button>
+                <button (click)="atualizar()" class="btn green" *ngIf="update()">Atualizar</button>
               </div>
             </div>
         </div>  

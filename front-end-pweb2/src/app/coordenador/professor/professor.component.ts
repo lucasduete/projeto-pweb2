@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProfessorService } from './../../service/professor.service';
 import { HorarioService } from './../../service/horario.service';
 import { Routes, ActivatedRoute, Router } from '@angular/router';
+import { Professor } from 'src/app/model/professor';
 
 @Component({
   selector: 'app-professor',
@@ -14,7 +15,7 @@ export class ProfessorComponent implements OnInit {
 
   constructor(
     private professorService: ProfessorService,
-    private horarioService : HorarioService,
+    private horarioService: HorarioService,
     private router: Router
   ) {
     this.getProfessores();
@@ -29,12 +30,26 @@ export class ProfessorComponent implements OnInit {
     })
   }
 
-  getHorario(id: number){
-    this.horarioService.getHorarioProfessor(id).subscribe(
-      res=>{
-        this.horarioService.saveHorario(res.body);
-        this.router.navigate(["/listaHorarioProfessor"]);  
-      }
-    )
+  getHorario(id: number) {
+    
+  this.router.navigate(["/listaHorarioProfessor"], {queryParams: {prof: id}});
   }
+
+  atualizar(professor: Professor) {
+    this.router.navigate(['/addProfessor'], { queryParams: { prof: JSON.stringify(professor) } });
+  }
+
+  deletar(matricula: number) {
+    let resp = confirm("Deseja deletar este professor?");
+    if (resp == true) {
+      this.professorService.deletarProfessor(matricula).subscribe(res => {
+        if (res.status == 200) {
+          this.getProfessores();
+          alert("Professor deletado!");
+        }
+      });
+    }
+
+  }
+
 }
