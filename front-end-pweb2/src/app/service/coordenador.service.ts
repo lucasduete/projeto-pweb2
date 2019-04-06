@@ -12,13 +12,18 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CoordenadorService {
-
+  
+  private url_visitante = environment.apiUrl + 'visitante/coordenador';
   private url = environment.apiUrl + 'api/coordenador';
   private urlLogin = environment.apiUrl + 'login';
 
   constructor(
     private http: HttpClient
   ) { }
+
+  getCoordenadorVisitante(): Observable<HttpResponse<Coordenador[]>> {
+    return this.http.get<Coordenador[]>(this.url_visitante, { observe: 'response' });
+  }
 
   getCoordenador(): Observable<HttpResponse<Coordenador[]>> {
     return this.http.get<Coordenador[]>(this.url, { observe: 'response' });

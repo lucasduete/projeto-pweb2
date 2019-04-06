@@ -17,10 +17,8 @@ public class Coordenador {
 
     @Id
     private String matricula;
-
     @Column(nullable = false, unique = true)
     private String nome;
-
     @Column(nullable = false)
     private String senha;
 

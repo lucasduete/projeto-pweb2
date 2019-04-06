@@ -21,7 +21,7 @@ export class ListaCoordenadorComponent implements OnInit {
   }
 
   getCoordenadores(){
-    this.coordenadorService.getCoordenador().subscribe(res=>{
+    this.coordenadorService.getCoordenadorVisitante().subscribe(res=>{
       this.coordenadores = res.body;
     })
   }

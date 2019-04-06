@@ -28,7 +28,7 @@ public class CursoserviceApplicationTests {
     @Autowired
     CursoRepository repository;
 
-    final String BASE_PATH = "http://localhost:8080/curso";
+    final String BASE_PATH = "http://localhost:8082/curso";
     private RestTemplate restTemplate;
     private ObjectMapper MAPPER = new ObjectMapper();
 
