@@ -4,7 +4,7 @@
             <div class="container">
               <br><br>
               <div class="row center-align">
-                <img src="../../../assets/hifpb_medio.png" width="150px" alt="">
+                <a href="/"><img src="../../../assets/hifpb_medio.png" width="150px" alt=""></a>
               </div>
               <div class="row center-align">
                 <h3 class="green-text">Horários</h3>
@@ -14,18 +14,16 @@
                   <input [(ngModel)]="coordenador.matricula" class="green-text" type="number">
                   <label for="">Login</label>
                 </div>
-              </div>
-              <div class="row">
                 <div class="input-field col s12">
                   <input  [(ngModel)]="coordenador.senha" class="green-text" type="password">
                   <label for="">Senha</label>
                 </div>
+                <div class="input-field col s12">
+                  <span>Não possui conta? <a routerLink="/addCoordenador">Click aqui!</a></span>
+                </div>
               </div>
               <div class="row center-align">
                 <button (click)="login()" class="btn green">Login</button>
-              </div>
-              <div class="row center-align">
-                <button routerLink="/addCoordenador" class="btn blue">Cadastro</button>
               </div>
             </div>
         </div>  

@@ -11,7 +11,7 @@ import { Routes, ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./lista-curso.component.css']
 })
 export class ListaCursoComponent implements OnInit {
-  cursos : any[] = [];
+  cursos : Curso[];
   
   constructor(
     private cursoService : CursoService,

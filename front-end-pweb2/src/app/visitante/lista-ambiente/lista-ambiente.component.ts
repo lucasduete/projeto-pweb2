@@ -12,7 +12,7 @@ import { Routes, ActivatedRoute, Router } from '@angular/router';
 })
 export class ListaAmbienteComponent implements OnInit {
   
-  ambientes : any[];
+  ambientes : Ambiente[];
 
   constructor(
     private ambienteService : AmbienteService,

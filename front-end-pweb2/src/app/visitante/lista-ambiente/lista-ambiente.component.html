@@ -1,5 +1,10 @@
 <div class="container">
-  <ul class="collection">
+  <h4>Ambientes</h4>
+  <div class="divider"></div>
+  <ul class="collection" *ngIf="ambientes != null">
     <li *ngFor="let ambiente of ambientes" class="collection-item" (click) = getHorario(ambiente.codigo)>{{ambiente.nome}}</li>
   </ul>
+  <div class="center-align" *ngIf="ambientes == null">
+    <h3 class="green-text text-lighten-3">Não há ambientes para serem listados</h3>
+  </div>
 </div>

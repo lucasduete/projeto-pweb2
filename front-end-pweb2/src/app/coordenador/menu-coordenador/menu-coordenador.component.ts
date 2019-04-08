@@ -16,6 +16,6 @@ export class MenuCoordenadorComponent implements OnInit {
   sair(){
     console.log("saindo");
     localStorage.removeItem("token");
-    this.router.navigate(["/"]);
+    window.location.assign("/");
   }
 }
