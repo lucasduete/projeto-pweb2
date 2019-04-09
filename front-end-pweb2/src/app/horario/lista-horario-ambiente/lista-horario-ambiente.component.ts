@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HorarioService } from './../../service/horario.service';
+import { Horario } from 'src/app/model/horario';
 
 @Component({
   selector: 'app-lista-horario-ambiente',
@@ -7,7 +8,7 @@ import { HorarioService } from './../../service/horario.service';
   styleUrls: ['./lista-horario-ambiente.component.css']
 })
 export class ListaHorarioAmbienteComponent implements OnInit {
-  horarios: any [];
+  horarios: Horario [];
 
   constructor(private horarioService : HorarioService) { }
 

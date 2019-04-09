@@ -41,6 +41,8 @@ import { ListaHorarioProfessorComponent } from './horario/lista-horario-professo
 import { ListaHorarioCursoComponent } from './horario/lista-horario-curso/lista-horario-curso.component';
 import { ListaHorarioAmbienteComponent } from './horario/lista-horario-ambiente/lista-horario-ambiente.component';
 import { Observable } from 'rxjs';
+import { VisitanteModule } from './visitante/visitante.module';
+
 
 
 @Injectable()
@@ -113,6 +115,7 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
     FormsModule,
     NgbModalModule,
     HttpClientModule,
+    VisitanteModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
